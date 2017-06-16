@@ -14,18 +14,38 @@ template <class T>
 class List{
 
 
-	struct Node {
-		T data;
-		Node *next;
-	};
 
+
+	typedef struct node_t* Node;
+	struct node_t {
+		T n;
+		Node next;
+	};
 
 
 public:
 	List();
 
-	void insert(T value, T* place);
-	T* end();
+	//template <class TNode>
+	class Iterator {
+		Iterator();
+	};
+
+
+    typedef Iterator iterator;
+
+
+	void insert(T value, iterator place){
+
+	}
+
+	iterator end() {
+
+	}
+	iterator begin() {
+
+	}
+
 };
 
 template <class T>
@@ -33,16 +53,6 @@ List<T>::List() {
 	//head = NULL;
 }
 
-
-template <class T>
-void insert(T value, T* place) {
-
-}
-
-template <class T>
-T* end() {
-
-}
 
 
 #endif /* LIST_H_ */
