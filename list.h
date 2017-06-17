@@ -25,14 +25,39 @@ class List{
 
 public:
 	List();
+	List(const List& l);
+	~List();
+	List& operator=(const List&);
+
 
 	//template <class TNode>
 	class Iterator {
+		Node* p;
+
+	    //
+	    //Iterator(const LinkedListIterator& other) : p(other.p) {}
+	    //Iterator& operator=(LinkedListIterator other) { std::swap(p, other.p); return *this; }
+
+
+	public:
 		Iterator();
+		//Iterator(Node* p) : p(p) {}
+		//Iterator(const Iterator& other) : p(other.p) {}
+		//Iterator& operator=(Iterator other) { std::swap(p, other.p); return *this; }
+	    //const T& operator*() const { return 1; }
+
+		bool operator!=(const Iterator& second);
+		bool operator++();
+	    T& operator*() { return 1; }
+	    const T& operator*() const { return 1; }
+
+
+
 	};
-
-
     typedef Iterator iterator;
+
+
+
 
 
 	void insert(T value, iterator place){
@@ -52,7 +77,6 @@ template <class T>
 List<T>::List() {
 	//head = NULL;
 }
-
 
 
 #endif /* LIST_H_ */
