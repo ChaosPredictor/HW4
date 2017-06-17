@@ -8,6 +8,8 @@
 #ifndef LIST_H_
 #define LIST_H_
 
+#include <memory>
+
 //typedef int T;
 
 //template <class T>
@@ -20,16 +22,33 @@
 
 
 template <class T>
+class Node {
+
+
+	Node(const T& data) : data(data, next (nullptr)) {}
+    Node<T> *next;
+    T data;
+/*
+	typedef struct node_t* Node;
+	struct node_t {
+		T n;
+		Node next;
+	};*/
+
+};
+
+
+
+template <class T>
 class List{
 
-
-
-
+/*
 	typedef struct node_t* Node;
 	struct node_t {
 		T n;
 		Node next;
 	};
+*/
 
 
 public:
@@ -50,13 +69,16 @@ public:
 
 	public:
 		Iterator();
-		//Iterator(Node* p) : p(p) {}
+		Iterator(Node p) : p(p) {}
 		//Iterator(const Iterator& other) : p(other.p) {}
 		//Iterator& operator=(Iterator other) { std::swap(p, other.p); return *this; }
 	    //const T& operator*() const { return 1; }
 
 		bool operator!=(const Iterator& second);
 		Iterator& operator++();
+		Iterator& operator++(int);
+		Iterator& operator--();
+		Iterator& operator--(int);
 		//void operator++(int);
 	    T& operator*() { return 1; }
 	    const T& operator*() const { return 1; }
@@ -66,13 +88,17 @@ public:
 
 	};
     typedef Iterator iterator;
+    typedef Node node;
 
+    std::unique_ptr<node> tail;
 
 	bool operator==(List second) {
 		return true;
 	}
 
-
+	bool operator!=(List second) {
+		return false;
+	}
 
 	template<class Function>
 	void sort(Function f);
@@ -80,11 +106,13 @@ public:
 	template<class Function>
 	iterator find(Function f);
 
-	iterator end() {}
+	iterator end() {
+		return iterator(tail.get());
+	}
 	iterator begin() {}
 
 	iterator insert(const T value) {}
-	iterator insert(const T value, iterator place ) {}
+	iterator insert(const T value, const iterator place ) {}
 
 
 
