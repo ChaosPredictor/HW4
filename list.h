@@ -10,6 +10,15 @@
 
 //typedef int T;
 
+//template <class T>
+//typedef bool(*CompareNodes)(const T&, const T&);
+
+
+
+//template <typename T>
+//using CompareNodes = typename bool(*CompareNodes)<T>(const T&, const T&);
+
+
 template <class T>
 class List{
 
@@ -47,9 +56,11 @@ public:
 	    //const T& operator*() const { return 1; }
 
 		bool operator!=(const Iterator& second);
-		bool operator++();
+		Iterator& operator++();
+		//void operator++(int);
 	    T& operator*() { return 1; }
 	    const T& operator*() const { return 1; }
+
 
 
 
@@ -57,21 +68,38 @@ public:
     typedef Iterator iterator;
 
 
-
-
-
-	void insert(T value, iterator place){
-
+	bool operator==(List second) {
+		return true;
 	}
 
-	iterator end() {
 
+
+	template<class Function>
+	void sort(Function f);
+
+	template<class Function>
+	iterator find(Function f);
+
+	iterator end() {}
+	iterator begin() {}
+
+	iterator insert(const T value) {}
+	iterator insert(const T value, iterator place ) {}
+
+
+
+	int getSize() {
+		return 1;
 	}
-	iterator begin() {
+
+
+
+	void remove(iterator& removeIter) {
 
 	}
 
 };
+
 
 template <class T>
 List<T>::List() {
