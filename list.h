@@ -20,12 +20,16 @@
 //template <typename T>
 //using CompareNodes = typename bool(*CompareNodes)<T>(const T&, const T&);
 
+template <typename T>
+class List;
+
 
 template <class T>
 class Node {
 
+	friend class List<T>;
 
-	Node(const T& data) : data(data, next (nullptr)) {}
+	Node(const T &data) : data(data), next (nullptr) {}
     Node<T> *next;
     T data;
 /*
@@ -52,15 +56,30 @@ class List{
 
 
 public:
-	List();
-	List(const List& l);
+    typedef Node<T> node;
+    std::unique_ptr<node> head;
+    std::unique_ptr<node> tail;
+
+
+    void init()
+    {
+        //size = 0;
+        head.reset(new node);
+        tail.reset(new node);
+        head->next = tail.get();
+    }
+
+
+
+	List() { init(); }
+	List(List& l) { init(); }
+	List(const List& l) { init(); }
 	~List();
 	List& operator=(const List&);
 
 
-	//template <class TNode>
 	class Iterator {
-		Node* p;
+		Node<T>* p;
 
 	    //
 	    //Iterator(const LinkedListIterator& other) : p(other.p) {}
@@ -69,7 +88,7 @@ public:
 
 	public:
 		Iterator();
-		Iterator(Node p) : p(p) {}
+		Iterator(Node<T> p) : p(p) {}
 		//Iterator(const Iterator& other) : p(other.p) {}
 		//Iterator& operator=(Iterator other) { std::swap(p, other.p); return *this; }
 	    //const T& operator*() const { return 1; }
@@ -79,7 +98,6 @@ public:
 		Iterator& operator++(int);
 		Iterator& operator--();
 		Iterator& operator--(int);
-		//void operator++(int);
 	    T& operator*() { return 1; }
 	    const T& operator*() const { return 1; }
 
@@ -88,9 +106,7 @@ public:
 
 	};
     typedef Iterator iterator;
-    typedef Node node;
 
-    std::unique_ptr<node> tail;
 
 	bool operator==(List second) {
 		return true;
@@ -128,11 +144,11 @@ public:
 
 };
 
-
+/*
 template <class T>
 List<T>::List() {
 	//head = NULL;
-}
+}*/
 
 
 #endif /* LIST_H_ */
