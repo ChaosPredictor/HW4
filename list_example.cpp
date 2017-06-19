@@ -78,7 +78,7 @@ static void listExample(){
 }
 
 
-int main() {
+int main2() {
   RUN_TEST(listExample);
 
   return 0;
