@@ -10,16 +10,20 @@
 #include <stdio.h>
 #include "EscapeRoomWrapper.h"
 
+namespace mtm{
+namespace escaperoom {
 
-
-mtm::escaperoom::EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& escapeTime, const int& level, const int& maxParticipants) {
-	EscapeRoom escapeRoom = escapeRoomCreate(name, escapeTime, maxParticipants, level);
-
-	escapeRoomDestroy(escapeRoom);
+EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& escapeTime, const int& level, const int& maxParticipants) {
+	//EscapeRoom escapeRoom = escapeRoomCreate(name, escapeTime, maxParticipants, level);
+	this = escapeRoomCreate(name, escapeTime, maxParticipants, level);
 
 	//printf("EscapeRoomWrapper constructor\n");
 }
 
-mtm::escaperoom::EscapeRoomWrapper::~EscapeRoomWrapper() {
+EscapeRoomWrapper::~EscapeRoomWrapper() {
+	escapeRoomDestroy(this);
 
+}
+
+}
 }
