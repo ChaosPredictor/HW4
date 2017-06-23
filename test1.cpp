@@ -27,6 +27,10 @@ void test0() {
     ASSERT_WITH_MESSAGE(room1.level() == 3, "FAIL: level()");
     ASSERT_NO_THROW(room1.rate(1));
     ASSERT_THROWS(EscapeRoomIllegalRateException, room1.rate(6));
+    std::ostringstream stream;
+    stream << room1;
+    std::string str =  stream.str();
+    ASSERT_PRINT(str, "company1 (60/3/6)");
 
 
 }

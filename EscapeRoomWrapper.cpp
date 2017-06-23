@@ -82,6 +82,19 @@ void EscapeRoomWrapper::rate(const int& newRate) const {
 	}
 }
 
+std::ostream& operator<<(std::ostream& output, const EscapeRoomWrapper& room) {
+	char* name = roomGetName(room.room);
+	output << name;
+	output << " (";
+	output << roomGetMaxTime(room.room);
+	output << "/";
+	output << getLevel(room.room);
+	output << "/";
+	output << roomGetMaxParticipants(room.room);
+	output << ")";
+	free(name);
+	return output;
+}
 
 }
 }
