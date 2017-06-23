@@ -14,6 +14,7 @@ namespace mtm{
 namespace escaperoom {
 
 EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& escapeTime, const int& level, const int& maxParticipants) {
+	if( name == NULL || escapeTime < 30 || escapeTime > 90 || level < 1 || level > 10 || maxParticipants < 1 ) throw EscapeRoomMemoryProblemException();
 	room = escapeRoomCreate(name, escapeTime, maxParticipants, level);
 	if(room == NULL) {
 		throw EscapeRoomMemoryProblemException();
@@ -22,6 +23,7 @@ EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& escapeTime, const in
 }
 
 EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& level) {
+	if( name == NULL || level < 1 || level > 10 ) throw EscapeRoomMemoryProblemException();
 	room = escapeRoomCreate(name, 60, 6, level);
 	if(room == NULL) {
 		throw EscapeRoomMemoryProblemException();

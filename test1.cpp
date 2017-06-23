@@ -12,14 +12,55 @@
 
 using namespace mtm::escaperoom;
 
-void test0() {
+
+void testRoomConstractor() {
+	char *name1 = (char*)"company1";
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(NULL, 60, 5, 1));
+
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 29, 3, 5));
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 91, 3, 5));
+	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 30, 3, 5));
+	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 90, 3, 5));
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 60, 0, 5));
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 60, 11, 5));
+	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 60, 1, 5));
+	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 60, 10, 5));
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 60, 5, 0));
+	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 60, 5, 1));
+
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(NULL, 5));
+
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 0));
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 11));
+	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 1));
+	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 10));
+}
+
+
+void testRoomCopy() {
+	char *name2 = (char*)"company2";
+    EscapeRoomWrapper room2 = EscapeRoomWrapper(name2, 60, 3, 10);
+    ASSERT_NO_THROW(EscapeRoomWrapper(room2));
+    EscapeRoomWrapper room3 = EscapeRoomWrapper(room2);
+    ASSERT_WITH_MESSAGE((room2==room3), "FAIL: room.copy");
+}
+
+
+
+
+
+void testRoom() {
+	RUN_TEST(testRoomConstractor);
+	RUN_TEST(testRoomCopy);
+
 	char *name1 = (char*)"company1";
 	char *name2 = (char*)"company2";
     EscapeRoomWrapper room1 = EscapeRoomWrapper(name1, 3);
 	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 30, 3, 5));
-    EscapeRoomWrapper room2 = EscapeRoomWrapper(name2, 6, 3, 1);
+    EscapeRoomWrapper room2 = EscapeRoomWrapper(name2, 60, 3, 10);
     EscapeRoomWrapper room3 = EscapeRoomWrapper(name2, 30, 3, 5);
     EscapeRoomWrapper room4 = EscapeRoomWrapper(name2, 30, 2, 5);
+
     ASSERT_NO_THROW(EscapeRoomWrapper(name2, 3));
     ASSERT_NO_THROW(EscapeRoomWrapper(room2));
     ASSERT_WITH_MESSAGE(!(room1==room2), "FAIL: operator==");
@@ -156,7 +197,7 @@ void test4() {
 */
 
 int main() {
-	RUN_TEST(test0);
+	testRoom();
 	RUN_TEST(test0_1);
 
 	//RUN_TEST(test1);
