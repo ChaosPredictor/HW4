@@ -10,8 +10,12 @@ using namespace mtm::escaperoom;
 
 
 void test0() {
-	char *name = (char*)"company1";
-    ASSERT_NO_THROW(EscapeRoomWrapper(name, 30, 3, 5));
+	char *name1 = (char*)"company1";
+	char *name2 = (char*)"company2";
+    ASSERT_NO_THROW(EscapeRoomWrapper(name1, 30, 3, 5));
+    EscapeRoomWrapper room2 = EscapeRoomWrapper(name2, 3);
+    ASSERT_NO_THROW(EscapeRoomWrapper(name2, 3));
+    ASSERT_NO_THROW(EscapeRoomWrapper(room2));
 
 
     //free(name);
