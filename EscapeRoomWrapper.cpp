@@ -37,10 +37,7 @@ EscapeRoomWrapper::EscapeRoomWrapper(const EscapeRoomWrapper& room) {
 	if(this->room == NULL) {
 		throw EscapeRoomMemoryProblemException();
 	}
-	//TODO is it possible w/o code duplication
-
 }
-
 
 EscapeRoomWrapper& EscapeRoomWrapper::operator=(const EscapeRoomWrapper& room) {
 	if( this == &room) {
@@ -68,8 +65,19 @@ bool EscapeRoomWrapper::operator!=(const EscapeRoomWrapper& room) const {
 	return !(this->room==room.room);
 }
 
+bool EscapeRoomWrapper::operator>(const EscapeRoomWrapper& room) const {
+	return isBiggerRoom(this->room, room.room);
+}
 
+bool EscapeRoomWrapper::operator<(const EscapeRoomWrapper& room) const {
+	return (room.room < this->room);
+}
 
+int EscapeRoomWrapper::level() const {
+	//EscapeRoom temp_room = this->room;
+	return getLevel(this->room);
+	//escapeRoomDestroy(temp_room);
+}
 
 }
 }

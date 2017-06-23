@@ -16,12 +16,15 @@ void test0() {
 	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 30, 3, 5));
     EscapeRoomWrapper room2 = EscapeRoomWrapper(name2, 6, 3, 1);
     EscapeRoomWrapper room3 = EscapeRoomWrapper(name2, 30, 3, 5);
+    EscapeRoomWrapper room4 = EscapeRoomWrapper(name2, 30, 2, 5);
     ASSERT_NO_THROW(EscapeRoomWrapper(name2, 3));
     ASSERT_NO_THROW(EscapeRoomWrapper(room2));
     ASSERT_WITH_MESSAGE(!(room1==room2), "FAIL: operator==");
     ASSERT_WITH_MESSAGE((room2==room3), "FAIL: operator==");
     ASSERT_WITH_MESSAGE((room1!=room2), "FAIL: operator!=");
-
+    ASSERT_WITH_MESSAGE((room4<room2), "FAIL: operator<");
+    ASSERT_WITH_MESSAGE(!(room4>room3), "FAIL: operator>");
+    ASSERT_WITH_MESSAGE(room1.level() == 3, "FAIL: level()");
 
 }
 
