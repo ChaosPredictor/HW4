@@ -56,6 +56,8 @@ void test0_1() {
     ASSERT_WITH_MESSAGE(!(enigma1==enigma2), "FAIL: enigma.operator==");
     ASSERT_WITH_MESSAGE(!(enigma1>enigma3), "FAIL: enigma.operator>");
     ASSERT_WITH_MESSAGE(enigma1<enigma3, "FAIL: enigma.operator<");
+    ASSERT_WITH_MESSAGE(!(enigma1.areEqualyComplex(enigma3)), "FAIL: enigma.areEqualyComplex");
+    ASSERT_WITH_MESSAGE(enigma1.areEqualyComplex(enigma2), "FAIL: enigma.areEqualyComplex");
 
 
 

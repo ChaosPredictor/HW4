@@ -36,6 +36,32 @@ bool Enigma::operator>(const Enigma& enigma) const {
 	return enigma.difficulty < this->difficulty;
 }
 //TODO different names same difficulty
+
+bool Enigma::areEqualyComplex(const Enigma& enigma) const {
+	return (this->numOfElements == enigma.numOfElements) && this->difficulty == enigma.difficulty;
+
+}
+
+Difficulty Enigma::getDifficulty() const {
+	return this->difficulty;
+}
+
+string Enigma::getName() const {
+	return this->name;
+}
+
+
+
+
+std::ostream& operator<<(std::ostream& output, const Enigma& enigma) {
+	string name = enigma.getName();
+	output << name;
+	output << " (";
+	output << enigma.getDifficulty();
+	output << ")";
+	return output;
+}
+
 }
 }
 
