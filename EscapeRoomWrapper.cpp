@@ -11,9 +11,6 @@
 #include "EscapeRoomWrapper.h"
 
 namespace mtm{
-
-
-
 namespace escaperoom {
 
 EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& escapeTime, const int& level, const int& maxParticipants) {

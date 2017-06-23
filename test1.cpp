@@ -39,9 +39,37 @@ void test0() {
     ASSERT_WITH_MESSAGE(room1.getRate() == 1, "FAIL: getRate");
     ASSERT_WITH_MESSAGE(room1.getMaxTime() == 60, "FAIL: getMaxTime");
     ASSERT_WITH_MESSAGE(room1.getMaxParticipants() == 6, "FAIL: getMaxParticipants");
+}
+
+void test0_1() {
+	char *name1 = (char*)"enigma1";
+    Enigma enigma1 = Enigma(name1, MEDIUM_ENIGMA, 3);
 
 
-
+    /*
+	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 30, 3, 5));
+    EscapeRoomWrapper room2 = EscapeRoomWrapper(name2, 6, 3, 1);
+    EscapeRoomWrapper room3 = EscapeRoomWrapper(name2, 30, 3, 5);
+    EscapeRoomWrapper room4 = EscapeRoomWrapper(name2, 30, 2, 5);
+    ASSERT_NO_THROW(EscapeRoomWrapper(name2, 3));
+    ASSERT_NO_THROW(EscapeRoomWrapper(room2));
+    ASSERT_WITH_MESSAGE(!(room1==room2), "FAIL: operator==");
+    ASSERT_WITH_MESSAGE((room2==room3), "FAIL: operator==");
+    ASSERT_WITH_MESSAGE((room1!=room2), "FAIL: operator!=");
+    ASSERT_WITH_MESSAGE((room4<room2), "FAIL: operator<");
+    ASSERT_WITH_MESSAGE(!(room4>room3), "FAIL: operator>");
+    ASSERT_WITH_MESSAGE(room1.level() == 3, "FAIL: level()");
+    ASSERT_NO_THROW(room1.rate(1));
+    ASSERT_THROWS(EscapeRoomIllegalRateException, room1.rate(6));
+    std::ostringstream stream;
+    stream << room1;
+    std::string str =  stream.str();
+    ASSERT_PRINT(str, "company1 (60/3/6)");
+    string name = room1.getName();
+    ASSERT_WITH_MESSAGE(name.compare("company1\n"), "FAIL: getName");
+    ASSERT_WITH_MESSAGE(room1.getRate() == 1, "FAIL: getRate");
+    ASSERT_WITH_MESSAGE(room1.getMaxTime() == 60, "FAIL: getMaxTime");
+    ASSERT_WITH_MESSAGE(room1.getMaxParticipants() == 6, "FAIL: getMaxParticipants");*/
 }
 
 
@@ -109,7 +137,9 @@ void test4() {
 
 int main() {
 	RUN_TEST(test0);
-    //RUN_TEST(test1);
+	RUN_TEST(test0_1);
+
+	//RUN_TEST(test1);
     //RUN_TEST(test2);
     //RUN_TEST(test3);
     //RUN_TEST(test4);
