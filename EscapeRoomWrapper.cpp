@@ -11,17 +11,21 @@
 #include "EscapeRoomWrapper.h"
 
 namespace mtm{
+
+
+
 namespace escaperoom {
 
 EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& escapeTime, const int& level, const int& maxParticipants) {
-	//EscapeRoom escapeRoom = escapeRoomCreate(name, escapeTime, maxParticipants, level);
-	this = escapeRoomCreate(name, escapeTime, maxParticipants, level);
+	room = escapeRoomCreate(name, escapeTime, maxParticipants, level);
+	if(room == NULL) {
+		throw EscapeRoomMemoryProblemException();
+	}
 
-	//printf("EscapeRoomWrapper constructor\n");
 }
 
-EscapeRoomWrapper::~EscapeRoomWrapper() {
-	escapeRoomDestroy(this);
+escaperoom::EscapeRoomWrapper::~EscapeRoomWrapper() {
+	escapeRoomDestroy(room);
 
 }
 

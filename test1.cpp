@@ -13,6 +13,7 @@ void test0() {
 	char *name = (char*)"company1";
     ASSERT_NO_THROW(EscapeRoomWrapper(name, 30, 3, 5));
 
+
     //free(name);
 }
 
@@ -78,6 +79,7 @@ void test4() {
 
 }
 */
+
 int main() {
 	RUN_TEST(test0);
     //RUN_TEST(test1);

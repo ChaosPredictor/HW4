@@ -4,12 +4,17 @@
 #include <string>
 #include <iostream>
 #include "EscapeRoom.h"
+#include "Exceptions.h"
 
 
 namespace mtm{
 namespace escaperoom {
 
     class EscapeRoomWrapper{
+
+    EscapeRoom room;
+
+
     public:
         // Constructs a new Escape Room with the specified data.
         //
