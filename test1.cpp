@@ -60,7 +60,10 @@ void test0_1() {
     ASSERT_WITH_MESSAGE(enigma1.areEqualyComplex(enigma2), "FAIL: enigma.areEqualyComplex");
     ASSERT_WITH_MESSAGE(enigma1.getDifficulty() == MEDIUM_ENIGMA, "FAIL: enigma.getName");
     ASSERT_WITH_MESSAGE(enigma1.getName() == "enigma1", "FAIL: enigma.getName");
-
+    std::ostringstream stream;
+    stream << enigma1;
+    std::string str =  stream.str();
+    ASSERT_PRINT(str, "enigma1 (1) 3");
 
 
     /*

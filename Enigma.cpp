@@ -50,15 +50,13 @@ string Enigma::getName() const {
 	return this->name;
 }
 
-
-
-
 std::ostream& operator<<(std::ostream& output, const Enigma& enigma) {
 	string name = enigma.getName();
 	output << name;
 	output << " (";
 	output << enigma.getDifficulty();
-	output << ")";
+	output << ") ";
+	output << enigma.numOfElements;
 	return output;
 }
 
