@@ -58,6 +58,8 @@ void test0_1() {
     ASSERT_WITH_MESSAGE(enigma1<enigma3, "FAIL: enigma.operator<");
     ASSERT_WITH_MESSAGE(!(enigma1.areEqualyComplex(enigma3)), "FAIL: enigma.areEqualyComplex");
     ASSERT_WITH_MESSAGE(enigma1.areEqualyComplex(enigma2), "FAIL: enigma.areEqualyComplex");
+    ASSERT_WITH_MESSAGE(enigma1.getDifficulty() == MEDIUM_ENIGMA, "FAIL: enigma.getName");
+    ASSERT_WITH_MESSAGE(enigma1.getName() == "enigma1", "FAIL: enigma.getName");
 
 
 
