@@ -38,6 +38,7 @@ void test0() {
     ASSERT_WITH_MESSAGE(name.compare("company1\n"), "FAIL: getName");
     ASSERT_WITH_MESSAGE(room1.getRate() == 1, "FAIL: getRate");
     ASSERT_WITH_MESSAGE(room1.getMaxTime() == 60, "FAIL: getMaxTime");
+    ASSERT_WITH_MESSAGE(room1.getMaxParticipants() == 6, "FAIL: getMaxParticipants");
 
 
 

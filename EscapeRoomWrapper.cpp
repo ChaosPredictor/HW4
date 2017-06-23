@@ -112,5 +112,10 @@ int EscapeRoomWrapper::getMaxTime() const {
 	return roomGetMaxTime(this->room);
 }
 
+int EscapeRoomWrapper::getMaxParticipants() const {
+	return roomGetMaxParticipants(this->room);
+}
+
+
 }
 }
