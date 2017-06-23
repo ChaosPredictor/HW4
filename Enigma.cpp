@@ -16,10 +16,26 @@ namespace escaperoom{
 Enigma::Enigma(const std::string& name, const Difficulty& difficulty, const int& numOfElements):
 	name(name),
 	difficulty(difficulty),
-	numOfElements(numOfElements)
-{}
+	numOfElements(numOfElements) {}
 
 
+bool Enigma::operator==(const Enigma& enigma) const {
+	return (this->name.compare(enigma.name) == 0) && this->difficulty == enigma.difficulty;
+}
+
+bool Enigma::operator!=(const Enigma& enigma) const {
+	return !(*this == enigma);
+}
+
+bool Enigma::operator<(const Enigma& enigma) const {
+	if (*this==enigma) return false;
+	return this->difficulty < enigma.difficulty;
+}
+
+bool Enigma::operator>(const Enigma& enigma) const {
+	return enigma.difficulty < this->difficulty;
+}
+//TODO different names same difficulty
 }
 }
 

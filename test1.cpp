@@ -43,7 +43,20 @@ void test0() {
 
 void test0_1() {
 	char *name1 = (char*)"enigma1";
+	char *name2 = (char*)"enigma2";
+
     Enigma enigma1 = Enigma(name1, MEDIUM_ENIGMA, 3);
+    Enigma enigma2 = Enigma(name2, MEDIUM_ENIGMA, 3);
+    Enigma enigma3 = Enigma(name2, HARD_ENIGMA, 3);
+    Enigma enigma4 = Enigma(name2, MEDIUM_ENIGMA, 2);
+    ASSERT_WITH_MESSAGE(!(enigma1==enigma2), "FAIL: enigma.operator==");
+    ASSERT_WITH_MESSAGE(enigma2==enigma4, "FAIL: enigma.operator==");
+    ASSERT_WITH_MESSAGE(enigma1!=enigma2, "FAIL: enigma.operator!=");
+    ASSERT_WITH_MESSAGE(enigma2!=enigma3, "FAIL: enigma.operator!=");
+    ASSERT_WITH_MESSAGE(!(enigma1==enigma2), "FAIL: enigma.operator==");
+    ASSERT_WITH_MESSAGE(!(enigma1>enigma3), "FAIL: enigma.operator>");
+    ASSERT_WITH_MESSAGE(enigma1<enigma3, "FAIL: enigma.operator<");
+
 
 
     /*
