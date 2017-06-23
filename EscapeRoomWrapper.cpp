@@ -32,6 +32,8 @@ EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& level) {
 }
 
 EscapeRoomWrapper::EscapeRoomWrapper(const EscapeRoomWrapper& room) {
+	//TODO maybe w/o it
+	if( &room == nullptr ) throw EscapeRoomMemoryProblemException();
 	this->room = escapeRoomCopy(room.room);
 	if(this->room == NULL) {
 		throw EscapeRoomMemoryProblemException();
