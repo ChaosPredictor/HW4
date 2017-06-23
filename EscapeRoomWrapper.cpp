@@ -45,7 +45,6 @@ EscapeRoomWrapper::EscapeRoomWrapper(const EscapeRoomWrapper& room) {
 EscapeRoomWrapper& EscapeRoomWrapper::operator=(const EscapeRoomWrapper& room) {
 	if( this == &room) {
 		return *this;
-
 	}
 	escapeRoomDestroy(this->room);
 	this->room = escapeRoomCopy(room.room);
@@ -54,13 +53,19 @@ EscapeRoomWrapper& EscapeRoomWrapper::operator=(const EscapeRoomWrapper& room) {
 	}
 	return *this;
 	//TODO is it possible w/o code duplication
-
 }
 
 
-escaperoom::EscapeRoomWrapper::~EscapeRoomWrapper() {
+bool EscapeRoomWrapper::operator==(const EscapeRoomWrapper& room) const {
+	return areEqualRooms(this->room, room.room);
+}
+
+EscapeRoomWrapper::~EscapeRoomWrapper() {
 	escapeRoomDestroy(room);
 }
+
+
+
 
 }
 }
