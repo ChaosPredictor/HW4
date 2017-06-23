@@ -56,7 +56,6 @@ EscapeRoomWrapper::~EscapeRoomWrapper() {
 	escapeRoomDestroy(room);
 }
 
-
 bool EscapeRoomWrapper::operator==(const EscapeRoomWrapper& room) const {
 	return areEqualRooms(this->room, room.room);
 }
@@ -74,10 +73,15 @@ bool EscapeRoomWrapper::operator<(const EscapeRoomWrapper& room) const {
 }
 
 int EscapeRoomWrapper::level() const {
-	//EscapeRoom temp_room = this->room;
 	return getLevel(this->room);
-	//escapeRoomDestroy(temp_room);
 }
+
+void EscapeRoomWrapper::rate(const int& newRate) const {
+	if (updateRate(this->room, newRate) != ESCAPEROOM_SUCCESS) {
+		throw EscapeRoomIllegalRateException();
+	}
+}
+
 
 }
 }
