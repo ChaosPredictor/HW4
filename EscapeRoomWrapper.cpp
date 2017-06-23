@@ -97,7 +97,15 @@ std::ostream& operator<<(std::ostream& output, const EscapeRoomWrapper& room) {
 }
 
 std::string EscapeRoomWrapper::getName() const {
-	return roomGetName(this->room);
+	char* char_name = roomGetName(this->room);
+	std::string name = char_name;
+	free(char_name);
+	//TODO find better solution
+	return name;
+}
+
+double EscapeRoomWrapper::getRate() const {
+	return roomGetRate(this->room);
 }
 
 }

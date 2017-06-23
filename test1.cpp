@@ -5,9 +5,12 @@
 #include "mtmtest.h"
 #include <assert.h>
 #include "Exceptions.h"
+#include <string>
+
+//TODO remove
+#include <iostream>
 
 using namespace mtm::escaperoom;
-
 
 void test0() {
 	char *name1 = (char*)"company1";
@@ -31,6 +34,11 @@ void test0() {
     stream << room1;
     std::string str =  stream.str();
     ASSERT_PRINT(str, "company1 (60/3/6)");
+    string name = room1.getName();
+    ASSERT_WITH_MESSAGE(name.compare("company1\n"), "FAIL: getName");
+    //std::cout << room1.getRate() << std::endl;
+    ASSERT_WITH_MESSAGE(room1.getRate() == 1, "FAIL: getRate");
+
 
 
 }
