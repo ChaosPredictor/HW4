@@ -96,5 +96,9 @@ std::ostream& operator<<(std::ostream& output, const EscapeRoomWrapper& room) {
 	return output;
 }
 
+std::string EscapeRoomWrapper::getName() const {
+	return roomGetName(this->room);
+}
+
 }
 }
