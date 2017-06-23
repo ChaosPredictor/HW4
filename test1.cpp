@@ -36,8 +36,8 @@ void test0() {
     ASSERT_PRINT(str, "company1 (60/3/6)");
     string name = room1.getName();
     ASSERT_WITH_MESSAGE(name.compare("company1\n"), "FAIL: getName");
-    //std::cout << room1.getRate() << std::endl;
     ASSERT_WITH_MESSAGE(room1.getRate() == 1, "FAIL: getRate");
+    ASSERT_WITH_MESSAGE(room1.getMaxTime() == 60, "FAIL: getMaxTime");
 
 
 

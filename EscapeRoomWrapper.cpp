@@ -108,5 +108,9 @@ double EscapeRoomWrapper::getRate() const {
 	return roomGetRate(this->room);
 }
 
+int EscapeRoomWrapper::getMaxTime() const {
+	return roomGetMaxTime(this->room);
+}
+
 }
 }
