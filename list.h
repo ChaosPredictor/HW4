@@ -61,21 +61,9 @@ public:
 	}*/
 
 
-	typename List<T>::Iterator end() {
-		//Node node = iterator->ptr;
-		//while ( node.next != nullptr) {
-		//	node = node.next;
-		//}
-		//iterator->ptr = node.next;
-		//return iterator;
-		//Node* node = tail;
-		return Iterator(tail);
-	}
+	typename List<T>::Iterator begin();
 
-	Iterator begin() {
-		Iterator it;
-		return it;
-	}
+	typename List<T>::Iterator end();
 
 	void remove(Iterator& iterator) {}
 
@@ -102,6 +90,19 @@ private:
 	Iterator iterator;
 
 };
+
+template<class T>
+typename List<T>::Iterator List<T>::begin() {
+	return Iterator(head->next);
+}
+
+
+template<class T>
+typename List<T>::Iterator List<T>::end() {
+	return Iterator(tail);
+}
+
+
 
 
 
