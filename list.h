@@ -106,7 +106,6 @@ public:
 
 private:
 
-
 	int size;
 	Node* head;
 	Node* tail;
@@ -115,10 +114,30 @@ private:
 };
 
 template<class T>
+template<class Function>
+void List<T>::sort(Function f) {
+	for (List<T>::Iterator it1 = this->begin(); it1 != this->end(); ++it1) {
+		for (List<T>::Iterator it2 = this->begin(); it2 != this->end(); ++it2) {
+			printf("%d  ", *it2);
+			if ( it2.nextIterator() != this->end() ) {
+				if (!(f(*it2, it2.nextData()))) {
+					printf ("y ");
+					std::swap( *it2, it2.nextData() );
+				}
+				else printf("n ");
+			}
+
+		}
+
+		printf("\n");
+	}
+}
+
+
+template<class T>
 typename List<T>::Iterator List<T>::begin() {
 	return Iterator(head->next);
 }
-
 
 template<class T>
 typename List<T>::Iterator List<T>::end() {
@@ -151,6 +170,15 @@ template<class T>
 class List<T>::Iterator {
     friend class List<T>;
 //TODO mode ptr back to private
+
+    T& nextData() {
+    	return ptr->next->data;
+    }
+
+    Iterator nextIterator() {
+    	return ptr->next;
+    }
+
 public:
 	Node* ptr;
 
@@ -171,24 +199,20 @@ public:
 
     Iterator operator++(int);
 
-    Iterator& operator--() {
-		//ptr = ptr->next;
-		return *this;
-    }
+    Iterator& operator--();
 
-    Iterator& operator--(int) {
-		//ptr = ptr->next;
-		return *this;
-    }
+    Iterator operator--(int);
 
     T& operator*() {
-    	//Node node = ptr;
     	return ptr->data;
     }
 
-    const int& operator*() const {
-    	return ptr->data;
-    }
+
+
+
+    //const int& operator*() const {
+    //	return ptr->data;
+    //}
 
 };
 
@@ -202,6 +226,19 @@ template<class T>
 typename List<T>::Iterator List<T>::Iterator::operator++(int) {
 	Iterator result = *this;
 	++*this;
+	return result;
+}
+
+template<class T>
+typename List<T>::Iterator& List<T>::Iterator::operator--() {
+	ptr = ptr->last;
+	return *this;
+}
+
+template<class T>
+typename List<T>::Iterator List<T>::Iterator::operator--(int) {
+	Iterator result = *this;
+	--*this;
 	return result;
 }
 

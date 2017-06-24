@@ -52,7 +52,7 @@ static void listExample(){
 	// std::less<int> is a function object defined in <functional>
 	// it simply calls operator< of the type compared
 	//TODO to add it back
-	//list.sort(std::less<int>());
+	list.sort(std::less<int>());
 	it = list.begin();
 	ASSERT_EQUALS(1, *it);
 
