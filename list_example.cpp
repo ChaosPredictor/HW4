@@ -19,13 +19,20 @@ public:
 static void listExample(){
 	List<int> list;
 	list.insert(1, list.end());
+	//list.printList();
 	list.insert(2, list.end());
 	list.insert(3, list.end());
+	list.insert(14, list.end());
+	list.printList();
+
+	//printf("begin address: %p   end address: %p \n", (void*)(list.begin().ptr), (void*)(list.end().ptr));
+
 
 	int counter = 1;
-  for (List<int>::Iterator it = list.begin(); it != list.end(); ++it) {
-    ASSERT_EQUALS(counter++, *it);
-  }
+	for (List<int>::Iterator it = list.begin(); it != list.end(); ++it) {
+		printf("run\n");
+		ASSERT_EQUALS(counter++, *it);
+	}
 
 	// C++11 syntactic sugar Range-based for-loop
 	counter = 1;

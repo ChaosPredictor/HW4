@@ -23,7 +23,8 @@ public:
 
 	List() {
     	head = new Node;
-        tail = head;
+        tail = new Node;
+        head->next = tail;
     	//iterator = new Iterator;
     	size = 0;
 	}
@@ -81,6 +82,18 @@ public:
 		return size;
 	}
 
+
+	void printList() {
+		printf("\n\n");
+		printf("size: %d\n", size);
+		printf("head address: %p   tail address: %p \n", (void*)head, (void*)tail);
+		Node *node = head->next;
+		while(node->next != nullptr) {
+			printf("node data: %d   address: %p   next adrs: %p \n", node->data, (void*)node, (void*)node->next);
+			node = node->next;
+		}
+	}
+
 private:
 
 
@@ -127,9 +140,9 @@ template<class T>
 class List<T>::Iterator {
     friend class List<T>;
 
+public:
 	Node* ptr;
 
-public:
     Iterator() {
     	//List list = malloc(sizeof(*list));
     	//if (list == NULL) return NULL;
@@ -140,11 +153,11 @@ public:
     Iterator(const Iterator& other) : ptr(other.ptr) {}
 
     bool operator!=(const Iterator& right) {
-    	return false;
+    	return this->ptr != right.ptr;
     }
 
     Iterator& operator++() {
-		//ptr = ptr->next;
+		ptr = ptr->next;
 		return *this;
     }
 
