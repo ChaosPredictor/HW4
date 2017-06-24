@@ -57,7 +57,7 @@ static void listExample(){
 	ASSERT_EQUALS(1, *it);
 
 	//TODO to add it back
-	//it = list.find(EqualTo(3));
+	it = list.find(EqualTo(3));
 	ASSERT_EQUALS(3, *it);
 	*it = 3;
 

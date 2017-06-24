@@ -82,11 +82,7 @@ public:
 	void sort(Function f);
 
 	template<class Function>
-	Iterator find(Function f){
-
-		return Iterator();
-		//TODO in case of not found move to end
-	}
+	typename List<T>::Iterator find(Function f);
 
 	int getSize() {
 		return size;
@@ -116,21 +112,33 @@ private:
 template<class T>
 template<class Function>
 void List<T>::sort(Function f) {
-	for (List<T>::Iterator it1 = this->begin(); it1 != this->end(); ++it1) {
-		for (List<T>::Iterator it2 = this->begin(); it2 != this->end(); ++it2) {
-			printf("%d  ", *it2);
-			if ( it2.nextIterator() != this->end() ) {
-				if (!(f(*it2, it2.nextData()))) {
-					printf ("y ");
-					std::swap( *it2, it2.nextData() );
-				}
-				else printf("n ");
+	for (List<T>::Iterator it1 = this->begin(); it1.nextIterator() != this->end(); ++it1) {
+		for (List<T>::Iterator it2 = this->begin(); it2.nextIterator() != this->end(); ++it2) {
+			//printf("%d  ", *it2);
+			//if ( it2.nextIterator() != this->end() ) {
+			if (!(f(*it2, it2.nextData()))) {
+					//printf ("y ");
+				std::swap( *it2, it2.nextData() );
 			}
-
+				//else printf("n ");
+			//}
 		}
-
-		printf("\n");
+		//printf("\n");
 	}
+}
+
+
+
+
+template<class T>
+template<class Function>
+typename List<T>::Iterator List<T>::find(Function f) {
+	for (List<T>::Iterator it = this->begin(); it != this->end(); ++it) {
+		if (f(*it)) {
+			return it;
+		}
+	}
+	return this->end();
 }
 
 
