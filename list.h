@@ -11,83 +11,12 @@
 template <class T>
 class List {
 
-	//Node createNode() {
-	//	Node
-	//	return node
-	//}
-
-	//typedef struct node_t *Node;
-
-
-	//template <typename T>
-	class Node
-	{
-	    friend class List<T>;
-	    //friend class LinkedListIterator<Node<T>>;
-	    //friend class LinkedListIterator<const Node<T>>;
-
-	    Node() : next(nullptr) {}
-	    Node(const T& data) : data(data), next(nullptr) {}
-	    Node *next;
-	    T data;
-	public:
-	    typedef T value_type;
-	};
+	class Node;
 
 
 public:
 
-	class Iterator {
-	    friend class List<T>;
-
-		Node* ptr;
-
-	public:
-	    Iterator() {
-	    	//List list = malloc(sizeof(*list));
-	    	//if (list == NULL) return NULL;
-	    }
-
-	    Iterator(Node* ptr) : ptr(ptr) {}
-
-	    Iterator(const Iterator& other) : ptr(other.ptr) {}
-
-	    bool operator!=(const Iterator& right) {
-	    	return false;
-	    }
-
-	    Iterator& operator++() {
-			//ptr = ptr->next;
-			return *this;
-	    }
-
-	    Iterator& operator++(int) {
-			//ptr = ptr->next;
-			return *this;
-	    }
-
-	    Iterator& operator--() {
-			//ptr = ptr->next;
-			return *this;
-	    }
-
-	    Iterator& operator--(int) {
-			//ptr = ptr->next;
-			return *this;
-	    }
-
-	    T& operator*() {
-	    	//Node node = ptr;
-	    	return ptr->data;
-	    }
-
-	    const int& operator*() const {
-	    	return ptr->data;
-	    }
-
-	};
-
-
+	class Iterator;
 
 
 	//typedef Iterator iterator;
@@ -109,8 +38,8 @@ public:
 
     void insert(const T& data, Iterator iterator) {
         Node *new_node = new Node(data);
-        Node *node = head->next;
-        while( node->next != iterator.ptr ) {
+        Node *node = head;
+        while( node->next != nullptr && node->next != iterator.ptr ) {
         	node = node->next;
         }
         node->next = new_node;
@@ -165,10 +94,7 @@ public:
 	}
 
 private:
-	//struct node_t {
-	//	T* data;
-	//	struct node_t* next;
-	//};
+
 
 	int size;
 	Node* head;
@@ -176,5 +102,78 @@ private:
 	Iterator iterator;
 
 };
+
+
+
+template<class T>
+class List<T>::Node {
+    friend class List<T>;
+    friend class List<T>::Iterator;
+    //friend class LinkedListIterator<const Node<T>>;
+
+    Node() : next(nullptr) {}
+
+    T data;
+    Node *next;
+
+public:
+    Node(const T& data) : data(data), next(nullptr) {}
+    typedef T value_type;
+};
+
+
+template<class T>
+class List<T>::Iterator {
+    friend class List<T>;
+
+	Node* ptr;
+
+public:
+    Iterator() {
+    	//List list = malloc(sizeof(*list));
+    	//if (list == NULL) return NULL;
+    }
+
+    Iterator(Node* ptr) : ptr(ptr) {}
+
+    Iterator(const Iterator& other) : ptr(other.ptr) {}
+
+    bool operator!=(const Iterator& right) {
+    	return false;
+    }
+
+    Iterator& operator++() {
+		//ptr = ptr->next;
+		return *this;
+    }
+
+    Iterator& operator++(int) {
+		//ptr = ptr->next;
+		return *this;
+    }
+
+    Iterator& operator--() {
+		//ptr = ptr->next;
+		return *this;
+    }
+
+    Iterator& operator--(int) {
+		//ptr = ptr->next;
+		return *this;
+    }
+
+    T& operator*() {
+    	//Node node = ptr;
+    	return ptr->data;
+    }
+
+    const int& operator*() const {
+    	return ptr->data;
+    }
+
+};
+
+
+
 
 #endif /* LIST_H_ */
