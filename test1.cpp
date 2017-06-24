@@ -6,6 +6,7 @@
 #include <assert.h>
 #include "Exceptions.h"
 #include <string>
+#include "list_example.h"
 
 //TODO remove
 #include <iostream>
@@ -36,7 +37,6 @@ void testRoomConstractor() {
 	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 10));
 }
 
-
 void testRoomCopy() {
 	char *name2 = (char*)"company2";
     EscapeRoomWrapper room2 = EscapeRoomWrapper(name2, 60, 3, 10);
@@ -44,9 +44,6 @@ void testRoomCopy() {
     EscapeRoomWrapper room3 = EscapeRoomWrapper(room2);
     ASSERT_WITH_MESSAGE((room2==room3), "FAIL: room.copy");
 }
-
-
-
 
 
 void testRoom() {
@@ -199,6 +196,8 @@ void test4() {
 int main() {
 	testRoom();
 	RUN_TEST(test0_1);
+
+	main2();
 
 	//RUN_TEST(test1);
     //RUN_TEST(test2);
