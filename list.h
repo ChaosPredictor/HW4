@@ -25,6 +25,7 @@ public:
     	head = new Node;
         tail = new Node;
         head->next = tail;
+        tail->last = head;
     	//iterator = new Iterator;
     	size = 0;
 	}
@@ -43,8 +44,17 @@ public:
         while( node->next != nullptr && node->next != iterator.ptr ) {
         	node = node->next;
         }
-        node->next = new_node;
-        new_node->next = iterator.ptr;
+        Node *node_left = node;
+        Node *node_right = node->next;
+
+
+        node_left->next = new_node;
+        new_node->last = node_left;
+
+        new_node->next = node_right;
+        node_right->last = new_node;
+        //new_node->next = iterator.ptr;
+        //iterator.ptr
     	size++;
     }
 
@@ -89,7 +99,7 @@ public:
 		printf("head address: %p   tail address: %p \n", (void*)head, (void*)tail);
 		Node *node = head->next;
 		while(node->next != nullptr) {
-			printf("node data: %d   address: %p   next adrs: %p \n", node->data, (void*)node, (void*)node->next);
+			printf("node data: %d   address: %p  next adrs: %p   last adrs: %p\n", node->data, (void*)node, (void*)node->next, (void*)node->last);
 			node = node->next;
 		}
 	}
@@ -125,13 +135,14 @@ class List<T>::Node {
     friend class List<T>::Iterator;
     //friend class LinkedListIterator<const Node<T>>;
 
-    Node() : next(nullptr) {}
+    Node() : next(nullptr), last(nullptr) {}
+    Node(const T& data) : data(data), next(nullptr), last(nullptr) {}
 
     T data;
     Node *next;
+    Node *last;
 
 public:
-    Node(const T& data) : data(data), next(nullptr) {}
     typedef T value_type;
 };
 
@@ -139,7 +150,7 @@ public:
 template<class T>
 class List<T>::Iterator {
     friend class List<T>;
-
+//TODO mode ptr back to private
 public:
 	Node* ptr;
 
@@ -156,15 +167,9 @@ public:
     	return this->ptr != right.ptr;
     }
 
-    Iterator& operator++() {
-		ptr = ptr->next;
-		return *this;
-    }
+    Iterator& operator++();
 
-    Iterator& operator++(int) {
-		//ptr = ptr->next;
-		return *this;
-    }
+    Iterator operator++(int);
 
     Iterator& operator--() {
 		//ptr = ptr->next;
@@ -187,6 +192,18 @@ public:
 
 };
 
+template<class T>
+typename List<T>::Iterator& List<T>::Iterator::operator++() {
+	ptr = ptr->next;
+	return *this;
+}
+
+template<class T>
+typename List<T>::Iterator List<T>::Iterator::operator++(int) {
+	Iterator result = *this;
+	++*this;
+	return result;
+}
 
 
 

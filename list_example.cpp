@@ -22,7 +22,7 @@ static void listExample(){
 	//list.printList();
 	list.insert(2, list.end());
 	list.insert(3, list.end());
-	list.insert(14, list.end());
+	//list.insert(4, list.end());
 	list.printList();
 
 	//printf("begin address: %p   end address: %p \n", (void*)(list.begin().ptr), (void*)(list.end().ptr));
@@ -30,15 +30,14 @@ static void listExample(){
 
 	int counter = 1;
 	for (List<int>::Iterator it = list.begin(); it != list.end(); ++it) {
-		printf("run\n");
 		ASSERT_EQUALS(counter++, *it);
 	}
 
 	// C++11 syntactic sugar Range-based for-loop
 	counter = 1;
-  for (int& element : list) {
-    ASSERT_EQUALS(counter++, element);
-  }
+	for (int& element : list) {
+		ASSERT_EQUALS(counter++, element);
+	}
 
 	List<int>::Iterator it = list.begin();
 	ASSERT_EQUALS(3, list.getSize());
@@ -47,6 +46,7 @@ static void listExample(){
 	ASSERT_EQUALS(*it, 1);
 	list.insert(4, list.begin());
 	list.insert(2, list.begin());
+	list.printList();
 
 
 	// std::less<int> is a function object defined in <functional>
