@@ -13,8 +13,6 @@
 template <class T>
 class List {
 
-	class Node;
-
 
 public:
 
@@ -54,13 +52,9 @@ public:
 
 private:
 
-	Node& lastNode() {
-		Node *node = head;
-		while(node != nullptr && node->next != tail) {
-			node = node->next;
-		}
-		return *node;
-	}
+	class Node;
+
+	Node& lastNode();
 
 	//TODO remove it
 	void printList() {
@@ -74,7 +68,7 @@ private:
 		}
 	}
 
-
+	//TODO remove it
 	void printList() const {
 		printf("\n\n");
 		printf("size: %d\n", size);
@@ -95,15 +89,8 @@ private:
 
 };
 
-
-
 template<class T>
-List<T>::List() : size(0), head(nullptr), tail(nullptr) {
-
-	//tail = nullptr;
-    //head = tail;
-	//size = 0;
-}
+List<T>::List() : size(0), head(nullptr), tail(nullptr) {}
 
 template<class T>
 List<T>::List(const List<T>& list) : size(0), head(nullptr), tail(nullptr){
@@ -181,29 +168,20 @@ void List<T>::insert(T data) {
 	insert(data, this->tail);
 }
 
-
 template<class T>
 int List<T>::getSize() {
 	return size;
 }
-
-
 
 template<class T>
 template<class Function>
 void List<T>::sort(Function f) {
 	for (List<T>::Iterator it1 = this->begin(); it1.getIteratorOnNextNode() != this->end(); ++it1) {
 		for (List<T>::Iterator it2 = this->begin(); it2.getIteratorOnNextNode() != this->end(); ++it2) {
-			//printf("%d  ", *it2);
-			//if ( it2.nextIterator() != this->end() ) {
 			if (!(f(*it2, it2.nextNodeData()))) {
-					//printf ("y ");
 				std::swap( *it2, it2.nextNodeData() );
 			}
-				//else printf("n ");
-			//}
 		}
-		//printf("\n");
 	}
 }
 
@@ -254,50 +232,56 @@ void List<T>::remove(Iterator& iterator) {
         node_left->next = node_right;
 	}
 
-
-
-		/*if( iterator.ptr->next == tail) {
-    	node_left = iterator.ptr->last;
-    	node_left->next = tail;
-    } else if( iterator.ptr->last == head) {
-    	node_right = iterator.ptr->next;
-    	head = node_right;
-    } else {
-    	Node *node_right = iterator.ptr->next;
-        Node *node_left = iterator.ptr->last;
-        node_right->last = node_left;
-        node_left->next = node_right;
-    }*/
 	delete iterator.ptr;
     size--;
 }
 
+template<class T>
+typename List<T>::Node& List<T>::lastNode() {
+	Node *node = head;
+	while(node != nullptr && node->next != tail) {
+		node = node->next;
+	}
+	return *node;
+}
 
 
 
 template<class T>
 class List<T>::Node {
     friend class List<T>;
+
     friend class List<T>::Iterator;
 
-    Node() : next(nullptr), last(nullptr) {}
-    Node(const T& data) : data(new T(data)), next(nullptr), last(nullptr) {}
-    ~Node() {
-    	if ( data != nullptr ) delete data;
-    }
+    Node();
+    Node(const T& data);
+    ~Node();
 
     T *data;
     Node *next;
     Node *last;
 
 public:
-    T& getData() {
-    	return *data;
-    }
+    T& getData();
 
     typedef T value_type;
 };
 
+template<class T>
+List<T>::Node::Node() : next(nullptr), last(nullptr) {}
+
+template<class T>
+List<T>::Node::Node(const T& data) : data(new T(data)), next(nullptr), last(nullptr) {}
+
+template<class T>
+List<T>::Node::~Node() {
+	if ( data != nullptr ) delete data;
+}
+
+template<class T>
+T& List<T>::Node::getData() {
+	return *data;
+}
 
 
 
