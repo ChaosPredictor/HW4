@@ -18,11 +18,15 @@ public:
 
 static void listExample(){
 	List<int> list;
+	list.printList();
 	list.insert(1, list.end());
-/*	//list.printList();
+	list.printList();
 	list.insert(2, list.end());
+	list.printList();
 	list.insert(3, list.end());
-	//list.insert(4, list.end());
+	list.printList();
+
+/*	//list.insert(4, list.end());
 
 	//printf("begin address: %p   end address: %p \n", (void*)(list.begin().ptr), (void*)(list.end().ptr));
 

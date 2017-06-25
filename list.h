@@ -48,13 +48,21 @@ public:
 
 	int getSize();
 
+	Node& lastNode() {
+		Node *node = head;
+		while(node != nullptr && node->next != tail) {
+			node = node->next;
+		}
+		return *node;
+	}
+
 	//TODO remove it
 	void printList() {
 		printf("\n\n");
 		printf("size: %d\n", size);
 		printf("head address: %p   tail address: %p \n", (void*)head, (void*)tail);
 		Node *node = head;
-		while(node != nullptr && node->next != nullptr) {
+		while(node != nullptr ) {
 			printf("node data: %d   address: %p  next adrs: %p   last adrs: %p\n", *(node->data), (void*)node, (void*)node->next, (void*)node->last);
 			node = node->next;
 		}
@@ -85,14 +93,15 @@ List<T>::List() {
 
 template<class T>
 List<T>::~List() {
+	this->printList();
 	List<T>::Iterator it = this->begin();
-	Iterator temp_iterator;
-	while( it != this->end() ) {
-		printf("run\n");
-
-		//this->printList();
+	int i = 0;
+	while( i < 5 && it != this->end() ) {
+		printf("run list dict\n");
 		this->remove(it);
+		this->printList();
 		it = this->begin();
+		i++;
 	}
 	//delete head;
 	//delete tail;
@@ -108,26 +117,31 @@ int List<T>::getSize() {
 template<class T>
 void List<T>::insert(const T& data, Iterator iterator) {
     Node *new_node = new Node(data);
-    if ( head == nullptr ) {
-    	head = new_node;
+    if ( head == tail ) {
     	new_node->last = head;
+    	head = new_node;
     	new_node->next = tail;
-    	size++;
+    } else if ( iterator.ptr == head ) {
+    	new_node->next = head;
+        Node *node_right = iterator.ptr;
+    	head = new_node;
+    	node_right->last = new_node;
+    } else if ( iterator.ptr == tail ) {
+    	new_node->next = tail;
+        Node *node_left = &(this->lastNode());
+        node_left->next = new_node;
+        new_node->last = node_left;
     } else {
-    	Node *node = head;
-        while( node != nullptr && node->next != iterator.ptr ) {
-        	node = node->next;
-        }
-        Node *node_left = node;
-        Node *node_right = node->next;
+        Node *node_right = iterator.ptr;
+        Node *node_left = node_right->last;
 
         node_left->next = new_node;
         new_node->last = node_left;
 
         new_node->next = node_right;
         node_right->last = new_node;
-    	size++;
     }
+	size++;
     //TODO redesign
 
 }
@@ -175,9 +189,12 @@ template<class T>
 void List<T>::remove(Iterator& iterator) {
 	Node *node_right;
 	Node *node_left;
-	if( iterator.ptr->next == tail && iterator.ptr->last == head) {
+	if( iterator.ptr == head && iterator.ptr->next == tail ) {
 		head = tail;
-    } else if( iterator.ptr->next == tail) {
+	} else if ( iterator.ptr == head ) {
+		head = iterator.ptr->next;
+		iterator.ptr->next->last = nullptr;
+	} else  if( iterator.ptr->next == tail) {
     	node_left = iterator.ptr->last;
     	node_left->next = tail;
     } else if( iterator.ptr->last == head) {
