@@ -135,6 +135,16 @@ void EscapeRoomWrapper::removeEnigma(const Enigma& enigma) {
 	throw EscapeRoomEnigmaNotFoundException();
 }
 
+Enigma EscapeRoomWrapper::getHardestEnigma() {
+	if (enigmas.size() == 0 ) throw EscapeRoomNoEnigmasException();
+	Enigma hardestEnigma = enigmas[0];
+	for(auto const& value: enigmas) {
+		if ( hardestEnigma.getDifficulty() < value.getDifficulty()) {
+			hardestEnigma = value;
+		}
+	}
+	return hardestEnigma;
+}
 
 }
 }

@@ -101,6 +101,8 @@ namespace escaperoom {
 
         void removeEnigma(const Enigma& enigma);
 
+        Enigma getHardestEnigma();
+
     };
 
     std::ostream& operator<<(std::ostream& output, const EscapeRoomWrapper& room);
