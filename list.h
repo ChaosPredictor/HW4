@@ -192,8 +192,8 @@ int List<T>::getSize() {
 template<class T>
 template<class Function>
 void List<T>::sort(Function f) {
-	for (List<T>::Iterator it1 = this->begin(); it1.nextNode() != this->end(); ++it1) {
-		for (List<T>::Iterator it2 = this->begin(); it2.nextNode() != this->end(); ++it2) {
+	for (List<T>::Iterator it1 = this->begin(); it1.getIteratorOnNextNode() != this->end(); ++it1) {
+		for (List<T>::Iterator it2 = this->begin(); it2.getIteratorOnNextNode() != this->end(); ++it2) {
 			//printf("%d  ", *it2);
 			//if ( it2.nextIterator() != this->end() ) {
 			if (!(f(*it2, it2.nextNodeData()))) {
@@ -291,6 +291,10 @@ class List<T>::Node {
     Node *last;
 
 public:
+    T& getData() {
+    	return *data;
+    }
+
     typedef T value_type;
 };
 
@@ -300,10 +304,6 @@ public:
 template<class T>
 class List<T>::Iterator {
     friend class List<T>;
-
-    T& nextNodeData();
-
-    Iterator nextNode();
 
 	Node* ptr;
 
@@ -329,8 +329,13 @@ public:
 
     T& operator*();
 
-};
+private:
+    T& nextNodeData();
 
+    Iterator getIteratorOnNextNode();
+
+    Node nextNode();
+};
 
 template<class T>
 List<T>::Iterator::Iterator() {}
@@ -381,17 +386,23 @@ typename List<T>::Iterator List<T>::Iterator::operator--(int) {
 template<class T>
 T& List<T>::Iterator::operator*() {
 	if ( ptr == nullptr ) throw mtm::ListExceptions::ElementNotFound();
-	return *(ptr->data);
+	return ptr->getData();
 }
 
 template<class T>
 T& List<T>::Iterator::nextNodeData() {
-	return *(ptr->next->data);
+	return *(this->getIteratorOnNextNode());
 }
 
 template<class T>
-typename List<T>::Iterator List<T>::Iterator::nextNode() {
+typename List<T>::Node List<T>::Iterator::nextNode() {
+	return *(this->getIteratorOnNextNode().ptr);
+}
+
+template<class T>
+typename List<T>::Iterator List<T>::Iterator::getIteratorOnNextNode() {
 	return ptr->next;
 }
+
 
 #endif /* LIST_H_ */
