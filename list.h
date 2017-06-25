@@ -192,13 +192,13 @@ int List<T>::getSize() {
 template<class T>
 template<class Function>
 void List<T>::sort(Function f) {
-	for (List<T>::Iterator it1 = this->begin(); it1.nextIterator() != this->end(); ++it1) {
-		for (List<T>::Iterator it2 = this->begin(); it2.nextIterator() != this->end(); ++it2) {
+	for (List<T>::Iterator it1 = this->begin(); it1.nextNode() != this->end(); ++it1) {
+		for (List<T>::Iterator it2 = this->begin(); it2.nextNode() != this->end(); ++it2) {
 			//printf("%d  ", *it2);
 			//if ( it2.nextIterator() != this->end() ) {
-			if (!(f(*it2, it2.nextData()))) {
+			if (!(f(*it2, it2.nextNodeData()))) {
 					//printf ("y ");
-				std::swap( *it2, it2.nextData() );
+				std::swap( *it2, it2.nextNodeData() );
 			}
 				//else printf("n ");
 			//}
@@ -300,18 +300,14 @@ public:
 template<class T>
 class List<T>::Iterator {
     friend class List<T>;
-//TODO mode ptr back to private
 
-    T& nextData() {
-    	return *(ptr->next->data);
-    }
+    T& nextNodeData();
 
-    Iterator nextIterator() {
-    	return ptr->next;
-    }
+    Iterator nextNode();
+
+	Node* ptr;
 
 public:
-	Node* ptr;
 
     Iterator();
 
@@ -332,7 +328,6 @@ public:
     Iterator operator--(int);
 
     T& operator*();
-
 
 };
 
@@ -387,6 +382,16 @@ template<class T>
 T& List<T>::Iterator::operator*() {
 	if ( ptr == nullptr ) throw mtm::ListExceptions::ElementNotFound();
 	return *(ptr->data);
+}
+
+template<class T>
+T& List<T>::Iterator::nextNodeData() {
+	return *(ptr->next->data);
+}
+
+template<class T>
+typename List<T>::Iterator List<T>::Iterator::nextNode() {
+	return ptr->next;
 }
 
 #endif /* LIST_H_ */
