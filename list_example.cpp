@@ -89,9 +89,9 @@ static void listExample(){
 	ASSERT_EQUALS(3, *it);
 
 	it = list.end();
-	ASSERT_THROWS(mtm::ListExceptions::ElementNotFound , *it);
+	ASSERT_THROWS(mtm::ListExceptions::ElementNotFound, *it);
 
-
+	ASSERT_THROWS(mtm::ListExceptions::ElementNotFound, list.insert(1, list2.begin()) );
 
 }
 

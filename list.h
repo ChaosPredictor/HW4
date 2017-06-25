@@ -56,6 +56,15 @@ private:
 
 	Node& lastNode();
 
+	bool isIteratorOfList(Iterator& iterator){
+		for (List<T>::Iterator it = this->begin(); it != this->end(); ++it) {
+			if ( it == iterator) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	//TODO remove it
 	void printList() {
 		printf("\n\n");
@@ -133,6 +142,7 @@ bool List<T>::operator!=(const List& right) {
 
 template<class T>
 void List<T>::insert(const T& data, Iterator iterator) {
+	if ( iterator != nullptr && !(this->isIteratorOfList(iterator))) throw mtm::ListExceptions::ElementNotFound();
     Node *new_node = new Node(data);
     if ( head == tail ) {
     	new_node->last = head;
@@ -294,10 +304,10 @@ class List<T>::Iterator {
 public:
 
     Iterator();
-
     Iterator(Node* ptr);
-
     Iterator(const Iterator& other);
+
+
 
     bool operator==(const Iterator& right);
 
