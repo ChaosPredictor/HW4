@@ -23,7 +23,6 @@ static void listExample(){
 	list.insert(2, list.end());
 	list.insert(3, list.end());
 	//list.insert(4, list.end());
-	list.printList();
 
 	//printf("begin address: %p   end address: %p \n", (void*)(list.begin().ptr), (void*)(list.end().ptr));
 
@@ -41,12 +40,13 @@ static void listExample(){
 
 	List<int>::Iterator it = list.begin();
 	ASSERT_EQUALS(3, list.getSize());
+	//list.printList();
 	list.remove(++it);
 	it = list.begin();
 	ASSERT_EQUALS(*it, 1);
 	list.insert(4, list.begin());
 	list.insert(2, list.begin());
-	list.printList();
+	//list.printList();
 
 
 	// std::less<int> is a function object defined in <functional>

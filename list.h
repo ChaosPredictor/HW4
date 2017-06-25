@@ -18,9 +18,6 @@ public:
 
 	class Iterator;
 
-
-	//typedef Iterator iterator;
-
 	List() {
     	head = new Node;
         tail = new Node;
@@ -38,45 +35,15 @@ public:
     	return false;
     }
 
-    void insert(const T& data, Iterator iterator) {
-        Node *new_node = new Node(data);
-        Node *node = head;
-        while( node->next != nullptr && node->next != iterator.ptr ) {
-        	node = node->next;
-        }
-        Node *node_left = node;
-        Node *node_right = node->next;
-
-
-        node_left->next = new_node;
-        new_node->last = node_left;
-
-        new_node->next = node_right;
-        node_right->last = new_node;
-        //new_node->next = iterator.ptr;
-        //iterator.ptr
-    	size++;
-    }
+    void insert(const T& data, Iterator iterator);
 
 	void insert(T data) {}
-
-	/*Iterator end() {
-		//Node node = iterator->ptr;
-		//while ( node.next != nullptr) {
-		//	node = node.next;
-		//}
-		//iterator->ptr = node.next;
-		//return iterator;
-		Node* node = tail;
-		return Iterator(node);
-	}*/
-
 
 	typename List<T>::Iterator begin();
 
 	typename List<T>::Iterator end();
 
-	void remove(Iterator& iterator) {}
+	void remove(Iterator& iterator);
 
 	template<class Function>
 	void sort(Function f);
@@ -84,11 +51,9 @@ public:
 	template<class Function>
 	typename List<T>::Iterator find(Function f);
 
-	int getSize() {
-		return size;
-	}
+	int getSize();
 
-
+	//TODO remove it
 	void printList() {
 		printf("\n\n");
 		printf("size: %d\n", size);
@@ -110,6 +75,30 @@ private:
 };
 
 template<class T>
+int List<T>::getSize() {
+	return size;
+}
+
+template<class T>
+void List<T>::insert(const T& data, Iterator iterator) {
+    Node *new_node = new Node(data);
+    Node *node = head;
+    //TODO redesign
+    while( node->next != nullptr && node->next != iterator.ptr ) {
+    	node = node->next;
+    }
+    Node *node_left = node;
+    Node *node_right = node->next;
+
+    node_left->next = new_node;
+    new_node->last = node_left;
+
+    new_node->next = node_right;
+    node_right->last = new_node;
+	size++;
+}
+
+template<class T>
 template<class Function>
 void List<T>::sort(Function f) {
 	for (List<T>::Iterator it1 = this->begin(); it1.nextIterator() != this->end(); ++it1) {
@@ -127,9 +116,6 @@ void List<T>::sort(Function f) {
 	}
 }
 
-
-
-
 template<class T>
 template<class Function>
 typename List<T>::Iterator List<T>::find(Function f) {
@@ -141,7 +127,6 @@ typename List<T>::Iterator List<T>::find(Function f) {
 	return this->end();
 }
 
-
 template<class T>
 typename List<T>::Iterator List<T>::begin() {
 	return Iterator(head->next);
@@ -152,6 +137,14 @@ typename List<T>::Iterator List<T>::end() {
 	return Iterator(tail);
 }
 
+template<class T>
+void List<T>::remove(Iterator& iterator) {
+    Node *node_right = iterator.ptr->next;
+    Node *node_left = iterator.ptr->last;
+    node_right->last = node_left;
+    node_left->next = node_right;
+    size--;
+}
 
 
 
@@ -160,7 +153,6 @@ template<class T>
 class List<T>::Node {
     friend class List<T>;
     friend class List<T>::Iterator;
-    //friend class LinkedListIterator<const Node<T>>;
 
     Node() : next(nullptr), last(nullptr) {}
     Node(const T& data) : data(data), next(nullptr), last(nullptr) {}
