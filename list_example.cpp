@@ -67,11 +67,10 @@ static void listExample(){
 
 	// The following insert should add to end of list
 	list.insert(5);
-	list.printList();
 
 
 	const List<int> list2(list);
-/*	ASSERT_TRUE(list == list2);
+	ASSERT_TRUE(list == list2);
 	ASSERT_FALSE(list != list2);
 
 	//test directions
@@ -87,7 +86,7 @@ static void listExample(){
 	ASSERT_EQUALS(4, *it);
 	--it;
 	ASSERT_EQUALS(3, *it);
-*/
+
 
 }
 

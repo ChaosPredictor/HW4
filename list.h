@@ -20,15 +20,13 @@ public:
 
 	List();
 
+	List(const List<T>& other);
+
 	~List();
 
-    bool operator==(const List& right) {
-    	return true;
-    }
+    bool operator==(const List& right);
 
-    bool operator!=(const List& right) {
-    	return false;
-    }
+    bool operator!=(const List& right);
 
     void insert(const T& data, Iterator iterator );
 
@@ -38,7 +36,11 @@ public:
 
 	typename List<T>::Iterator begin();
 
+	typename List<T>::Iterator begin() const;
+
 	typename List<T>::Iterator end();
+
+	typename List<T>::Iterator end() const;
 
 	void remove(Iterator& iterator);
 
@@ -50,6 +52,8 @@ public:
 
 	int getSize();
 
+private:
+
 	Node& lastNode() {
 		Node *node = head;
 		while(node != nullptr && node->next != tail) {
@@ -60,6 +64,18 @@ public:
 
 	//TODO remove it
 	void printList() {
+		printf("\n\n");
+		printf("size: %d\n", size);
+		printf("head address: %p   tail address: %p \n", (void*)head, (void*)tail);
+		Node *node = head;
+		while(node != nullptr ) {
+			printf("node data: %d   address: %p  next adrs: %p   last adrs: %p\n", *(node->data), (void*)node, (void*)node->next, (void*)node->last);
+			node = node->next;
+		}
+	}
+
+
+	void printList() const {
 		printf("\n\n");
 		printf("size: %d\n", size);
 		printf("head address: %p   tail address: %p \n", (void*)head, (void*)tail);
@@ -82,15 +98,18 @@ private:
 
 
 template<class T>
-List<T>::List() {
-	//Node* head;
-	tail = nullptr;
-	//head = new *Node;
-    //tail = new *Node;
-    head = tail;
-    //tail->last = head;
-	//iterator = new Iterator;
-	size = 0;
+List<T>::List() : size(0), head(nullptr), tail(nullptr) {
+
+	//tail = nullptr;
+    //head = tail;
+	//size = 0;
+}
+
+template<class T>
+List<T>::List(const List<T>& list) : size(0), head(nullptr), tail(nullptr){
+	for (List<T>::Iterator it = list.begin(); it != list.end(); ++it) {
+		this->insert(*it);
+	}
 }
 
 template<class T>
@@ -109,10 +128,20 @@ List<T>::~List() {
 	//printf("distractor run\n");
 }
 
+template<class T>
+bool List<T>::operator==(const List& right) {
+	List<T>::Iterator right_iterator = right.begin();
+	for (List<T>::Iterator it = begin(); it != end(); ++it) {
+		if ( *right_iterator != *it ) return false;
+		++right_iterator;
+	}
+	if ( right_iterator != right.end() ) return false;
+	return true;
+}
 
 template<class T>
-int List<T>::getSize() {
-	return size;
+bool List<T>::operator!=(const List& right) {
+	return (!(*this == right));
 }
 
 template<class T>
@@ -146,6 +175,13 @@ void List<T>::insert(const T& data, Iterator iterator) {
     //TODO redesign
 
 }
+
+template<class T>
+int List<T>::getSize() {
+	return size;
+}
+
+
 
 template<class T>
 template<class Function>
@@ -182,7 +218,17 @@ typename List<T>::Iterator List<T>::begin() {
 }
 
 template<class T>
+typename List<T>::Iterator List<T>::begin() const {
+	return Iterator(head);
+}
+
+template<class T>
 typename List<T>::Iterator List<T>::end() {
+	return Iterator(tail);
+}
+
+template<class T>
+typename List<T>::Iterator List<T>::end() const {
 	return Iterator(tail);
 }
 
@@ -273,6 +319,8 @@ public:
 
     Iterator(const Iterator& other) : ptr(other.ptr) {}
 
+    bool operator==(const Iterator& right);
+
     bool operator!=(const Iterator& right);
 
     Iterator& operator++();
@@ -289,8 +337,14 @@ public:
 };
 
 template<class T>
+bool List<T>::Iterator::operator==(const Iterator& right) {
+	return this->ptr == right.ptr;
+}
+
+template<class T>
 bool List<T>::Iterator::operator!=(const Iterator& right) {
-	return this->ptr != right.ptr;
+	return (!( *this == right ));
+	//return this->ptr != right.ptr;
 }
 
 template<class T>
