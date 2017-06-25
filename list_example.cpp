@@ -2,6 +2,7 @@
 #include "list.h"
 #include "mtmtest.h"
 
+
 /**
  * Function object for finding a target integer
  */
@@ -86,6 +87,10 @@ static void listExample(){
 	ASSERT_EQUALS(4, *it);
 	--it;
 	ASSERT_EQUALS(3, *it);
+
+	it = list.end();
+	ASSERT_THROWS(mtm::ListExceptions::ElementNotFound , *it);
+
 
 
 }

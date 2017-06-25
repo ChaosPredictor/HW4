@@ -8,6 +8,8 @@
 #ifndef LIST_H_
 #define LIST_H_
 
+#include "Exceptions.h"
+
 template <class T>
 class List {
 
@@ -30,9 +32,7 @@ public:
 
     void insert(const T& data, Iterator iterator );
 
-	void insert(T data) {
-		insert(data, this->tail);
-	}
+	void insert(T data);
 
 	typename List<T>::Iterator begin();
 
@@ -177,6 +177,12 @@ void List<T>::insert(const T& data, Iterator iterator) {
 }
 
 template<class T>
+void List<T>::insert(T data) {
+	insert(data, this->tail);
+}
+
+
+template<class T>
 int List<T>::getSize() {
 	return size;
 }
@@ -277,9 +283,6 @@ class List<T>::Node {
     Node() : next(nullptr), last(nullptr) {}
     Node(const T& data) : data(new T(data)), next(nullptr), last(nullptr) {}
     ~Node() {
-    	//printf("dictor Node\n");
-    	//delete last;
-    	//delete next;
     	if ( data != nullptr ) delete data;
     }
 
@@ -310,14 +313,11 @@ class List<T>::Iterator {
 public:
 	Node* ptr;
 
-    Iterator() {
-    	//List list = malloc(sizeof(*list));
-    	//if (list == NULL) return NULL;
-    }
+    Iterator();
 
-    Iterator(Node* ptr) : ptr(ptr) {}
+    Iterator(Node* ptr);
 
-    Iterator(const Iterator& other) : ptr(other.ptr) {}
+    Iterator(const Iterator& other);
 
     bool operator==(const Iterator& right);
 
@@ -335,6 +335,16 @@ public:
 
 
 };
+
+
+template<class T>
+List<T>::Iterator::Iterator() {}
+
+template<class T>
+List<T>::Iterator::Iterator(Node* ptr) : ptr(ptr) {}
+
+template<class T>
+List<T>::Iterator::Iterator(const Iterator& other) : ptr(other.ptr) {}
 
 template<class T>
 bool List<T>::Iterator::operator==(const Iterator& right) {
@@ -375,6 +385,7 @@ typename List<T>::Iterator List<T>::Iterator::operator--(int) {
 
 template<class T>
 T& List<T>::Iterator::operator*() {
+	if ( ptr == nullptr ) throw mtm::ListExceptions::ElementNotFound();
 	return *(ptr->data);
 }
 
