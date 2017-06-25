@@ -122,5 +122,19 @@ void EscapeRoomWrapper::addEnigma(const Enigma& enigma) {
 	enigmas.push_back(enigma);
 }
 
+void EscapeRoomWrapper::removeEnigma(const Enigma& enigma) {
+	if (enigmas.size() == 0 ) throw EscapeRoomNoEnigmasException();
+	int i = 0;
+	for(auto const& value: enigmas) {
+		if ( value == enigma) {
+			enigmas.erase(enigmas.begin() + i);
+			return;
+		}
+		i++;
+	}
+	throw EscapeRoomEnigmaNotFoundException();
+}
+
+
 }
 }

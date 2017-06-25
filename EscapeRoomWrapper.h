@@ -99,6 +99,8 @@ namespace escaperoom {
 
         void addEnigma(const Enigma& enigma);
 
+        void removeEnigma(const Enigma& enigma);
+
     };
 
     std::ostream& operator<<(std::ostream& output, const EscapeRoomWrapper& room);

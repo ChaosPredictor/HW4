@@ -56,10 +56,41 @@ void testRoomAddEnigma() {
 
 }
 
+
+void testRoomRemoveEnigma() {
+	char *company_name1 = (char*)"company1";
+	EscapeRoomWrapper room1 = EscapeRoomWrapper(company_name1, 3);
+
+	char *enigma_name1 = (char*)"enigma1";
+	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
+	Enigma enigma1 = Enigma(enigma_name1, MEDIUM_ENIGMA, 4, elements);
+
+	char *enigma_name2 = (char*)"enigma2";
+	std::set<string> elements2 { "John2", "Kelly2", "Amanda2" };
+	Enigma enigma2 = Enigma(enigma_name2, EASY_ENIGMA, 3, elements2);
+
+	ASSERT_THROWS(EscapeRoomNoEnigmasException, room1.removeEnigma(enigma1));
+
+	room1.addEnigma(enigma1);
+
+	ASSERT_THROWS(EscapeRoomEnigmaNotFoundException, room1.removeEnigma(enigma2));
+
+	ASSERT_NO_THROW(room1.removeEnigma(enigma1));
+	room1.addEnigma(enigma2);
+
+	ASSERT_THROWS(EscapeRoomEnigmaNotFoundException, room1.removeEnigma(enigma1));
+
+}
+
+
+
+
 void testRoom() {
 	RUN_TEST(testRoomConstractor);
 	RUN_TEST(testRoomCopy);
 	RUN_TEST(testRoomAddEnigma);
+	RUN_TEST(testRoomRemoveEnigma);
+
 
 	char *name1 = (char*)"company1";
 	char *name2 = (char*)"company2";
