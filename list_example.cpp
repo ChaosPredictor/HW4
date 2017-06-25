@@ -19,7 +19,7 @@ public:
 static void listExample(){
 	List<int> list;
 	list.insert(1, list.end());
-	//list.printList();
+/*	//list.printList();
 	list.insert(2, list.end());
 	list.insert(3, list.end());
 	//list.insert(4, list.end());
@@ -82,7 +82,7 @@ static void listExample(){
 	ASSERT_EQUALS(4, *it);
 	--it;
 	ASSERT_EQUALS(3, *it);
-
+*/
 
 }
 
