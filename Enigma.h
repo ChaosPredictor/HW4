@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <set>
+#include "Exceptions.h"
 
 using std::set;
 using std::string;
@@ -21,6 +22,7 @@ namespace escaperoom{
     std::string name;
     Difficulty difficulty;
     int numOfElements;
+    set<string> elements;
 
     public:
 
@@ -29,7 +31,15 @@ namespace escaperoom{
         // @param name : the name of the enigma.
         // @param difficulty : the difficulty of the enigma.
         // @param numOfElements : the number of elements in the enigma.
-        Enigma(const std::string& name, const Difficulty& difficulty, const int& numOfElements);
+        Enigma(const std::string& name, const Difficulty& difficulty, const int& numOfElements = 0);
+
+        // Constructs a new Enigma with the specified data.
+        //
+        // @param name : the name of the enigma.
+        // @param difficulty : the difficulty of the enigma.
+        // @param numOfElements : the number of elements in the enigma.
+        // @param elements : names of elements in the enigma.
+        Enigma(const std::string& name, const Difficulty& difficulty, const int& numOfElements, set<string>& elements);
 
 
         //copy constructor
@@ -78,6 +88,9 @@ namespace escaperoom{
         //
         string getName() const;
 
+        void addElement(const string& element);
+
+        void removeElement(const string& element);
 
     };
 

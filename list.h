@@ -228,6 +228,7 @@ typename List<T>::Iterator List<T>::end() const {
 
 template<class T>
 void List<T>::remove(Iterator& iterator) {
+	if (!(this->isIteratorOfList(iterator))) throw mtm::ListExceptions::ElementNotFound();
 	Node *node_right;
 	Node *node_left;
 	if( iterator.ptr == head && iterator.ptr->next == tail ) {

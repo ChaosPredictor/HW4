@@ -93,6 +93,8 @@ static void listExample(){
 
 	ASSERT_THROWS(mtm::ListExceptions::ElementNotFound, list.insert(1, list2.begin()) );
 
+	ASSERT_THROWS(mtm::ListExceptions::ElementNotFound, list.remove(it) );
+
 }
 
 
