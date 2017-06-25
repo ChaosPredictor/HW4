@@ -18,15 +18,15 @@ public:
 
 static void listExample(){
 	List<int> list;
-	list.printList();
+	//list.printList();
 	list.insert(1, list.end());
-	list.printList();
+	//list.printList();
 	list.insert(2, list.end());
-	list.printList();
+	//list.printList();
 	list.insert(3, list.end());
-	list.printList();
+	//list.printList();
 
-/*	//list.insert(4, list.end());
+	//list.insert(4, list.end());
 
 	//printf("begin address: %p   end address: %p \n", (void*)(list.begin().ptr), (void*)(list.end().ptr));
 
@@ -44,7 +44,6 @@ static void listExample(){
 
 	List<int>::Iterator it = list.begin();
 	ASSERT_EQUALS(3, list.getSize());
-	//list.printList();
 	list.remove(++it);
 	it = list.begin();
 	ASSERT_EQUALS(*it, 1);
@@ -68,9 +67,11 @@ static void listExample(){
 
 	// The following insert should add to end of list
 	list.insert(5);
+	list.printList();
+
 
 	const List<int> list2(list);
-	ASSERT_TRUE(list == list2);
+/*	ASSERT_TRUE(list == list2);
 	ASSERT_FALSE(list != list2);
 
 	//test directions

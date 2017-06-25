@@ -30,9 +30,11 @@ public:
     	return false;
     }
 
-    void insert(const T& data, Iterator iterator);
+    void insert(const T& data, Iterator iterator );
 
-	void insert(T data) {}
+	void insert(T data) {
+		insert(data, this->tail);
+	}
 
 	typename List<T>::Iterator begin();
 
@@ -93,19 +95,18 @@ List<T>::List() {
 
 template<class T>
 List<T>::~List() {
-	this->printList();
+	//this->printList();
 	List<T>::Iterator it = this->begin();
-	int i = 0;
-	while( i < 5 && it != this->end() ) {
-		printf("run list dict\n");
+	//int i = 0;
+	while( it != this->end() ) {
+		//printf("run list dict\n");
 		this->remove(it);
-		this->printList();
+		//this->printList();
 		it = this->begin();
-		i++;
 	}
 	//delete head;
 	//delete tail;
-	printf("distractor run\n");
+	//printf("distractor run\n");
 }
 
 
@@ -194,7 +195,16 @@ void List<T>::remove(Iterator& iterator) {
 	} else if ( iterator.ptr == head ) {
 		head = iterator.ptr->next;
 		iterator.ptr->next->last = nullptr;
-	} else  if( iterator.ptr->next == tail) {
+	} else {
+    	node_right = iterator.ptr->next;
+        node_left = iterator.ptr->last;
+        node_right->last = node_left;
+        node_left->next = node_right;
+	}
+
+
+
+		/*if( iterator.ptr->next == tail) {
     	node_left = iterator.ptr->last;
     	node_left->next = tail;
     } else if( iterator.ptr->last == head) {
@@ -205,7 +215,7 @@ void List<T>::remove(Iterator& iterator) {
         Node *node_left = iterator.ptr->last;
         node_right->last = node_left;
         node_left->next = node_right;
-    }
+    }*/
 	delete iterator.ptr;
     size--;
 }
@@ -221,7 +231,7 @@ class List<T>::Node {
     Node() : next(nullptr), last(nullptr) {}
     Node(const T& data) : data(new T(data)), next(nullptr), last(nullptr) {}
     ~Node() {
-    	printf("dictor Node\n");
+    	//printf("dictor Node\n");
     	//delete last;
     	//delete next;
     	if ( data != nullptr ) delete data;
