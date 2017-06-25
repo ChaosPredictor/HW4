@@ -2,7 +2,9 @@
 #define ESCAPEROOMWRAPPER_H
 
 #include <string>
+#include <vector>
 #include <iostream>
+#include "Enigma.h"
 #include "EscapeRoom.h"
 #include "Exceptions.h"
 
@@ -13,6 +15,7 @@ namespace escaperoom {
     class EscapeRoomWrapper{
 
     EscapeRoom room;
+    std::vector<Enigma> enigmas;
 
 
     public:
@@ -93,6 +96,8 @@ namespace escaperoom {
         //Function returns the number of participants allowed in the EscapeRoom.
         //
         int getMaxParticipants() const;
+
+        void addEnigma(const Enigma& enigma);
 
     };
 

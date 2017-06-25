@@ -45,10 +45,21 @@ void testRoomCopy() {
     ASSERT_WITH_MESSAGE((room2==room3), "FAIL: room.copy");
 }
 
+void testRoomAddEnigma() {
+	char *company_name1 = (char*)"company1";
+	EscapeRoomWrapper room1 = EscapeRoomWrapper(company_name1, 3);
+	char *enigma_name1 = (char*)"enigma1";
+	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
+	Enigma enigma1 = Enigma(enigma_name1, MEDIUM_ENIGMA, 4, elements);
+
+	ASSERT_NO_THROW(room1.addEnigma(enigma1));
+
+}
 
 void testRoom() {
 	RUN_TEST(testRoomConstractor);
 	RUN_TEST(testRoomCopy);
+	RUN_TEST(testRoomAddEnigma);
 
 	char *name1 = (char*)"company1";
 	char *name2 = (char*)"company2";

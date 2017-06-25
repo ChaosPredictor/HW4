@@ -118,6 +118,9 @@ int EscapeRoomWrapper::getMaxParticipants() const {
 	return roomGetMaxParticipants(this->room);
 }
 
+void EscapeRoomWrapper::addEnigma(const Enigma& enigma) {
+	enigmas.push_back(enigma);
+}
 
 }
 }
