@@ -459,7 +459,7 @@ void testCompanyConstractor() {
 	ASSERT_NO_THROW( Company(name, phone));
 }
 
-void testCreateRoomConstractor() {
+void testCreateRoom() {
 	string name = "company1";
 	string phone = "987654321";
 	char *room_name = (char*)"room1";
@@ -470,9 +470,32 @@ void testCreateRoomConstractor() {
 }
 
 
+void testCreateScaryRoom() {
+	string name = "company1";
+	string phone = "987654321";
+	char *room_name = (char*)"room1";
+
+	Company company = Company(name, phone);
+	ASSERT_NO_THROW( company.createScaryRoom(room_name, 60, 1, 2, 3, 4));
+
+}
+
+void testCreateKidsRoom() {
+	string name = "company1";
+	string phone = "987654321";
+	char *room_name = (char*)"room1";
+
+	Company company = Company(name, phone);
+	ASSERT_NO_THROW( company.createKidsRoom(room_name, 60, 1, 2, 3));
+
+}
+
 void testCompany() {
 	RUN_TEST(testCompanyConstractor);
-	RUN_TEST(testCreateRoomConstractor);
+	RUN_TEST(testCreateRoom);
+	RUN_TEST(testCreateScaryRoom);
+	RUN_TEST(testCreateKidsRoom);
+
 	printBuffer();
 }
 

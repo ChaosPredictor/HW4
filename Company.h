@@ -5,7 +5,10 @@
 #include <iostream>
 #include <string.h>
 #include <set>
+//TODO maybe remove
 #include "EscapeRoomWrapper.h"
+#include "ScaryRoom.h"
+#include "KidsRoom.h"
 #include "Enigma.h"
 #include "Exceptions.h"
 
@@ -61,8 +64,7 @@ namespace mtm{
             // @param ageLimit : the age limit for the room.
             // @param numOfScaryEnigmas : the number of scary enigmas in the room.
             // @throws CompanyMemoryProblemException in case of room creation failure.
-            void createScaryRoom(char* name, const int& escapeTime, const int& level,
-                                 const int& maxParticipants, const int& ageLimit, const int& numOfScaryEnigmas);
+            void createScaryRoom(char* name, const int& escapeTime, const int& level, const int& maxParticipants, const int& ageLimit, const int& numOfScaryEnigmas);
 
             //Function creates a scary escape room using the parameters and adds the room created to the company.
             //
@@ -72,8 +74,7 @@ namespace mtm{
             // @param maxParticipants: the maximal participants allowed in the room.
             // @param ageLimit : the age limit for the room.
             // @throws CompanyMemoryProblemException in case of room creation failure.
-            void createKidsRoom(char* name, const int& escapeTime, const int& level,
-                                 const int& maxParticipants, const int& ageLimit);
+            void createKidsRoom(char* name, const int& escapeTime, const int& level, const int& maxParticipants, const int& ageLimit);
 
             //Function returns a set of all the rooms in the company.
             //
