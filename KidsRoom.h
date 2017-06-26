@@ -9,7 +9,32 @@
 #define KIDSROOM_H_
 
 
+#include "EscapeRoomWrapper.h"
 
+namespace mtm{
+namespace escaperoom {
+
+    class KidsRoom : public EscapeRoomWrapper {
+
+    	int ageLimit;
+    public:
+
+    	KidsRoom(char* name, const int& escapeTime, const int& level, const int& maxParticipants, const int& ageLimit);
+
+    	//void setNewAgeLimit(const int& limit);
+
+    	//void incNumberOfScaryEnigmas();
+
+    	//int getAgeLimit() const;
+
+        //friend std::ostream& operator<<(std::ostream& output, const ScaryRoom& room);
+
+    };
+
+    //std::ostream& operator<<(std::ostream& output, const ScaryRoom& room);
+
+}
+}
 
 
 #endif /* KIDSROOM_H_ */
