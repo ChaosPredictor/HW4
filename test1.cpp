@@ -299,7 +299,7 @@ void testScaryRoomConstractor() {
 
 }
 
-void testScaryRoomSetAgeLimit() {
+void testScaryRoomSetNewAgeLimit() {
 	char *name1 = (char*)"company1";
 
 	ScaryRoom scary_room1 = ScaryRoom(name1, 60, 5, 1, 1, 1);
@@ -310,9 +310,22 @@ void testScaryRoomSetAgeLimit() {
 
 }
 
+
+void testScaryRoomIncNumberOfScaryEnigmas() {
+	char *name1 = (char*)"company1";
+
+	ScaryRoom scary_room1 = ScaryRoom(name1, 60, 5, 1, 1, 1);
+
+	ASSERT_NO_THROW(scary_room1.incNumberOfScaryEnigmas());
+}
+
+
+
 void testScaryRoom() {
 	RUN_TEST(testScaryRoomConstractor);
-	RUN_TEST(testScaryRoomSetAgeLimit);
+	RUN_TEST(testScaryRoomSetNewAgeLimit);
+	RUN_TEST(testScaryRoomIncNumberOfScaryEnigmas);
+
 
 
 

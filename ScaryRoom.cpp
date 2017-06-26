@@ -21,6 +21,10 @@ void ScaryRoom::setNewAgeLimit(const int& limit) {
 	ageLimit = limit;
 }
 
+void ScaryRoom::incNumberOfScaryEnigmas() {
+	numOfScaryEnigmas++;
+}
+
 }
 }
 

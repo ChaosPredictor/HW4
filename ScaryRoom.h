@@ -22,6 +22,8 @@ namespace escaperoom {
 
     	void setNewAgeLimit(const int& limit);
 
+    	void incNumberOfScaryEnigmas();
+
     };
 
 }
