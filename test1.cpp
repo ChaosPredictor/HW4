@@ -347,10 +347,10 @@ void testScaryRoomGetAgeLimit() {
 void testScaryRoomPrint() {
 	char *name1 = (char*)"room1";
 
-	ScaryRoom scaryRoom1 = ScaryRoom(name1, 60, 5, 1, 3, 2);
+	ScaryRoom scary_room1 = ScaryRoom(name1, 60, 5, 1, 3, 2);
 
     std::ostringstream stream;
-    stream << scaryRoom1;
+    stream << scary_room1;
     std::string str =  stream.str();
     ASSERT_PRINT(str, "Scary Room: room1 (60/5/1/3)");
 
@@ -383,7 +383,6 @@ void testKidsRoomConstractor() {
 
 }
 
-
 void testKidsRoomSetNewAgeLimit() {
 	char *name1 = (char*)"room1";
 
@@ -406,7 +405,6 @@ void testKidsRoomSetNewAgeLimit() {
 
 }
 
-
 void testKidsRoomGetAgeLimit() {
 	char *name1 = (char*)"room1";
 
@@ -423,11 +421,23 @@ void testKidsRoomGetAgeLimit() {
 
 }
 
+void testKidsRoomPrint() {
+	char *name1 = (char*)"room1";
+
+	KidsRoom kids_room1 = KidsRoom(name1, 60, 5, 1, 3);
+
+    std::ostringstream stream;
+    stream << kids_room1;
+    std::string str =  stream.str();
+    ASSERT_PRINT(str, "Kids Room: room1 (60/5/1/3)");
+
+}
+
 void testKidsRoom() {
 	RUN_TEST(testKidsRoomConstractor);
 	RUN_TEST(testKidsRoomSetNewAgeLimit);
 	RUN_TEST(testKidsRoomGetAgeLimit);
-	//RUN_TEST(testKidsRoomPrint);
+	RUN_TEST(testKidsRoomPrint);
 }
 
 
