@@ -57,7 +57,6 @@ void testRoomAddEnigma() {
 
 }
 
-
 void testRoomRemoveEnigma() {
 	char *company_name1 = (char*)"company1";
 	EscapeRoomWrapper room1 = EscapeRoomWrapper(company_name1, 3);
@@ -82,7 +81,6 @@ void testRoomRemoveEnigma() {
 	ASSERT_THROWS(EscapeRoomEnigmaNotFoundException, room1.removeEnigma(enigma1));
 
 }
-
 
 void testRoomGetHardestEnigma() {
 	char *company_name1 = (char*)"company1";
@@ -206,6 +204,7 @@ void testRoom() {
 }
 
 
+
 void testEnigma1() {
 	char *name1 = (char*)"enigma1";
 	char *name2 = (char*)"enigma2";
@@ -231,7 +230,6 @@ void testEnigma1() {
     ASSERT_PRINT(str, "enigma1 (1) 3");
 
 }
-
 
 void testEnigmaConstractor() {
 	char *name1 = (char*)"enigma1";
@@ -273,7 +271,6 @@ void testEnigmaAddElement() {
     ASSERT_PRINT(str2, "enigma1 (1) 4");
 }
 
-
 void testEnigma() {
 	RUN_TEST(testEnigma1);
 	RUN_TEST(testEnigmaConstractor);
@@ -281,6 +278,7 @@ void testEnigma() {
 
 
 }
+
 
 
 void testScaryRoomConstractor() {
@@ -322,7 +320,6 @@ void testScaryRoomSetNewAgeLimit() {
 
 }
 
-
 void testScaryRoomIncNumberOfScaryEnigmas() {
 	char *name1 = (char*)"room1";
 
@@ -330,7 +327,6 @@ void testScaryRoomIncNumberOfScaryEnigmas() {
 
 	ASSERT_NO_THROW(scary_room1.incNumberOfScaryEnigmas());
 }
-
 
 void testScaryRoomGetAgeLimit() {
 	char *name1 = (char*)"room1";
@@ -348,7 +344,6 @@ void testScaryRoomGetAgeLimit() {
 
 }
 
-
 void testScaryRoomPrint() {
 	char *name1 = (char*)"room1";
 
@@ -365,12 +360,37 @@ void testScaryRoom() {
 	RUN_TEST(testScaryRoomConstractor);
 	RUN_TEST(testScaryRoomSetNewAgeLimit);
 	RUN_TEST(testScaryRoomIncNumberOfScaryEnigmas);
-
 	RUN_TEST(testScaryRoomGetAgeLimit);
-
 	RUN_TEST(testScaryRoomPrint);
+}
 
 
+
+void testKidsRoomConstractor() {
+	char *name1 = (char*)"room1";
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, KidsRoom(NULL, 60, 5, 1,  1));
+
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, KidsRoom(name1, 29, 3, 5,  1));
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, KidsRoom(name1, 91, 3, 5,  1));
+	ASSERT_NO_THROW(KidsRoom(name1, 30, 3, 5, 1));
+	ASSERT_NO_THROW(KidsRoom(name1, 90, 3, 5, 1));
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, KidsRoom(name1, 60, 0, 5, 1));
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, KidsRoom(name1, 60, 11, 5, 1));
+	ASSERT_NO_THROW(KidsRoom(name1, 60, 1, 5, 1));
+	ASSERT_NO_THROW(KidsRoom(name1, 60, 10, 5, 1));
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, KidsRoom(name1, 60, 5, 0, 1));
+	ASSERT_NO_THROW(KidsRoom(name1, 60, 5, 1, 1));
+
+}
+
+
+
+void testKidsRoom() {
+	RUN_TEST(testKidsRoomConstractor);
+	//RUN_TEST(testKidsRoomSetNewAgeLimit);
+	//RUN_TEST(testKidsRoomIncNumberOfScaryEnigmas);
+	//RUN_TEST(testKidsRoomGetAgeLimit);
+	//RUN_TEST(testKidsRoomPrint);
 }
 
 
@@ -438,8 +458,13 @@ void test4() {
 
 int main() {
 	testRoom();
+	std::cout << std::endl << "==========================" << std::endl << std::endl;
 	testEnigma();
+	std::cout << std::endl << "==========================" << std::endl << std::endl;
 	testScaryRoom();
+	std::cout << std::endl << "==========================" << std::endl << std::endl;
+	testKidsRoom();
+	std::cout << std::endl << "==========================" << std::endl << std::endl;
 
 	main2();
 
