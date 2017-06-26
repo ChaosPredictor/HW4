@@ -24,6 +24,8 @@ namespace escaperoom {
 
     	void incNumberOfScaryEnigmas();
 
+    	int getAgeLimit();
+
     };
 
 }

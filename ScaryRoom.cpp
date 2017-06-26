@@ -25,6 +25,11 @@ void ScaryRoom::incNumberOfScaryEnigmas() {
 	numOfScaryEnigmas++;
 }
 
+
+int ScaryRoom::getAgeLimit() {
+	return ageLimit;
+}
+
 }
 }
 
