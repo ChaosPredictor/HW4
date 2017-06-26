@@ -25,9 +25,23 @@ void ScaryRoom::incNumberOfScaryEnigmas() {
 	numOfScaryEnigmas++;
 }
 
-
-int ScaryRoom::getAgeLimit() {
+int ScaryRoom::getAgeLimit() const{
 	return ageLimit;
+}
+
+std::ostream& operator<<(std::ostream& output, const ScaryRoom& room) {
+	output << "Scary Room: ";
+	output << room.getName();
+	output << " (";
+	output << room.getMaxTime();
+	output << "/";
+	output << room.getRoomLevel();
+	output << "/";
+	output << room.getMaxParticipants();
+	output << "/";
+	output << room.getAgeLimit();
+	output << ")";
+	return output;
 }
 
 }

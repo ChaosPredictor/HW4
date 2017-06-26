@@ -24,9 +24,13 @@ namespace escaperoom {
 
     	void incNumberOfScaryEnigmas();
 
-    	int getAgeLimit();
+    	int getAgeLimit() const;
+
+        friend std::ostream& operator<<(std::ostream& output, const ScaryRoom& room);
 
     };
+
+    std::ostream& operator<<(std::ostream& output, const ScaryRoom& room);
 
 }
 }

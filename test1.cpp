@@ -8,6 +8,7 @@
 #include <string>
 #include "list_example.h"
 
+
 //TODO remove
 #include <iostream>
 
@@ -283,7 +284,7 @@ void testEnigma() {
 
 
 void testScaryRoomConstractor() {
-	char *name1 = (char*)"company1";
+	char *name1 = (char*)"room1";
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, ScaryRoom(NULL, 60, 5, 1, 1, 1));
 
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, ScaryRoom(name1, 29, 3, 5, 1, 1));
@@ -300,7 +301,7 @@ void testScaryRoomConstractor() {
 }
 
 void testScaryRoomSetNewAgeLimit() {
-	char *name1 = (char*)"company1";
+	char *name1 = (char*)"room1";
 
 	ScaryRoom scary_room1 = ScaryRoom(name1, 60, 5, 1, 1, 1);
 	int ageLimit = scary_room1.getAgeLimit();
@@ -323,7 +324,7 @@ void testScaryRoomSetNewAgeLimit() {
 
 
 void testScaryRoomIncNumberOfScaryEnigmas() {
-	char *name1 = (char*)"company1";
+	char *name1 = (char*)"room1";
 
 	ScaryRoom scary_room1 = ScaryRoom(name1, 60, 5, 1, 1, 1);
 
@@ -332,7 +333,7 @@ void testScaryRoomIncNumberOfScaryEnigmas() {
 
 
 void testScaryRoomGetAgeLimit() {
-	char *name1 = (char*)"company1";
+	char *name1 = (char*)"room1";
 
 	ScaryRoom scary_room1 = ScaryRoom(name1, 60, 5, 1, 1, 1);
 	ASSERT_THROWS(ScaryRoomIllegalAgeLimit, scary_room1.setNewAgeLimit(-1));
@@ -348,6 +349,18 @@ void testScaryRoomGetAgeLimit() {
 }
 
 
+void testScaryRoomPrint() {
+	char *name1 = (char*)"room1";
+
+	ScaryRoom scaryRoom1 = ScaryRoom(name1, 60, 5, 1, 3, 2);
+
+    std::ostringstream stream;
+    stream << scaryRoom1;
+    std::string str =  stream.str();
+    ASSERT_PRINT(str, "Scary Room: room1 (60/5/1/3)");
+
+}
+
 void testScaryRoom() {
 	RUN_TEST(testScaryRoomConstractor);
 	RUN_TEST(testScaryRoomSetNewAgeLimit);
@@ -355,6 +368,7 @@ void testScaryRoom() {
 
 	RUN_TEST(testScaryRoomGetAgeLimit);
 
+	RUN_TEST(testScaryRoomPrint);
 
 
 }

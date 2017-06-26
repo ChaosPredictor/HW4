@@ -84,16 +84,13 @@ void EscapeRoomWrapper::rate(const int& newRate) const {
 }
 
 std::ostream& operator<<(std::ostream& output, const EscapeRoomWrapper& room) {
-	char* name = roomGetName(room.room);
-	//TODO what the function should do in case of null
-	output << name;
-	free(name);
+	output << room.getName();
 	output << " (";
-	output << roomGetMaxTime(room.room);
+	output << room.getMaxTime();
 	output << "/";
-	output << getLevel(room.room);
+	output << room.getRoomLevel();
 	output << "/";
-	output << roomGetMaxParticipants(room.room);
+	output << room.getMaxParticipants();
 	output << ")";
 	return output;
 }
@@ -117,6 +114,8 @@ int EscapeRoomWrapper::getMaxTime() const {
 int EscapeRoomWrapper::getMaxParticipants() const {
 	return roomGetMaxParticipants(this->room);
 }
+
+
 
 void EscapeRoomWrapper::addEnigma(const Enigma& enigma) {
 	enigmas.push_back(enigma);
@@ -150,5 +149,8 @@ std::vector<Enigma>& EscapeRoomWrapper::getAllEnigmas() {
 	return enigmas;
 }
 
+int EscapeRoomWrapper::getRoomLevel() const {
+	return getLevel(this->room);
+}
 }
 }

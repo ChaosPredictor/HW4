@@ -17,9 +17,17 @@ namespace escaperoom {
     EscapeRoom room;
     std::vector<Enigma> enigmas;
 
+    protected:
+
+
 
     public:
-        // Constructs a new Escape Room with the specified data.
+
+    	//TODO is it possible to move to protected
+		int getRoomLevel() const;
+
+
+    	// Constructs a new Escape Room with the specified data.
         //
         // @param name : the name of the escape room.
         // @param escapeTime : the maximal escape time allowed in the room.
