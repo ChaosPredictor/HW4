@@ -279,6 +279,37 @@ void testEnigma() {
 	RUN_TEST(testEnigmaAddElement);
 
 
+}
+
+
+void testScaryRoomConstractor() {
+	char *name1 = (char*)"company1";
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, ScaryRoom(NULL, 60, 5, 1, 1, 1));
+
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, ScaryRoom(name1, 29, 3, 5, 1, 1));
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, ScaryRoom(name1, 91, 3, 5, 1, 1));
+	ASSERT_NO_THROW(ScaryRoom(name1, 30, 3, 5, 1, 1));
+	ASSERT_NO_THROW(ScaryRoom(name1, 90, 3, 5, 1, 1));
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, ScaryRoom(name1, 60, 0, 5, 1, 1));
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, ScaryRoom(name1, 60, 11, 5, 1, 1));
+	ASSERT_NO_THROW(ScaryRoom(name1, 60, 1, 5, 1, 1));
+	ASSERT_NO_THROW(ScaryRoom(name1, 60, 10, 5, 1, 1));
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, ScaryRoom(name1, 60, 5, 0, 1, 1));
+	ASSERT_NO_THROW(ScaryRoom(name1, 60, 5, 1, 1, 1));
+/*
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(NULL, 5));
+
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 0));
+	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 11));
+	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 1));
+	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 10));*/
+}
+
+
+
+void testScaryRoom() {
+	RUN_TEST(testScaryRoomConstractor);
+
 
 }
 
@@ -348,6 +379,7 @@ void test4() {
 int main() {
 	testRoom();
 	testEnigma();
+	testScaryRoom();
 
 	main2();
 

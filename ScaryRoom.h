@@ -8,10 +8,17 @@
 #ifndef SCARYROOM_H_
 #define SCARYROOM_H_
 
+#include "EscapeRoomWrapper.h"
+
 namespace mtm{
 namespace escaperoom {
 
     class ScaryRoom : public EscapeRoomWrapper {
+
+    	int ageLimit;
+    	int numOfScaryEnigmas;
+    public:
+    	ScaryRoom(char* name, const int& escapeTime, const int& level, const int& maxParticipants, const int& ageLimit, const int& numOfScaryEnigmas);
 
 
     };
