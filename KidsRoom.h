@@ -21,11 +21,11 @@ namespace escaperoom {
 
     	KidsRoom(char* name, const int& escapeTime, const int& level, const int& maxParticipants, const int& ageLimit);
 
-    	//void setNewAgeLimit(const int& limit);
+    	void setNewAgeLimit(const int& limit);
 
     	//void incNumberOfScaryEnigmas();
 
-    	//int getAgeLimit() const;
+    	int getAgeLimit() const;
 
         //friend std::ostream& operator<<(std::ostream& output, const ScaryRoom& room);
 

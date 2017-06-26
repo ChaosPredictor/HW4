@@ -16,6 +16,14 @@ KidsRoom::KidsRoom(char* name, const int& escapeTime, const int& level, const in
 	ageLimit(ageLimit)
 	{}
 
+void KidsRoom::setNewAgeLimit(const int& limit) {
+	if ( limit < 0 ) throw KidsRoomIllegalAgeLimit();
+	ageLimit = limit;
+}
+
+int KidsRoom::getAgeLimit() const{
+	return ageLimit;
+}
 
 }
 }

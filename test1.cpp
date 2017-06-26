@@ -384,12 +384,49 @@ void testKidsRoomConstractor() {
 }
 
 
+void testKidsRoomSetNewAgeLimit() {
+	char *name1 = (char*)"room1";
+
+	KidsRoom kids_room1 = KidsRoom(name1, 60, 5, 1, 1);
+	int ageLimit = kids_room1.getAgeLimit();
+	ASSERT_EQUALS(ageLimit, 1);
+
+
+	ASSERT_THROWS(KidsRoomIllegalAgeLimit, kids_room1.setNewAgeLimit(-1));
+	ageLimit = kids_room1.getAgeLimit();
+	ASSERT_EQUALS(ageLimit, 1);
+
+	ASSERT_NO_THROW(kids_room1.setNewAgeLimit(0));
+	ageLimit = kids_room1.getAgeLimit();
+	ASSERT_EQUALS(ageLimit, 0);
+
+	ASSERT_NO_THROW(kids_room1.setNewAgeLimit(10));
+	ageLimit = kids_room1.getAgeLimit();
+	ASSERT_EQUALS(ageLimit, 10);
+
+}
+
+
+void testKidsRoomGetAgeLimit() {
+	char *name1 = (char*)"room1";
+
+	KidsRoom kids_room1 = KidsRoom(name1, 60, 5, 1, 1);
+	ASSERT_THROWS(KidsRoomIllegalAgeLimit, kids_room1.setNewAgeLimit(-1));
+
+	ASSERT_NO_THROW(kids_room1.getAgeLimit());
+	int ageLimit = kids_room1.getAgeLimit();
+	ASSERT_EQUALS(ageLimit, 1);
+
+	ASSERT_NO_THROW(kids_room1.setNewAgeLimit(10));
+	ageLimit = kids_room1.getAgeLimit();
+	ASSERT_EQUALS(ageLimit, 10);
+
+}
 
 void testKidsRoom() {
 	RUN_TEST(testKidsRoomConstractor);
-	//RUN_TEST(testKidsRoomSetNewAgeLimit);
-	//RUN_TEST(testKidsRoomIncNumberOfScaryEnigmas);
-	//RUN_TEST(testKidsRoomGetAgeLimit);
+	RUN_TEST(testKidsRoomSetNewAgeLimit);
+	RUN_TEST(testKidsRoomGetAgeLimit);
 	//RUN_TEST(testKidsRoomPrint);
 }
 
