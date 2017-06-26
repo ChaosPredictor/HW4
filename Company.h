@@ -7,6 +7,8 @@
 #include <set>
 #include "EscapeRoomWrapper.h"
 #include "Enigma.h"
+#include "Exceptions.h"
+
 
 using std::set;
 using std::string;
@@ -19,6 +21,11 @@ namespace mtm{
         }RoomType;
 
         class Company{
+
+        	string name;
+        	string phoneNumber;
+        	set<EscapeRoomWrapper*> rooms;
+
         public:
 
             //// Constructs a new Company with the specified data.

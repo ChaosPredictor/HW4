@@ -55,12 +55,10 @@ static void listExample(){
 
 	// std::less<int> is a function object defined in <functional>
 	// it simply calls operator< of the type compared
-	//TODO to add it back
 	list.sort(std::less<int>());
 	it = list.begin();
 	ASSERT_EQUALS(1, *it);
 
-	//TODO to add it back
 	it = list.find(EqualTo(3));
 	ASSERT_EQUALS(3, *it);
 	*it = 3;

@@ -15,6 +15,11 @@
 using namespace mtm::escaperoom;
 
 
+
+void printBuffer() {
+	std::cout << std::endl << "==========================" << std::endl << std::endl;
+}
+
 void testRoomConstractor() {
 	char *name1 = (char*)"company1";
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(NULL, 60, 5, 1));
@@ -201,6 +206,8 @@ void testRoom() {
     ASSERT_WITH_MESSAGE(room1.getRate() == 1, "FAIL: getRate");
     ASSERT_WITH_MESSAGE(room1.getMaxTime() == 60, "FAIL: getMaxTime");
     ASSERT_WITH_MESSAGE(room1.getMaxParticipants() == 6, "FAIL: getMaxParticipants");
+	printBuffer();
+
 }
 
 
@@ -275,6 +282,7 @@ void testEnigma() {
 	RUN_TEST(testEnigma1);
 	RUN_TEST(testEnigmaConstractor);
 	RUN_TEST(testEnigmaAddElement);
+	printBuffer();
 
 
 }
@@ -362,6 +370,7 @@ void testScaryRoom() {
 	RUN_TEST(testScaryRoomIncNumberOfScaryEnigmas);
 	RUN_TEST(testScaryRoomGetAgeLimit);
 	RUN_TEST(testScaryRoomPrint);
+	printBuffer();
 }
 
 
@@ -438,8 +447,34 @@ void testKidsRoom() {
 	RUN_TEST(testKidsRoomSetNewAgeLimit);
 	RUN_TEST(testKidsRoomGetAgeLimit);
 	RUN_TEST(testKidsRoomPrint);
+	printBuffer();
 }
 
+
+
+void testCompanyConstractor() {
+	string name = "company1";
+	string phone = "987654321";
+
+	ASSERT_NO_THROW( Company(name, phone));
+}
+
+void testCreateRoomConstractor() {
+	string name = "company1";
+	string phone = "987654321";
+	char *room_name = (char*)"room1";
+
+	Company company = Company(name, phone);
+	ASSERT_NO_THROW( company.createRoom(room_name, 60, 1, 2));
+
+}
+
+
+void testCompany() {
+	RUN_TEST(testCompanyConstractor);
+	RUN_TEST(testCreateRoomConstractor);
+	printBuffer();
+}
 
 /*
 void test1() {
@@ -503,15 +538,15 @@ void test4() {
 }
 */
 
+
+
 int main() {
 	testRoom();
-	std::cout << std::endl << "==========================" << std::endl << std::endl;
 	testEnigma();
-	std::cout << std::endl << "==========================" << std::endl << std::endl;
 	testScaryRoom();
-	std::cout << std::endl << "==========================" << std::endl << std::endl;
 	testKidsRoom();
-	std::cout << std::endl << "==========================" << std::endl << std::endl;
+	testKidsRoom();
+	testCompany();
 
 	main2();
 
