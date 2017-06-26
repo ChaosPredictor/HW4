@@ -459,7 +459,7 @@ void testCompanyConstractor() {
 	ASSERT_NO_THROW( Company(name, phone));
 }
 
-void testCreateRoom() {
+void testCompanyCreateRoom() {
 	string name = "company1";
 	string phone = "987654321";
 	char *room_name = (char*)"room1";
@@ -469,8 +469,7 @@ void testCreateRoom() {
 
 }
 
-
-void testCreateScaryRoom() {
+void testCompanyCreateScaryRoom() {
 	string name = "company1";
 	string phone = "987654321";
 	char *room_name = (char*)"room1";
@@ -480,7 +479,7 @@ void testCreateScaryRoom() {
 
 }
 
-void testCreateKidsRoom() {
+void testCompanyCreateKidsRoom() {
 	string name = "company1";
 	string phone = "987654321";
 	char *room_name = (char*)"room1";
@@ -490,11 +489,35 @@ void testCreateKidsRoom() {
 
 }
 
+void testCompanyGetAllRooms() {
+	string name = "company1";
+	string phone = "987654321";
+	char *room_name1 = (char*)"room1";
+	char *room_name2 = (char*)"room2";
+	char *room_name3 = (char*)"room3";
+
+
+	Company company = Company(name, phone);
+	company.createRoom(room_name1, 60, 1, 2);
+	company.createScaryRoom(room_name2, 60, 1, 2, 3, 4);
+	company.createKidsRoom(room_name3, 60, 1, 2, 3);
+	ASSERT_NO_THROW( company.getAllRooms() );
+	set<EscapeRoomWrapper*> rooms = company.getAllRooms();
+	ASSERT_EQUALS(rooms.size(), 3);
+
+
+}
+
+
+
+
 void testCompany() {
 	RUN_TEST(testCompanyConstractor);
-	RUN_TEST(testCreateRoom);
-	RUN_TEST(testCreateScaryRoom);
-	RUN_TEST(testCreateKidsRoom);
+	RUN_TEST(testCompanyCreateRoom);
+	RUN_TEST(testCompanyCreateScaryRoom);
+	RUN_TEST(testCompanyCreateKidsRoom);
+	RUN_TEST(testCompanyGetAllRooms);
+
 
 	printBuffer();
 }

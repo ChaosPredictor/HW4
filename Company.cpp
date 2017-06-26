@@ -48,7 +48,9 @@ void Company::createKidsRoom(char* name, const int& escapeTime, const int& level
 	}
 }
 
-
+set<EscapeRoomWrapper*> Company::getAllRooms() const {
+	return rooms;
+}
 
 
 
