@@ -8,7 +8,16 @@
 #ifndef SCARYROOM_H_
 #define SCARYROOM_H_
 
+namespace mtm{
+namespace escaperoom {
 
+    class ScaryRoom : public EscapeRoomWrapper {
+
+
+    };
+
+}
+}
 
 
 

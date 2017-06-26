@@ -103,6 +103,7 @@ namespace escaperoom {
 
         Enigma getHardestEnigma();
 
+        std::vector<Enigma>& getAllEnigmas();
     };
 
     std::ostream& operator<<(std::ostream& output, const EscapeRoomWrapper& room);

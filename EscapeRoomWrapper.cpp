@@ -146,5 +146,9 @@ Enigma EscapeRoomWrapper::getHardestEnigma() {
 	return hardestEnigma;
 }
 
+std::vector<Enigma>& EscapeRoomWrapper::getAllEnigmas() {
+	return enigmas;
+}
+
 }
 }
