@@ -296,19 +296,24 @@ void testScaryRoomConstractor() {
 	ASSERT_NO_THROW(ScaryRoom(name1, 60, 10, 5, 1, 1));
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, ScaryRoom(name1, 60, 5, 0, 1, 1));
 	ASSERT_NO_THROW(ScaryRoom(name1, 60, 5, 1, 1, 1));
-/*
-	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(NULL, 5));
 
-	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 0));
-	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 11));
-	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 1));
-	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 10));*/
 }
 
+void testScaryRoomSetAgeLimit() {
+	char *name1 = (char*)"company1";
 
+	ScaryRoom scary_room1 = ScaryRoom(name1, 60, 5, 1, 1, 1);
+	ASSERT_THROWS(ScaryRoomIllegalAgeLimit, scary_room1.setNewAgeLimit(-1));
+
+	ASSERT_NO_THROW(scary_room1.setNewAgeLimit(0));
+	ASSERT_NO_THROW(scary_room1.setNewAgeLimit(10));
+
+}
 
 void testScaryRoom() {
 	RUN_TEST(testScaryRoomConstractor);
+	RUN_TEST(testScaryRoomSetAgeLimit);
+
 
 
 }

@@ -20,6 +20,7 @@ namespace escaperoom {
     public:
     	ScaryRoom(char* name, const int& escapeTime, const int& level, const int& maxParticipants, const int& ageLimit, const int& numOfScaryEnigmas);
 
+    	void setNewAgeLimit(const int& limit);
 
     };
 

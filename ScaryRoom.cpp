@@ -16,6 +16,11 @@ ScaryRoom::ScaryRoom(char* name, const int& escapeTime, const int& level, const 
 	ageLimit(ageLimit),
 	numOfScaryEnigmas(numOfScaryEnigmas) {}
 
+void ScaryRoom::setNewAgeLimit(const int& limit) {
+	if ( limit < 0 ) throw ScaryRoomIllegalAgeLimit();
+	ageLimit = limit;
+}
+
 }
 }
 
