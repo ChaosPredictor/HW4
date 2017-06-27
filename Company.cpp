@@ -42,7 +42,7 @@ void Company::createScaryRoom(char* name, const int& escapeTime, const int& leve
 	}
 }
 
-void Company::createKidsRoom(char* name, const int& escapeTime, const int& level, const int& maxParticipants, const int& ageLimit)  {
+void Company::createKidsRoom(char* name, const int& escapeTime, const int& level, const int& maxParticipants, const int& ageLimit) {
 
 	try {
 		KidsRoom* room = new KidsRoom(name, escapeTime, level, maxParticipants, ageLimit);
@@ -81,7 +81,6 @@ void Company::addEnigma(const EscapeRoomWrapper& room, const Enigma& enigma) {
 	throw CompanyRoomNotFoundException();
 }
 
-
 void Company::removeEnigma(const EscapeRoomWrapper& room, const Enigma& enigma) {
 	for (std::set<EscapeRoomWrapper*>::iterator it=rooms.begin(); it!=rooms.end(); ++it) {
 		EscapeRoomWrapper* current_room = *it;
@@ -98,6 +97,28 @@ void Company::removeEnigma(const EscapeRoomWrapper& room, const Enigma& enigma) 
 	}
 	throw CompanyRoomNotFoundException();
 }
+
+void Company::addItem(const EscapeRoomWrapper& room, const Enigma& enigma, const string& element) {
+	for (std::set<EscapeRoomWrapper*>::iterator rooms_iterator=rooms.begin(); rooms_iterator!=rooms.end(); ++rooms_iterator) {
+		EscapeRoomWrapper* current_room = *rooms_iterator;
+		if ( room == *current_room ) {
+
+			std::vector<Enigma> enigmas = current_room->getAllEnigmas();
+			for (std::vector<Enigma>::iterator enigmas_iterator=enigmas.begin(); enigmas_iterator!=enigmas.end(); ++enigmas_iterator) {
+				Enigma& current_enigma = *enigmas_iterator;
+				if ( enigma == current_enigma ) {
+
+					current_enigma.addElement(element);
+					return;
+
+				}
+			}
+			throw CompanyRoomEnigmaNotFoundException();
+		}
+	}
+	throw CompanyRoomNotFoundException();
+}
+
 
 }
 }

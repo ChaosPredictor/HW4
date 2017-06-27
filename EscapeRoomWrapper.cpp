@@ -175,5 +175,6 @@ std::vector<Enigma>& EscapeRoomWrapper::getAllEnigmas() {
 int EscapeRoomWrapper::getRoomLevel() const {
 	return getLevel(this->room);
 }
+
 }
 }
