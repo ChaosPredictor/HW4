@@ -65,7 +65,6 @@ void Company::removeRoom(const EscapeRoomWrapper& room) {
 			rooms.erase( *it );
 			return;
 		}
-
 	}
 	throw CompanyRoomNotFoundException();
 

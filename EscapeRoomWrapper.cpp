@@ -79,11 +79,8 @@ EscapeRoomWrapper::~EscapeRoomWrapper() {
 	escapeRoomDestroy(room);
 }
 
-//bool EscapeRoomWrapper::operator==(const EscapeRoomWrapper& room) const {
-//	return areEqualRooms(this->room, room.room);
-//}
 
-bool EscapeRoomWrapper::operator==(EscapeRoomWrapper& room) {
+bool EscapeRoomWrapper::operator==(const EscapeRoomWrapper& room) const {
 	return areEqualRooms(this->room, room.room);
 }
 

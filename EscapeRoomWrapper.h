@@ -66,9 +66,7 @@ namespace escaperoom {
         // the exercise sheet.
         //
         // @param room : the right-hand side operand.
-        //bool operator==(const EscapeRoomWrapper& room) const;
-        bool operator==(EscapeRoomWrapper& room);
-
+        bool operator==(const EscapeRoomWrapper& room) const;
         bool operator!=(const EscapeRoomWrapper& room) const;
         bool operator<(const EscapeRoomWrapper& room) const;
         bool operator>(const EscapeRoomWrapper& room) const;
@@ -87,7 +85,7 @@ namespace escaperoom {
         void rate(const int& newRate) const;
 
         // Destructor for EscapeRoomWrapper
-        virtual ~EscapeRoomWrapper();
+        ~EscapeRoomWrapper();
 
         // Prints the data of the Room in the following format:
         //

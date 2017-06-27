@@ -132,14 +132,14 @@ namespace mtm{
             //
             // @param: name : the name of the room requested.
             // @throws: CompanyRoomNotFoundException if room doesnt exist.
-            EscapeRoomWrapper getRoomByName(const string& name) const;
+            EscapeRoomWrapper* getRoomByName(const string& name) const;
 
 
             // Prints the data of the company in the following format:
             //
-            //     "<CompanyName> : <PhoneNumber>\n
-            //      -<RoomName>
-            //      -<RoomName> …"
+            //     "<CompanyName> : <PhoneNumber>
+            //      <Room>
+            //      <Room> …"
             //
             // @param output : the output stream to which the data is printed.
             // @param company : the company whose data is printed.
