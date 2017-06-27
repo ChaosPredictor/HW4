@@ -60,16 +60,26 @@ set<EscapeRoomWrapper*> Company::getAllRooms() const {
 
 void Company::removeRoom(const EscapeRoomWrapper& room) {
 	for (std::set<EscapeRoomWrapper*>::iterator it=rooms.begin(); it!=rooms.end(); ++it) {
-		if ( room.getName() == (*it)->getName()) {
+		EscapeRoomWrapper* current_room = *it;
+		if ( room == *current_room ) {
 			delete *it;
 			rooms.erase( *it );
 			return;
 		}
 	}
 	throw CompanyRoomNotFoundException();
-
 }
 
+void Company::addEnigma(const EscapeRoomWrapper& room, const Enigma& enigma) {
+	for (std::set<EscapeRoomWrapper*>::iterator it=rooms.begin(); it!=rooms.end(); ++it) {
+		EscapeRoomWrapper* current_room = *it;
+		if ( room == *current_room ) {
+			current_room->addEnigma(enigma);
+			return;
+		}
+	}
+	throw CompanyRoomNotFoundException();
+}
 
 }
 }
