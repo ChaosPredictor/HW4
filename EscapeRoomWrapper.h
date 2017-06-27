@@ -51,16 +51,24 @@ namespace escaperoom {
         //@throws EscapeRoomMemoryProblemException in case of creation failure.
         EscapeRoomWrapper(const EscapeRoomWrapper& room);
 
+        //EscapeRoomWrapper(EscapeRoomWrapper& room);
+
+
         //assignment operator
         //
         //@param room : the room to be assigned.
         EscapeRoomWrapper& operator=(const EscapeRoomWrapper& room);
 
+        //EscapeRoomWrapper& operator=(EscapeRoomWrapper& room);
+
+
         // Comparison operators for Escape Rooms. rooms are compared as described in
         // the exercise sheet.
         //
         // @param room : the right-hand side operand.
-        bool operator==(const EscapeRoomWrapper& room) const;
+        //bool operator==(const EscapeRoomWrapper& room) const;
+        bool operator==(EscapeRoomWrapper& room);
+
         bool operator!=(const EscapeRoomWrapper& room) const;
         bool operator<(const EscapeRoomWrapper& room) const;
         bool operator>(const EscapeRoomWrapper& room) const;

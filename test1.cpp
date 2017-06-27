@@ -504,10 +504,37 @@ void testCompanyGetAllRooms() {
 	ASSERT_NO_THROW( company.getAllRooms() );
 	set<EscapeRoomWrapper*> rooms = company.getAllRooms();
 	ASSERT_EQUALS(rooms.size(), 3);
-
-
 }
 
+void testCompanyRemoveRoom() {
+	string name = "company1";
+	string phone = "987654321";
+	char *room_name1 = (char*)"room1";
+	char *room_name2 = (char*)"room2";
+	char *room_name3 = (char*)"room3";
+	//char *room_name4 = (char*)"room4";
+
+
+
+	Company company = Company(name, phone);
+	company.createRoom(room_name1, 60, 1, 2);
+	company.createScaryRoom(room_name2, 60, 1, 2, 3, 4);
+	company.createKidsRoom(room_name3, 60, 1, 2, 3);
+	ASSERT_NO_THROW( company.getAllRooms() );
+	set<EscapeRoomWrapper*> rooms = company.getAllRooms();
+	ASSERT_EQUALS(rooms.size(), 3);
+
+	company.removeRoom(EscapeRoomWrapper(room_name3, 60, 1, 2));
+	//rooms = company.getAllRooms();
+	//ASSERT_EQUALS(rooms.size(), 3);
+
+			//ASSERT_THROWS(CompanyRoomNotFoundException, company.removeRoom(EscapeRoomWrapper(room_name4, 66, 5, 6)));
+
+			//company.removeRoom(EscapeRoomWrapper(room_name1, 60, 1, 2));
+	//rooms = company.getAllRooms();
+	//ASSERT_EQUALS(rooms.size(), 2);
+
+}
 
 
 
@@ -517,6 +544,7 @@ void testCompany() {
 	RUN_TEST(testCompanyCreateScaryRoom);
 	RUN_TEST(testCompanyCreateKidsRoom);
 	RUN_TEST(testCompanyGetAllRooms);
+	RUN_TEST(testCompanyRemoveRoom);
 
 
 	printBuffer();
