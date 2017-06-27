@@ -59,43 +59,16 @@ set<EscapeRoomWrapper*> Company::getAllRooms() const {
 }
 
 void Company::removeRoom(const EscapeRoomWrapper& room) {
-	EscapeRoomWrapper room2 = room;
-/*	unsigned size = rooms.size();
-	//std::set<EscapeRoomWrapper*>::iterator it = rooms.find(&room2);
-	//if ( it == nullptr ) throw CompanyRoomNotFoundException();
-	rooms.erase( rooms.find(&room2) );
-	if ( rooms.size() == size ) throw CompanyRoomNotFoundException();*/
-
-	//EscapeRoomWrapper* room3 = *(rooms.begin());
-	//std::cout << room3->getName() << std::endl;
-
-	std::cout << std::endl;
-
 	for (std::set<EscapeRoomWrapper*>::iterator it=rooms.begin(); it!=rooms.end(); ++it) {
-		EscapeRoomWrapper* room3 = *it;
-		std::cout << room3->getName();
-		if ( room.getName() == room3->getName()) {
-			std::cout << "yes";
-		}
-		std::cout << std::endl;
-
-	}
-
-	/*
-	unsigned size = rooms.size();
-	for (std::set<EscapeRoomWrapper*>::iterator it=rooms.begin(); it!=rooms.end(); ++it) {
-		EscapeRoomWrapper room3 = *it;
-		std::cout << *it << std::endl;
-		std::cout << &room << std::endl;
-		if ( room2.getName() == room3.getName() ) {
-			rooms.erase(*it);
-			printf("yes\n");
+		if ( room.getName() == (*it)->getName()) {
+			delete *it;
+			rooms.erase( *it );
 			return;
-		} else {
-			printf("no\n");
 		}
+
 	}
-	if ( rooms.size() == size ) throw CompanyRoomNotFoundException();*/
+	throw CompanyRoomNotFoundException();
+
 }
 
 

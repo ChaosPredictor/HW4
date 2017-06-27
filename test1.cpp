@@ -512,7 +512,7 @@ void testCompanyRemoveRoom() {
 	char *room_name1 = (char*)"room1";
 	char *room_name2 = (char*)"room2";
 	char *room_name3 = (char*)"room3";
-	//char *room_name4 = (char*)"room4";
+	char *room_name4 = (char*)"room4";
 
 
 
@@ -524,15 +524,16 @@ void testCompanyRemoveRoom() {
 	set<EscapeRoomWrapper*> rooms = company.getAllRooms();
 	ASSERT_EQUALS(rooms.size(), 3);
 
-	company.removeRoom(EscapeRoomWrapper(room_name3, 60, 1, 2));
-	//rooms = company.getAllRooms();
-	//ASSERT_EQUALS(rooms.size(), 3);
+	ASSERT_THROWS(CompanyRoomNotFoundException, company.removeRoom(EscapeRoomWrapper(room_name4, 60, 1, 2)));
+	//company.removeRoom(EscapeRoomWrapper(room_name4, 60, 1, 2));
+	rooms = company.getAllRooms();
+	ASSERT_EQUALS(rooms.size(), 3);
 
 			//ASSERT_THROWS(CompanyRoomNotFoundException, company.removeRoom(EscapeRoomWrapper(room_name4, 66, 5, 6)));
 
-			//company.removeRoom(EscapeRoomWrapper(room_name1, 60, 1, 2));
-	//rooms = company.getAllRooms();
-	//ASSERT_EQUALS(rooms.size(), 2);
+	company.removeRoom(EscapeRoomWrapper(room_name1, 60, 1, 2));
+	rooms = company.getAllRooms();
+	ASSERT_EQUALS(rooms.size(), 2);
 
 }
 
