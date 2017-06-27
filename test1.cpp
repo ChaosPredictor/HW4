@@ -607,12 +607,10 @@ void testCompanyRemoveItem() {
 	char *enigma_name1 = (char*)"enigma1";
 	char *enigma_name2 = (char*)"enigma2";
 
-
 	Company company = Company(name, phone);
 	company.createRoom(room_name1, 60, 1, 2);
 
 	company.addEnigma(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4) );
-
 
 	ASSERT_THROWS(CompanyRoomNotFoundException, company.removeItem(EscapeRoomWrapper(room_name2, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4), "newItem" ));
 
@@ -624,12 +622,9 @@ void testCompanyRemoveItem() {
 
 	ASSERT_THROWS(CompanyRoomEnigmaElementNotFoundException, company.removeItem(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4), "newItem2" ));
 
+	ASSERT_NO_THROW(company.removeItem(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4), "newItem" ) );
 
-
-
-	ASSERT_THROWS(CompanyRoomNotFoundException, company.addItem(EscapeRoomWrapper(room_name2, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4), "newItem" ));
-
-	ASSERT_THROWS(CompanyRoomEnigmaNotFoundException, company.addItem(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name2, MEDIUM_ENIGMA, 4), "newItem" ));
+	ASSERT_THROWS(CompanyRoomEnigmaHasNoElementsException, company.removeItem(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4), "newItem" ));
 }
 
 void testCompany() {
