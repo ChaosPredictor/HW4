@@ -145,7 +145,7 @@ void EscapeRoomWrapper::addEnigma(const Enigma& enigma) {
 }
 
 void EscapeRoomWrapper::removeEnigma(const Enigma& enigma) {
-	if (enigmas.size() == 0 ) throw EscapeRoomNoEnigmasException();
+	if (enigmas.empty() ) throw EscapeRoomNoEnigmasException();
 	int i = 0;
 	for(auto const& value: enigmas) {
 		if ( value == enigma) {

@@ -81,6 +81,24 @@ void Company::addEnigma(const EscapeRoomWrapper& room, const Enigma& enigma) {
 	throw CompanyRoomNotFoundException();
 }
 
+
+void Company::removeEnigma(const EscapeRoomWrapper& room, const Enigma& enigma) {
+	for (std::set<EscapeRoomWrapper*>::iterator it=rooms.begin(); it!=rooms.end(); ++it) {
+		EscapeRoomWrapper* current_room = *it;
+		if ( room == *current_room ) {
+			try {
+				current_room->removeEnigma(enigma);
+			} catch ( EscapeRoomNoEnigmasException& e) {
+				throw CompanyRoomHasNoEnigmasException();
+			} catch ( EscapeRoomEnigmaNotFoundException& e) {
+				throw CompanyRoomEnigmaNotFoundException();
+			}
+			return;
+		}
+	}
+	throw CompanyRoomNotFoundException();
+}
+
 }
 }
 

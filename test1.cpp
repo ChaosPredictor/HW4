@@ -543,6 +543,32 @@ void testCompanyAddEnigma() {
 	company.createRoom(room_name1, 60, 1, 2);
 
 	ASSERT_THROWS(CompanyRoomNotFoundException, company.addEnigma(EscapeRoomWrapper(room_name2, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4) ));
+	ASSERT_NO_THROW(company.addEnigma(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4) ));
+
+}
+
+
+void testCompanyRemoveEnigma() {
+	string name = "company1";
+	string phone = "987654321";
+	char *room_name1 = (char*)"room1";
+	char *room_name2 = (char*)"room2";
+	char *enigma_name1 = (char*)"enigma1";
+	char *enigma_name2 = (char*)"enigma2";
+
+
+	Company company = Company(name, phone);
+	company.createRoom(room_name1, 60, 1, 2);
+
+	ASSERT_THROWS(CompanyRoomNotFoundException, company.removeEnigma(EscapeRoomWrapper(room_name2, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4) ));
+
+	ASSERT_THROWS(CompanyRoomHasNoEnigmasException, company.removeEnigma(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4) ));
+
+	company.addEnigma(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4) );
+
+	ASSERT_THROWS(CompanyRoomEnigmaNotFoundException, company.removeEnigma(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name2, MEDIUM_ENIGMA, 4) ));
+
+	ASSERT_NO_THROW(company.removeEnigma(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4) ));
 
 }
 
@@ -556,6 +582,8 @@ void testCompany() {
 	RUN_TEST(testCompanyGetAllRooms);
 	RUN_TEST(testCompanyRemoveRoom);
 	RUN_TEST(testCompanyAddEnigma);
+	RUN_TEST(testCompanyRemoveEnigma);
+
 
 
 	printBuffer();
