@@ -15,7 +15,7 @@ namespace escaperoom {
     class EscapeRoomWrapper{
 
     EscapeRoom room;
-    std::vector<Enigma> enigmas;
+    std::vector<Enigma*> enigmas;
 
     protected:
 
@@ -117,7 +117,7 @@ namespace escaperoom {
 
         Enigma getHardestEnigma();
 
-        std::vector<Enigma>& getAllEnigmas();
+        std::vector<Enigma*> getAllEnigmas();
     };
 
     std::ostream& operator<<(std::ostream& output, const EscapeRoomWrapper& room);

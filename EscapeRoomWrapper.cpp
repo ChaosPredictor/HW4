@@ -76,6 +76,9 @@ EscapeRoomWrapper& EscapeRoomWrapper::operator=(const EscapeRoomWrapper& room){
 }*/
 
 EscapeRoomWrapper::~EscapeRoomWrapper() {
+	for (std::vector<Enigma*>::iterator it=enigmas.begin(); it!=enigmas.end(); ++it) {
+		delete *it;
+	}
 	escapeRoomDestroy(room);
 }
 
@@ -141,34 +144,70 @@ int EscapeRoomWrapper::getMaxParticipants() const {
 
 
 void EscapeRoomWrapper::addEnigma(const Enigma& enigma) {
-	enigmas.push_back(enigma);
+	Enigma* new_enigma = new Enigma(enigma);
+	enigmas.push_back(new_enigma);
 }
 
 void EscapeRoomWrapper::removeEnigma(const Enigma& enigma) {
 	if (enigmas.empty() ) throw EscapeRoomNoEnigmasException();
+	for (std::vector<Enigma*>::iterator it=enigmas.begin(); it!=enigmas.end(); ++it) {
+		Enigma* current_enigma = *it;
+		if ( enigma == *current_enigma ) {
+			delete *it;
+			enigmas.erase( it );
+			return;
+		}
+	}
+	throw EscapeRoomEnigmaNotFoundException();
+
+
+
+	/*
+
+	if (enigmas.empty() ) throw EscapeRoomNoEnigmasException();
 	int i = 0;
 	for(auto const& value: enigmas) {
-		if ( value == enigma) {
+		if ( value == *enigma) {
 			enigmas.erase(enigmas.begin() + i);
 			return;
 		}
 		i++;
 	}
-	throw EscapeRoomEnigmaNotFoundException();
+	throw EscapeRoomEnigmaNotFoundException();*/
 }
 
 Enigma EscapeRoomWrapper::getHardestEnigma() {
+	//TODO test
+	if ( enigmas.empty() ) throw EscapeRoomNoEnigmasException();
+	//TODO pointer
+	Enigma hardest_enigma = Enigma(*enigmas.front());
+	for (std::vector<Enigma*>::iterator it=enigmas.begin(); it!=enigmas.end(); ++it) {
+		Enigma* current_enigma = *it;
+		if ( hardest_enigma.getDifficulty() < current_enigma->getDifficulty()) {
+			hardest_enigma = *current_enigma;
+		}
+
+		/*
+		if ( enigma == *current_enigma ) {
+			delete *it;
+			enigmas.erase( it );
+			return;
+		}*/
+	}
+
+
+/*
 	if (enigmas.size() == 0 ) throw EscapeRoomNoEnigmasException();
 	Enigma hardestEnigma = enigmas[0];
 	for(auto const& value: enigmas) {
 		if ( hardestEnigma.getDifficulty() < value.getDifficulty()) {
 			hardestEnigma = value;
 		}
-	}
-	return hardestEnigma;
+	}*/
+	return hardest_enigma;
 }
 
-std::vector<Enigma>& EscapeRoomWrapper::getAllEnigmas() {
+std::vector<Enigma*> EscapeRoomWrapper::getAllEnigmas() {
 	return enigmas;
 }
 

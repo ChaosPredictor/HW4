@@ -39,7 +39,7 @@ namespace escaperoom{
         // @param difficulty : the difficulty of the enigma.
         // @param numOfElements : the number of elements in the enigma.
         // @param elements : names of elements in the enigma.
-        Enigma(const std::string& name, const Difficulty& difficulty, const int& numOfElements, set<string>& elements);
+        Enigma(const std::string& name, const Difficulty& difficulty, const int& numOfElements, set<string> elements);
 
 
         //copy constructor
@@ -88,7 +88,7 @@ namespace escaperoom{
         //
         string getName() const;
 
-        void addElement(const string& element);
+        void addElement(string element);
 
         void removeElement(const string& element);
 

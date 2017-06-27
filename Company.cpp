@@ -103,12 +103,39 @@ void Company::addItem(const EscapeRoomWrapper& room, const Enigma& enigma, const
 		EscapeRoomWrapper* current_room = *rooms_iterator;
 		if ( room == *current_room ) {
 
-			std::vector<Enigma> enigmas = current_room->getAllEnigmas();
-			for (std::vector<Enigma>::iterator enigmas_iterator=enigmas.begin(); enigmas_iterator!=enigmas.end(); ++enigmas_iterator) {
-				Enigma& current_enigma = *enigmas_iterator;
-				if ( enigma == current_enigma ) {
+			std::vector<Enigma*> enigmas = current_room->getAllEnigmas();
+			for (std::vector<Enigma*>::iterator enigmas_iterator=enigmas.begin(); enigmas_iterator!=enigmas.end(); ++enigmas_iterator) {
+				Enigma* current_enigma = *enigmas_iterator;
+				if ( enigma == *current_enigma ) {
 
-					current_enigma.addElement(element);
+					current_enigma->addElement(element);
+					return;
+
+				}
+			}
+			throw CompanyRoomEnigmaNotFoundException();
+		}
+	}
+	throw CompanyRoomNotFoundException();
+}
+
+
+void Company::removeItem(const EscapeRoomWrapper& room, const Enigma& enigma, const string& element) {
+	for (std::set<EscapeRoomWrapper*>::iterator rooms_iterator=rooms.begin(); rooms_iterator!=rooms.end(); ++rooms_iterator) {
+		EscapeRoomWrapper* current_room = *rooms_iterator;
+		if ( room == *current_room ) {
+
+			std::vector<Enigma*> enigmas = current_room->getAllEnigmas();
+			for (std::vector<Enigma*>::iterator enigmas_iterator=enigmas.begin(); enigmas_iterator!=enigmas.end(); ++enigmas_iterator) {
+				Enigma* current_enigma = *enigmas_iterator;
+				if ( enigma == *current_enigma ) {
+					try {
+						current_enigma->removeElement(element);
+					} catch ( EnigmaNoElementsException& e) {
+						throw CompanyRoomEnigmaHasNoElementsException();
+					} catch ( EnigmaElementNotFoundException& e) {
+						throw CompanyRoomEnigmaElementNotFoundException();
+					}
 					return;
 
 				}
