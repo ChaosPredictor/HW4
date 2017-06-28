@@ -215,5 +215,10 @@ int EscapeRoomWrapper::getRoomLevel() const {
 	return getLevel(this->room);
 }
 
+/*virtual int EscapeRoomWrapper::getRoomType() const {
+	return 0;
+}*/
+
+
 }
 }

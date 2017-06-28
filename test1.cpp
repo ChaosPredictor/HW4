@@ -574,8 +574,6 @@ void testCompanyRemoveEnigma() {
 
 }
 
-
-
 void testCompanyAddItem() {
 	string name = "company1";
 	string phone = "987654321";
@@ -595,9 +593,6 @@ void testCompanyAddItem() {
 
 	ASSERT_NO_THROW(company.addItem(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4), "newItem" ) );
 }
-
-
-
 
 void testCompanyRemoveItem() {
 	string name = "company1";
@@ -627,6 +622,29 @@ void testCompanyRemoveItem() {
 	ASSERT_THROWS(CompanyRoomEnigmaHasNoElementsException, company.removeItem(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4), "newItem" ));
 }
 
+
+void testCompanyGetAllRoomsByType() {
+	string name = "company1";
+	string phone = "987654321";
+	char *room_name1 = (char*)"room1";
+	char *room_name2 = (char*)"room2";
+	char *room_name3 = (char*)"room3";
+	char *room_name4 = (char*)"room4";
+
+
+	Company company = Company(name, phone);
+	company.createRoom(room_name1, 60, 1, 2);
+	company.createScaryRoom(room_name2, 60, 1, 2, 3, 4);
+	company.createScaryRoom(room_name4, 60, 1, 2, 3, 4);
+	company.createKidsRoom(room_name3, 60, 1, 2, 3);
+
+	ASSERT_NO_THROW( company.getAllRooms() );
+	set<EscapeRoomWrapper*> rooms = company.getAllRoomsByType(SCARY_ROOM);
+	ASSERT_EQUALS(rooms.size(), 1);
+}
+
+
+
 void testCompany() {
 	RUN_TEST(testCompanyConstractor);
 	RUN_TEST(testCompanyCreateRoom);
@@ -638,6 +656,8 @@ void testCompany() {
 	RUN_TEST(testCompanyRemoveEnigma);
 	RUN_TEST(testCompanyAddItem);
 	RUN_TEST(testCompanyRemoveItem);
+
+	RUN_TEST(testCompanyGetAllRoomsByType);
 
 
 

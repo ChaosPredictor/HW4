@@ -6,7 +6,7 @@
  */
 
 #include "Company.h"
-
+#include <typeinfo>
 
 namespace mtm{
 namespace escaperoom{
@@ -119,7 +119,6 @@ void Company::addItem(const EscapeRoomWrapper& room, const Enigma& enigma, const
 	throw CompanyRoomNotFoundException();
 }
 
-
 void Company::removeItem(const EscapeRoomWrapper& room, const Enigma& enigma, const string& element) {
 	for (std::set<EscapeRoomWrapper*>::iterator rooms_iterator=rooms.begin(); rooms_iterator!=rooms.end(); ++rooms_iterator) {
 		EscapeRoomWrapper* current_room = *rooms_iterator;
@@ -144,6 +143,19 @@ void Company::removeItem(const EscapeRoomWrapper& room, const Enigma& enigma, co
 		}
 	}
 	throw CompanyRoomNotFoundException();
+}
+
+set<EscapeRoomWrapper*> Company::getAllRoomsByType(RoomType type) const {
+	std::cout << std::endl;
+	set<EscapeRoomWrapper*> filtered_rooms;
+	for (std::set<EscapeRoomWrapper*>::iterator it=rooms.begin(); it!=rooms.end(); ++it) {
+		EscapeRoomWrapper* current_room = *it;
+		if ( typeid(*current_room) == typeid(ScaryRoom) ) {
+			std::cout << "ScaryRoom" << std::endl;
+		}
+	}
+
+	return rooms;
 }
 
 

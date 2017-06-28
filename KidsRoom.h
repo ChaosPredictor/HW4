@@ -27,6 +27,8 @@ namespace escaperoom {
 
     	int getAgeLimit() const;
 
+        //virtual int getRoomType() const;
+
         friend std::ostream& operator<<(std::ostream& output, const KidsRoom& room);
 
     };

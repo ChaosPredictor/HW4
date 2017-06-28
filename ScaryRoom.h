@@ -28,6 +28,8 @@ namespace escaperoom {
 
         friend std::ostream& operator<<(std::ostream& output, const ScaryRoom& room);
 
+        //virtual int getRoomType() const;
+
     };
 
     std::ostream& operator<<(std::ostream& output, const ScaryRoom& room);

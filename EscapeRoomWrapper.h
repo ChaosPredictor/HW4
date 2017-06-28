@@ -7,18 +7,20 @@
 #include "Enigma.h"
 #include "EscapeRoom.h"
 #include "Exceptions.h"
+//#include "Company.h"
 
 
 namespace mtm{
 namespace escaperoom {
 
-    class EscapeRoomWrapper{
+    class EscapeRoomWrapper {
 
     EscapeRoom room;
     std::vector<Enigma*> enigmas;
 
     protected:
 
+    	//virtual int getRoomType() const;
 
 
     public:
@@ -85,7 +87,7 @@ namespace escaperoom {
         void rate(const int& newRate) const;
 
         // Destructor for EscapeRoomWrapper
-        ~EscapeRoomWrapper();
+        virtual ~EscapeRoomWrapper();
 
         // Prints the data of the Room in the following format:
         //
@@ -118,6 +120,7 @@ namespace escaperoom {
         Enigma getHardestEnigma();
 
         std::vector<Enigma*> getAllEnigmas();
+
     };
 
     std::ostream& operator<<(std::ostream& output, const EscapeRoomWrapper& room);

@@ -25,6 +25,10 @@ int KidsRoom::getAgeLimit() const{
 	return ageLimit;
 }
 
+/*virtual int KidsRoom::getRoomType() const{
+	return 2;
+}*/
+
 
 std::ostream& operator<<(std::ostream& output, const KidsRoom& room) {
 	output << "Kids Room: ";
