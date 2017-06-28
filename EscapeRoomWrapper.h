@@ -89,12 +89,16 @@ namespace escaperoom {
         // Destructor for EscapeRoomWrapper
         virtual ~EscapeRoomWrapper();
 
+
+
+
         // Prints the data of the Room in the following format:
         //
         //     "<name> (<maxTime>/<level>/<maxParticipants>)"
         //
         // @param output : the output stream to which the data is printed.
         // @param room : the room whose data is printed.
+
         friend std::ostream& operator<<(std::ostream& output, const EscapeRoomWrapper& room);
 
         //Function returns the name of the EscapeRoom.
@@ -120,6 +124,19 @@ namespace escaperoom {
         Enigma getHardestEnigma();
 
         std::vector<Enigma*> getAllEnigmas();
+
+//protected:
+        virtual void print(std::ostream& output) const;/* {
+        	output << getName();
+        	output << " (";
+        	output << getMaxTime();
+        	output << "/";
+        	output << getRoomLevel();
+        	output << "/";
+        	output << getMaxParticipants();
+        	output << ")";
+        }*/
+
 
     };
 

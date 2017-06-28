@@ -680,6 +680,35 @@ void testCompanyGetRoomByName() {
 }
 
 
+void testCompanyPrint() {
+	string name = "company1";
+	string phone = "987654321";
+	char *room_name1 = (char*)"room1";
+	char *room_name2 = (char*)"room2";
+	char *room_name3 = (char*)"room3";
+	char *room_name4 = (char*)"room4";
+	char *room_name5 = (char*)"room5";
+	char *room_name6 = (char*)"room6";
+
+	Company company = Company(name, phone);
+
+	ASSERT_THROWS(CompanyRoomNotFoundException, company.getRoomByName("room1"));
+
+	company.createRoom(room_name1, 60, 1, 2);
+	company.createRoom(room_name5, 60, 1, 2);
+	company.createRoom(room_name6, 60, 1, 2);
+	company.createScaryRoom(room_name2, 60, 1, 2, 3, 4);
+	company.createScaryRoom(room_name4, 60, 1, 2, 3, 4);
+	company.createKidsRoom(room_name3, 60, 1, 2, 3);
+
+	std::cout << company;
+	//EscapeRoomWrapper room_original = EscapeRoomWrapper(room_name1, 60, 1, 2);
+
+	//EscapeRoomWrapper* room_returned = company.getRoomByName("room1");
+	//ASSERT_EQUALS(room_original, *room_returned);
+
+}
+
 
 void testCompany() {
 	RUN_TEST(testCompanyConstractor);
@@ -693,9 +722,8 @@ void testCompany() {
 	RUN_TEST(testCompanyAddItem);
 	RUN_TEST(testCompanyRemoveItem);
 	RUN_TEST(testCompanyGetAllRoomsByType);
-
-
 	RUN_TEST(testCompanyGetRoomByName);
+	RUN_TEST(testCompanyPrint);
 
 
 

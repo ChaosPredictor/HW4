@@ -170,6 +170,16 @@ EscapeRoomWrapper* Company::getRoomByName(const string& name) const{
 	throw CompanyRoomNotFoundException();
 }
 
+std::ostream& operator<<(std::ostream& output, const Company& company){
+	std::cout << std::endl;
+	set<EscapeRoomWrapper*> rooms = company.getAllRooms();
+	for (std::set<EscapeRoomWrapper*>::iterator it=rooms.begin(); it!=rooms.end(); ++it) {
+		EscapeRoomWrapper* current_room = *it;
+		std::cout << *current_room << std::endl;
+	}
+	throw CompanyRoomNotFoundException();
+}
+
 
 }
 }

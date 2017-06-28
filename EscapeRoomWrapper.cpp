@@ -109,17 +109,6 @@ void EscapeRoomWrapper::rate(const int& newRate) const {
 	}
 }
 
-std::ostream& operator<<(std::ostream& output, const EscapeRoomWrapper& room) {
-	output << room.getName();
-	output << " (";
-	output << room.getMaxTime();
-	output << "/";
-	output << room.getRoomLevel();
-	output << "/";
-	output << room.getMaxParticipants();
-	output << ")";
-	return output;
-}
 
 std::string EscapeRoomWrapper::getName() const {
 	char* char_name = roomGetName(this->room);
@@ -214,6 +203,37 @@ std::vector<Enigma*> EscapeRoomWrapper::getAllEnigmas() {
 int EscapeRoomWrapper::getRoomLevel() const {
 	return getLevel(this->room);
 }
+/*
+virtual void EscapeRoomWrapper::print(std::ostream& output) const {
+	output << getName();
+	output << " (";
+	output << getMaxTime();
+	output << "/";
+	output << getRoomLevel();
+	output << "/";
+	output << getMaxParticipants();
+	output << ")";
+	//return output;
+}*/
+
+void EscapeRoomWrapper::print(std::ostream& output) const{
+	output << getName();
+	output << " (";
+	output << getMaxTime();
+	output << "/";
+	output << getRoomLevel();
+	output << "/";
+	output << getMaxParticipants();
+	output << ")";
+	return;
+}
+
+std::ostream& operator<<(std::ostream& output, const EscapeRoomWrapper& room) {
+    room.print(output);
+    return output;
+}
+
+
 
 /*virtual int EscapeRoomWrapper::getRoomType() const {
 	return 0;
