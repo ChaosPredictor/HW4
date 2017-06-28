@@ -157,8 +157,17 @@ set<EscapeRoomWrapper*> Company::getAllRoomsByType(RoomType type) const {
 			filtered_rooms.insert(current_room);
 		}
 	}
-
 	return filtered_rooms;
+}
+
+EscapeRoomWrapper* Company::getRoomByName(const string& name) const{
+	for (std::set<EscapeRoomWrapper*>::iterator it=rooms.begin(); it!=rooms.end(); ++it) {
+		EscapeRoomWrapper* current_room = *it;
+		if ( current_room->getName() == name ) {
+			return current_room;
+		}
+	}
+	throw CompanyRoomNotFoundException();
 }
 
 

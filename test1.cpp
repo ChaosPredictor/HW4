@@ -622,7 +622,6 @@ void testCompanyRemoveItem() {
 	ASSERT_THROWS(CompanyRoomEnigmaHasNoElementsException, company.removeItem(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4), "newItem" ));
 }
 
-
 void testCompanyGetAllRoomsByType() {
 	string name = "company1";
 	string phone = "987654321";
@@ -634,20 +633,50 @@ void testCompanyGetAllRoomsByType() {
 	char *room_name6 = (char*)"room6";
 
 	Company company = Company(name, phone);
+
+	set<EscapeRoomWrapper*> rooms = company.getAllRoomsByType(BASE_ROOM);
+	ASSERT_EQUALS(rooms.size(), 0);
+
 	company.createRoom(room_name1, 60, 1, 2);
 	company.createRoom(room_name5, 60, 1, 2);
 	company.createRoom(room_name6, 60, 1, 2);
+
+	rooms = company.getAllRoomsByType(SCARY_ROOM);
+	ASSERT_EQUALS(rooms.size(), 0);
+
 	company.createScaryRoom(room_name2, 60, 1, 2, 3, 4);
 	company.createScaryRoom(room_name4, 60, 1, 2, 3, 4);
 	company.createKidsRoom(room_name3, 60, 1, 2, 3);
 
-	ASSERT_NO_THROW( company.getAllRooms() );
-	set<EscapeRoomWrapper*> rooms = company.getAllRoomsByType(BASE_ROOM);
+	ASSERT_NO_THROW( company.getAllRoomsByType(BASE_ROOM) );
+	rooms = company.getAllRoomsByType(BASE_ROOM);
 	ASSERT_EQUALS(rooms.size(), 3);
 	rooms = company.getAllRoomsByType(SCARY_ROOM);
 	ASSERT_EQUALS(rooms.size(), 2);
 	rooms = company.getAllRoomsByType(KIDS_ROOM);
 	ASSERT_EQUALS(rooms.size(), 1);
+}
+
+
+
+void testCompanyGetRoomByName() {
+	string name = "company1";
+	string phone = "987654321";
+	char *room_name1 = (char*)"room1";
+	char *room_name2 = (char*)"room2";
+
+	Company company = Company(name, phone);
+
+	ASSERT_THROWS(CompanyRoomNotFoundException, company.getRoomByName("room1"));
+
+	company.createRoom(room_name1, 60, 1, 2);
+	company.createRoom(room_name2, 61, 2, 3);
+
+	EscapeRoomWrapper room_original = EscapeRoomWrapper(room_name1, 60, 1, 2);
+
+	EscapeRoomWrapper* room_returned = company.getRoomByName("room1");
+	ASSERT_EQUALS(room_original, *room_returned);
+
 }
 
 
@@ -663,8 +692,10 @@ void testCompany() {
 	RUN_TEST(testCompanyRemoveEnigma);
 	RUN_TEST(testCompanyAddItem);
 	RUN_TEST(testCompanyRemoveItem);
-
 	RUN_TEST(testCompanyGetAllRoomsByType);
+
+
+	RUN_TEST(testCompanyGetRoomByName);
 
 
 
