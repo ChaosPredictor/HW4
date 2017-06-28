@@ -125,18 +125,7 @@ namespace escaperoom {
 
         std::vector<Enigma*> getAllEnigmas();
 
-//protected:
-        virtual void print(std::ostream& output) const;/* {
-        	output << getName();
-        	output << " (";
-        	output << getMaxTime();
-        	output << "/";
-        	output << getRoomLevel();
-        	output << "/";
-        	output << getMaxParticipants();
-        	output << ")";
-        }*/
-
+        virtual void print(std::ostream& output) const;
 
     };
 

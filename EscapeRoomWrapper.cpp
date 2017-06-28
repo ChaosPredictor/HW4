@@ -10,10 +10,23 @@
 #include <stdio.h>
 #include "EscapeRoomWrapper.h"
 
+#define DEFAULT_MAX_TIME 60
+#define DEFAULT_MAX_PARTICIPANTS 6
+
 namespace mtm{
 namespace escaperoom {
 
-EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& escapeTime, const int& level, const int& maxParticipants) {
+EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& level) : enigmas() {
+	if( name == NULL || level < 1 || level > 10 ) throw EscapeRoomMemoryProblemException();
+
+	room = escapeRoomCreate(name, DEFAULT_MAX_TIME, DEFAULT_MAX_PARTICIPANTS, level);
+	if(room == NULL) {
+		throw EscapeRoomMemoryProblemException();
+	}
+	//TODO is it possible w/o code duplication
+}
+
+EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& escapeTime, const int& level, const int& maxParticipants) : enigmas() {
 	if( name == NULL || escapeTime < 30 || escapeTime > 90 || level < 1 || level > 10 || maxParticipants < 1 ) throw EscapeRoomMemoryProblemException();
 	room = escapeRoomCreate(name, escapeTime, maxParticipants, level);
 	if(room == NULL) {
@@ -22,58 +35,52 @@ EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& escapeTime, const in
 
 }
 
-EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& level) {
-	if( name == NULL || level < 1 || level > 10 ) throw EscapeRoomMemoryProblemException();
-	room = escapeRoomCreate(name, 60, 6, level);
-	if(room == NULL) {
+EscapeRoomWrapper::EscapeRoomWrapper(const EscapeRoomWrapper& room_to_copy) {
+	if( &room_to_copy == nullptr ) throw EscapeRoomMemoryProblemException();
+	//TODO maybe w/o it
+	room = escapeRoomCopy(room_to_copy.room);
+	if( room == NULL) {
 		throw EscapeRoomMemoryProblemException();
 	}
-	//TODO is it possible w/o code duplication
+	//std::cout << std::endl;
+	//std::cout << "copy" << std::endl;
+	//std::cout << std::endl;
+
+	std::vector<Enigma*> enigmas_to_copy = room_to_copy.enigmas;
+	for (std::vector<Enigma*>::iterator it=enigmas_to_copy.begin(); it!=enigmas_to_copy.end(); ++it) {
+		//std::cout << "one" << std::endl;
+		//Enigma current_enigma(*it);
+		Enigma* current_enigma = new Enigma(**it);
+
+		enigmas.push_back(current_enigma);
+	}
 }
 
-EscapeRoomWrapper::EscapeRoomWrapper(const EscapeRoomWrapper& room) {
-	//TODO maybe w/o it
-	if( &room == nullptr ) throw EscapeRoomMemoryProblemException();
-	this->room = escapeRoomCopy(room.room);
-	if(this->room == NULL) {
-		throw EscapeRoomMemoryProblemException();
-	}
-}
-
-/*EscapeRoomWrapper::EscapeRoomWrapper(EscapeRoomWrapper& room) {
-	//TODO maybe w/o it
-	if( &room == nullptr ) throw EscapeRoomMemoryProblemException();
-	this->room = escapeRoomCopy(room.room);
-	if(this->room == NULL) {
-		throw EscapeRoomMemoryProblemException();
-	}
-}*/
-
-EscapeRoomWrapper& EscapeRoomWrapper::operator=(const EscapeRoomWrapper& room){
-	if( this == &room) {
+EscapeRoomWrapper& EscapeRoomWrapper::operator=(const EscapeRoomWrapper& room_to_copy){
+	if( this == &room_to_copy) {
 		return *this;
 	}
 	escapeRoomDestroy(this->room);
-	this->room = escapeRoomCopy(room.room);
+	this->room = escapeRoomCopy(room_to_copy.room);
 	if(this->room == NULL) {
 		throw EscapeRoomMemoryProblemException();
 	}
+
+	std::cout << std::endl;
+	std::cout << "=" << std::endl;
+	std::cout << std::endl;
+
+	std::vector<Enigma*> enigmas_to_copy = room_to_copy.enigmas;
+	for (std::vector<Enigma*>::iterator it=enigmas_to_copy.begin(); it!=enigmas_to_copy.end(); ++it) {
+		//std::cout << "one" << std::endl;
+		Enigma* current_enigma = *it;
+		enigmas.push_back(current_enigma);
+	}
+    //std::vector<Enigma*>& enigmas_to_copy = *(room_to_copy.enigmas);
+	//enigmas(enigmas_to_copy);
 	return *this;
 	//TODO is it possible w/o code duplication
 }
-
-/*EscapeRoomWrapper& EscapeRoomWrapper::operator=(EscapeRoomWrapper& room) {
-	if( this == &room) {
-		return *this;
-	}
-	escapeRoomDestroy(this->room);
-	this->room = escapeRoomCopy(room.room);
-	if(this->room == NULL) {
-		throw EscapeRoomMemoryProblemException();
-	}
-	return *this;
-	//TODO is it possible w/o code duplication
-}*/
 
 EscapeRoomWrapper::~EscapeRoomWrapper() {
 	for (std::vector<Enigma*>::iterator it=enigmas.begin(); it!=enigmas.end(); ++it) {
@@ -81,7 +88,6 @@ EscapeRoomWrapper::~EscapeRoomWrapper() {
 	}
 	escapeRoomDestroy(room);
 }
-
 
 bool EscapeRoomWrapper::operator==(const EscapeRoomWrapper& room) const {
 	return areEqualRooms(this->room, room.room);
@@ -109,7 +115,6 @@ void EscapeRoomWrapper::rate(const int& newRate) const {
 	}
 }
 
-
 std::string EscapeRoomWrapper::getName() const {
 	char* char_name = roomGetName(this->room);
 	std::string name = char_name;
@@ -129,8 +134,6 @@ int EscapeRoomWrapper::getMaxTime() const {
 int EscapeRoomWrapper::getMaxParticipants() const {
 	return roomGetMaxParticipants(this->room);
 }
-
-
 
 void EscapeRoomWrapper::addEnigma(const Enigma& enigma) {
 	Enigma* new_enigma = new Enigma(enigma);
@@ -203,18 +206,6 @@ std::vector<Enigma*> EscapeRoomWrapper::getAllEnigmas() {
 int EscapeRoomWrapper::getRoomLevel() const {
 	return getLevel(this->room);
 }
-/*
-virtual void EscapeRoomWrapper::print(std::ostream& output) const {
-	output << getName();
-	output << " (";
-	output << getMaxTime();
-	output << "/";
-	output << getRoomLevel();
-	output << "/";
-	output << getMaxParticipants();
-	output << ")";
-	//return output;
-}*/
 
 void EscapeRoomWrapper::print(std::ostream& output) const{
 	output << getName();
@@ -234,10 +225,6 @@ std::ostream& operator<<(std::ostream& output, const EscapeRoomWrapper& room) {
 }
 
 
-
-/*virtual int EscapeRoomWrapper::getRoomType() const {
-	return 0;
-}*/
 
 
 }

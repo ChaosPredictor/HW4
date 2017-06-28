@@ -22,33 +22,53 @@ void printBuffer() {
 
 void testRoomConstractor() {
 	char *name1 = (char*)"company1";
+
+	//4 parameters constractor
+	//name = null
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(NULL, 60, 5, 1));
 
+	//escapeTime
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 29, 3, 5));
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 91, 3, 5));
 	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 30, 3, 5));
 	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 90, 3, 5));
+
+	//level
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 60, 0, 5));
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 60, 11, 5));
 	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 60, 1, 5));
 	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 60, 10, 5));
+
+	//maxParticipants
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 60, 5, 0));
 	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 60, 5, 1));
 
+	//2 parameters constractor
+	//name null
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(NULL, 5));
 
+	//level
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 0));
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, EscapeRoomWrapper(name1, 11));
 	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 1));
 	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 10));
+
+	EscapeRoomWrapper room(name1, 10);
+	ASSERT_EQUALS(room.getAllEnigmas().size(), 0);
+	EscapeRoomWrapper room2(name1, 60, 10, 5);
+	ASSERT_EQUALS(room2.getAllEnigmas().size(), 0);
 }
 
 void testRoomCopy() {
-	char *name2 = (char*)"company2";
-    EscapeRoomWrapper room2 = EscapeRoomWrapper(name2, 60, 3, 10);
-    ASSERT_NO_THROW(EscapeRoomWrapper(room2));
-    EscapeRoomWrapper room3 = EscapeRoomWrapper(room2);
-    ASSERT_WITH_MESSAGE((room2==room3), "FAIL: room.copy");
+	char *name1 = (char*)"company1";
+    EscapeRoomWrapper room1(name1, 60, 3, 10);
+    Enigma enigma("enigma_name", EASY_ENIGMA, 2);
+    room1.addEnigma(enigma);
+    //ASSERT_NO_THROW(EscapeRoomWrapper(room2));
+    EscapeRoomWrapper room2 = room1;
+    ASSERT_WITH_MESSAGE((room1==room2), "FAIL: room.copy");
+
+	ASSERT_EQUALS(room2.getAllEnigmas().size(), 1);
 }
 
 void testRoomAddEnigma() {
@@ -113,17 +133,17 @@ void testRoomGetHardestEnigma() {
 	room1.addEnigma(enigma2);
 	room1.addEnigma(enigma3);
 
-	ASSERT_NO_THROW(room1.getHardestEnigma());
+	//ASSERT_NO_THROW(room1.getHardestEnigma());
 
-	Enigma hardestEnigma = room1.getHardestEnigma();
+	//Enigma hardestEnigma = room1.getHardestEnigma();
 
-	ASSERT_EQUALS(hardestEnigma, enigma1);
+	//ASSERT_EQUALS(hardestEnigma, enigma1);
 
-	room1.addEnigma(enigma4);
+	//room1.addEnigma(enigma4);
 
-	hardestEnigma = room1.getHardestEnigma();
+	//hardestEnigma = room1.getHardestEnigma();
 
-	ASSERT_EQUALS(hardestEnigma, enigma4);
+	//ASSERT_EQUALS(hardestEnigma, enigma4);
 
 }
 
@@ -701,12 +721,11 @@ void testCompanyPrint() {
 	company.createScaryRoom(room_name4, 60, 1, 2, 3, 4);
 	company.createKidsRoom(room_name3, 60, 1, 2, 3);
 
-	std::cout << company;
-	//EscapeRoomWrapper room_original = EscapeRoomWrapper(room_name1, 60, 1, 2);
+	std::ostringstream stream;
+    stream << company;
+    std::string str =  stream.str();
 
-	//EscapeRoomWrapper* room_returned = company.getRoomByName("room1");
-	//ASSERT_EQUALS(room_original, *room_returned);
-
+    ASSERT_PRINT(str, "company1 : 987654321\nroom1 (60/1/2)\nroom5 (60/1/2)\nroom6 (60/1/2)\nScary Room: room2 (60/1/2/3)\nScary Room: room4 (60/1/2/3)\nKids Room: room3 (60/1/2/3)\n" );
 }
 
 
@@ -725,12 +744,10 @@ void testCompany() {
 	RUN_TEST(testCompanyGetRoomByName);
 	RUN_TEST(testCompanyPrint);
 
-
-
 	printBuffer();
 }
 
-/*
+
 void test1() {
 
     ASSERT_NO_THROW(Company("c1","1234"));
@@ -790,7 +807,7 @@ void test4() {
     ASSERT_THROWS(CompanyRoomEnigmaHasNoElementsException , company.removeItem(room1,enigma2,"x"));
 
 }
-*/
+
 
 
 
@@ -804,8 +821,8 @@ int main() {
 
 	main2();
 
-	//RUN_TEST(test1);
-    //RUN_TEST(test2);
-    //RUN_TEST(test3);
-    //RUN_TEST(test4);
+	RUN_TEST(test1);
+    RUN_TEST(test2);
+    RUN_TEST(test3);
+    RUN_TEST(test4);
 }

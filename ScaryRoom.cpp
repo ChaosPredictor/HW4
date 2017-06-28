@@ -34,19 +34,25 @@ int ScaryRoom::getAgeLimit() const{
 }*/
 
 
-std::ostream& operator<<(std::ostream& output, const ScaryRoom& room) {
+void ScaryRoom::print(std::ostream& output) const {
 	output << "Scary Room: ";
-	output << room.getName();
+	output << getName();
 	output << " (";
-	output << room.getMaxTime();
+	output << getMaxTime();
 	output << "/";
-	output << room.getRoomLevel();
+	output << getRoomLevel();
 	output << "/";
-	output << room.getMaxParticipants();
+	output << getMaxParticipants();
 	output << "/";
-	output << room.getAgeLimit();
+	output << getAgeLimit();
 	output << ")";
-	return output;
+}
+
+
+
+std::ostream& operator<<(std::ostream& output, const ScaryRoom& room) {
+    room.print(output);
+    return output;
 }
 
 

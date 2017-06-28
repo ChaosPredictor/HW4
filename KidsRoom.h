@@ -31,6 +31,7 @@ namespace escaperoom {
 
         friend std::ostream& operator<<(std::ostream& output, const KidsRoom& room);
 
+        virtual void print(std::ostream& output) const;
     };
 
     std::ostream& operator<<(std::ostream& output, const KidsRoom& room);

@@ -30,21 +30,24 @@ int KidsRoom::getAgeLimit() const{
 }*/
 
 
-std::ostream& operator<<(std::ostream& output, const KidsRoom& room) {
+void KidsRoom::print(std::ostream& output) const {
 	output << "Kids Room: ";
-	output << room.getName();
+	output << getName();
 	output << " (";
-	output << room.getMaxTime();
+	output << getMaxTime();
 	output << "/";
-	output << room.getRoomLevel();
+	output << getRoomLevel();
 	output << "/";
-	output << room.getMaxParticipants();
+	output << getMaxParticipants();
 	output << "/";
-	output << room.getAgeLimit();
+	output << getAgeLimit();
 	output << ")";
-	return output;
 }
 
+std::ostream& operator<<(std::ostream& output, const KidsRoom& room) {
+    room.print(output);
+    return output;
+}
 
 }
 }
