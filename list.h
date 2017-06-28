@@ -210,7 +210,7 @@ template<class T>
 typename List<T>::Iterator List<T>::begin() {
 	return Iterator(head);
 }
-
+//TODO maybe remove
 template<class T>
 typename List<T>::Iterator List<T>::begin() const {
 	return Iterator(head);
@@ -220,7 +220,7 @@ template<class T>
 typename List<T>::Iterator List<T>::end() {
 	return Iterator(tail);
 }
-
+//TODO maybe remove
 template<class T>
 typename List<T>::Iterator List<T>::end() const {
 	return Iterator(tail);
@@ -307,8 +307,6 @@ public:
     Iterator();
     Iterator(Node* ptr);
     Iterator(const Iterator& other);
-
-
 
     bool operator==(const Iterator& right);
 

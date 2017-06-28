@@ -630,16 +630,23 @@ void testCompanyGetAllRoomsByType() {
 	char *room_name2 = (char*)"room2";
 	char *room_name3 = (char*)"room3";
 	char *room_name4 = (char*)"room4";
-
+	char *room_name5 = (char*)"room5";
+	char *room_name6 = (char*)"room6";
 
 	Company company = Company(name, phone);
 	company.createRoom(room_name1, 60, 1, 2);
+	company.createRoom(room_name5, 60, 1, 2);
+	company.createRoom(room_name6, 60, 1, 2);
 	company.createScaryRoom(room_name2, 60, 1, 2, 3, 4);
 	company.createScaryRoom(room_name4, 60, 1, 2, 3, 4);
 	company.createKidsRoom(room_name3, 60, 1, 2, 3);
 
 	ASSERT_NO_THROW( company.getAllRooms() );
-	set<EscapeRoomWrapper*> rooms = company.getAllRoomsByType(SCARY_ROOM);
+	set<EscapeRoomWrapper*> rooms = company.getAllRoomsByType(BASE_ROOM);
+	ASSERT_EQUALS(rooms.size(), 3);
+	rooms = company.getAllRoomsByType(SCARY_ROOM);
+	ASSERT_EQUALS(rooms.size(), 2);
+	rooms = company.getAllRoomsByType(KIDS_ROOM);
 	ASSERT_EQUALS(rooms.size(), 1);
 }
 

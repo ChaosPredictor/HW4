@@ -8,9 +8,9 @@
 #ifndef LIST_EXAMPLE_H_
 #define LIST_EXAMPLE_H_
 
-
-
-
+#include <functional>
+#include "list.h"
+#include "mtmtest.h"
 
 int main2();
 

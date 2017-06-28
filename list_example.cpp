@@ -1,6 +1,4 @@
-#include <functional>
-#include "list.h"
-#include "mtmtest.h"
+#include "list_example.h"
 
 
 /**

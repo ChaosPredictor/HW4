@@ -146,16 +146,19 @@ void Company::removeItem(const EscapeRoomWrapper& room, const Enigma& enigma, co
 }
 
 set<EscapeRoomWrapper*> Company::getAllRoomsByType(RoomType type) const {
-	std::cout << std::endl;
 	set<EscapeRoomWrapper*> filtered_rooms;
 	for (std::set<EscapeRoomWrapper*>::iterator it=rooms.begin(); it!=rooms.end(); ++it) {
 		EscapeRoomWrapper* current_room = *it;
-		if ( typeid(*current_room) == typeid(ScaryRoom) ) {
-			std::cout << "ScaryRoom" << std::endl;
+		if ( type == BASE_ROOM && typeid(*current_room) == typeid(EscapeRoomWrapper) ) {
+			filtered_rooms.insert(current_room);
+		} else if ( type == SCARY_ROOM && typeid(*current_room) == typeid(ScaryRoom) ) {
+			filtered_rooms.insert(current_room);
+		} else if ( type == KIDS_ROOM && typeid(*current_room) == typeid(KidsRoom) ) {
+			filtered_rooms.insert(current_room);
 		}
 	}
 
-	return rooms;
+	return filtered_rooms;
 }
 
 
