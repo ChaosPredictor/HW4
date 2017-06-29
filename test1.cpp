@@ -509,6 +509,48 @@ void testEnigmaNotEqual() {
 
 }
 
+void testEnigmaGreater() {
+	char *name1 = (char*)"enigma1";
+	char *name2 = (char*)"enigma2";
+	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
+
+	Enigma enigma1(name1, HARD_ENIGMA, 4, elements);
+	Enigma enigma2(name1, MEDIUM_ENIGMA, 4, elements);
+	Enigma enigma3(name1, EASY_ENIGMA, 4, elements);
+	Enigma enigma4(name1, MEDIUM_ENIGMA);
+	Enigma enigma5(name2, MEDIUM_ENIGMA);
+
+    ASSERT_WITH_MESSAGE((enigma1 > enigma2), "FAIL: Enigma greater");
+    ASSERT_WITH_MESSAGE((enigma2 > enigma3), "FAIL: Enigma greater");
+    ASSERT_WITH_MESSAGE((enigma1 > enigma3), "FAIL: Enigma greater");
+    ASSERT_WITH_MESSAGE((enigma4 > enigma3), "FAIL: Enigma greater");
+    ASSERT_WITH_MESSAGE(!(enigma4 > enigma5), "FAIL: Enigma greater");
+    ASSERT_WITH_MESSAGE(!(enigma5 > enigma4), "FAIL: Enigma greater");
+    ASSERT_WITH_MESSAGE(!(enigma4 > enigma2), "FAIL: Enigma greater");
+
+}
+
+void testEnigmaLess() {
+	char *name1 = (char*)"enigma1";
+	char *name2 = (char*)"enigma2";
+	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
+
+	Enigma enigma1(name1, HARD_ENIGMA, 4, elements);
+	Enigma enigma2(name1, MEDIUM_ENIGMA, 4, elements);
+	Enigma enigma3(name1, EASY_ENIGMA, 4, elements);
+	Enigma enigma4(name1, MEDIUM_ENIGMA);
+	Enigma enigma5(name2, MEDIUM_ENIGMA);
+
+    ASSERT_WITH_MESSAGE((enigma2 < enigma1), "FAIL: Enigma less");
+    ASSERT_WITH_MESSAGE((enigma3 < enigma2), "FAIL: Enigma less");
+    ASSERT_WITH_MESSAGE((enigma3 < enigma1), "FAIL: Enigma less");
+    ASSERT_WITH_MESSAGE((enigma3 < enigma4), "FAIL: Enigma less");
+    ASSERT_WITH_MESSAGE(!(enigma4 > enigma5), "FAIL: Enigma less");
+    ASSERT_WITH_MESSAGE(!(enigma5 > enigma4), "FAIL: Enigma less");
+    ASSERT_WITH_MESSAGE(!(enigma4 > enigma2), "FAIL: Enigma less");
+
+}
+
 
 void testEnigmaAddElement() {
 	char *name1 = (char*)"enigma1";
@@ -565,6 +607,9 @@ void testEnigma() {
 	RUN_TEST(testEnigmaAssigment);
 	RUN_TEST(testEnigmaEqual);
 	RUN_TEST(testEnigmaNotEqual);
+	RUN_TEST(testEnigmaGreater);
+	RUN_TEST(testEnigmaLess);
+
 
 
 	RUN_TEST(testEnigmaAddElement);
