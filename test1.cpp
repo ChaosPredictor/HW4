@@ -384,7 +384,7 @@ void testRoomGetAllEnigmas() {
 }
 
 void testRoom() {
-
+	//part1
 	RUN_TEST(testRoomConstractor);
 	RUN_TEST(testRoomCopy);
 	RUN_TEST(testRoomDestructor);
@@ -400,44 +400,120 @@ void testRoom() {
 	RUN_TEST(testRoomGetMaxTime);
 	RUN_TEST(testRoomGetMaxParticipants);
 	RUN_TEST(testRoomGetRate);
-
+	//part3
 	RUN_TEST(testRoomAddEnigma);
 	RUN_TEST(testRoomRemoveEnigma);
 	RUN_TEST(testRoomGetHardestEnigma);
 	RUN_TEST(testRoomGetAllEnigmas);
 
-	//char *name1 = (char*)"company1";
-	//char *name2 = (char*)"company2";
-    //EscapeRoomWrapper room1 = EscapeRoomWrapper(name1, 3);
-	//ASSERT_NO_THROW(EscapeRoomWrapper(name1, 30, 3, 5));
-    //EscapeRoomWrapper room2 = EscapeRoomWrapper(name2, 60, 3, 10);
-    //EscapeRoomWrapper room3 = EscapeRoomWrapper(name2, 30, 3, 5);
-    //EscapeRoomWrapper room4 = EscapeRoomWrapper(name2, 30, 2, 5);
-
-    //ASSERT_NO_THROW(EscapeRoomWrapper(name2, 3));
-    //ASSERT_NO_THROW(EscapeRoomWrapper(room2));
-    //ASSERT_WITH_MESSAGE(!(room1==room2), "FAIL: operator==");
-    //ASSERT_WITH_MESSAGE((room2==room3), "FAIL: operator==");
-    //ASSERT_WITH_MESSAGE((room1!=room2), "FAIL: operator!=");
-    //ASSERT_WITH_MESSAGE((room4<room2), "FAIL: operator<");
-    //ASSERT_WITH_MESSAGE(!(room4>room3), "FAIL: operator>");
-    //ASSERT_WITH_MESSAGE(room1.level() == 3, "FAIL: level()");
-    //ASSERT_NO_THROW(room1.rate(1));
-    //ASSERT_THROWS(EscapeRoomIllegalRateException, room1.rate(6));
-    //std::ostringstream stream;
-    //stream << room1;
-    //std::string str =  stream.str();
-    //ASSERT_PRINT(str, "company1 (60/3/6)");
-    //string name = room1.getName();
-    //ASSERT_WITH_MESSAGE(name.compare("company1\n"), "FAIL: getName");
-    //ASSERT_WITH_MESSAGE(room1.getRate() == 1, "FAIL: getRate");
-    //ASSERT_WITH_MESSAGE(room1.getMaxTime() == 60, "FAIL: getMaxTime");
-    //ASSERT_WITH_MESSAGE(room1.getMaxParticipants() == 6, "FAIL: getMaxParticipants");
 	printBuffer();
-
 }
 
 
+
+void testEnigmaConstractor() {
+	char *name1 = (char*)"enigma1";
+	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
+
+	//2 parameters
+	ASSERT_NO_THROW(Enigma(name1, MEDIUM_ENIGMA));
+
+	//3 parameters
+	ASSERT_NO_THROW(Enigma(name1, MEDIUM_ENIGMA, 4));
+
+	//4 parameters
+	ASSERT_NO_THROW(Enigma(name1, MEDIUM_ENIGMA, 4, elements));
+	ASSERT_THROWS(EnigmaIllegalSizeParamException, Enigma(name1, MEDIUM_ENIGMA, 3, elements));
+
+	Enigma enigma1 = Enigma(name1, MEDIUM_ENIGMA, 4, elements);
+
+}
+
+void testEnigmaCopy() {
+	char *name1 = (char*)"enigma1";
+	char *name3 = (char*)"enigma3";
+	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
+
+	Enigma enigma1(name1, MEDIUM_ENIGMA, 4, elements);
+	Enigma enigma3(name3, MEDIUM_ENIGMA, 4, elements);
+
+	string element1 = "element1";
+	string element2 = "element2";
+    //Enigma enigma1("enigma_name1", EASY_ENIGMA, 2);
+    //Enigma enigma2("enigma_name2", HARD_ENIGMA, 2);
+    //room1.addEnigma(enigma1);
+    //room1.addEnigma(enigma2);
+
+	Enigma enigma2 (enigma1);
+    ASSERT_WITH_MESSAGE(enigma1.areEqualyComplex(enigma2), "FAIL: Enigma copy");
+
+    ASSERT_WITH_MESSAGE(enigma3.areEqualyComplex(enigma2), "FAIL: Enigma copy");
+
+	//ASSERT_EQUALS(enigma2.getAllEnigmas().size(), 2);
+	ASSERT_NO_THROW(enigma2.removeElement("John"));
+    ASSERT_WITH_MESSAGE(!(enigma1.areEqualyComplex(enigma2)), "FAIL: Enigma copy");
+
+	ASSERT_NO_THROW(enigma2.removeElement("Kelly"));
+	ASSERT_NO_THROW(enigma2.removeElement("Amanda"));
+	ASSERT_NO_THROW(enigma2.removeElement("Kim"));
+}
+
+void testEnigmaAssigment() {
+	char *name1 = (char*)"enigma1";
+	char *name3 = (char*)"enigma3";
+	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
+
+	Enigma enigma1(name1, MEDIUM_ENIGMA, 4, elements);
+	Enigma enigma3(name3, MEDIUM_ENIGMA, 4, elements);
+
+	string element1 = "element1";
+	string element2 = "element2";
+    //Enigma enigma1("enigma_name1", EASY_ENIGMA, 2);
+    //Enigma enigma2("enigma_name2", HARD_ENIGMA, 2);
+    //room1.addEnigma(enigma1);
+    //room1.addEnigma(enigma2);
+
+	Enigma enigma2(name3, HARD_ENIGMA);
+
+    ASSERT_WITH_MESSAGE(!(enigma1.areEqualyComplex(enigma2)), "FAIL: Enigma assigment");
+
+	enigma2 = enigma1;
+
+    ASSERT_WITH_MESSAGE(enigma1.areEqualyComplex(enigma2), "FAIL: Enigma assigment");
+
+    ASSERT_WITH_MESSAGE(enigma3.areEqualyComplex(enigma2), "FAIL: Enigma assigment");
+
+	//ASSERT_EQUALS(enigma2.getAllEnigmas().size(), 2);
+	ASSERT_NO_THROW(enigma2.removeElement("John"));
+    ASSERT_WITH_MESSAGE(!(enigma1.areEqualyComplex(enigma2)), "FAIL: Enigma assigment");
+
+	ASSERT_NO_THROW(enigma2.removeElement("Kelly"));
+	ASSERT_NO_THROW(enigma2.removeElement("Amanda"));
+	ASSERT_NO_THROW(enigma2.removeElement("Kim"));
+}
+
+void testEnigmaAddElement() {
+	char *name1 = (char*)"enigma1";
+	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
+
+	ASSERT_NO_THROW(Enigma(name1, MEDIUM_ENIGMA, 4, elements));
+	ASSERT_THROWS(EnigmaIllegalSizeParamException, Enigma(name1, MEDIUM_ENIGMA, 3, elements));
+
+	Enigma enigma1 = Enigma(name1, MEDIUM_ENIGMA, 4, elements);
+	ASSERT_NO_THROW(enigma1.addElement("newElement"));
+
+    std::ostringstream stream;
+    stream << enigma1;
+    std::string str1 = stream.str();
+    ASSERT_PRINT(str1, "enigma1 (1) 5");
+
+	ASSERT_NO_THROW(enigma1.removeElement("John"));
+
+    std::ostringstream stream2;
+    stream2 << enigma1;
+    std::string str2 = stream2.str();
+    ASSERT_PRINT(str2, "enigma1 (1) 4");
+}
 
 void testEnigma1() {
 	char *name1 = (char*)"enigma1";
@@ -465,50 +541,16 @@ void testEnigma1() {
 
 }
 
-void testEnigmaConstractor() {
-	char *name1 = (char*)"enigma1";
-	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
-
-	//2 parameters
-	ASSERT_NO_THROW(Enigma(name1, MEDIUM_ENIGMA));
-
-	//3 parameters
-	ASSERT_NO_THROW(Enigma(name1, MEDIUM_ENIGMA, 4));
-	//4 parameters
-	ASSERT_NO_THROW(Enigma(name1, MEDIUM_ENIGMA, 4, elements));
-	ASSERT_THROWS(EnigmaIllegalSizeParamException, Enigma(name1, MEDIUM_ENIGMA, 3, elements));
-
-	Enigma enigma1 = Enigma(name1, MEDIUM_ENIGMA, 4, elements);
-
-}
-
-void testEnigmaAddElement() {
-	char *name1 = (char*)"enigma1";
-	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
-
-	ASSERT_NO_THROW(Enigma(name1, MEDIUM_ENIGMA, 4, elements));
-	ASSERT_THROWS(EnigmaIllegalSizeParamException, Enigma(name1, MEDIUM_ENIGMA, 3, elements));
-
-	Enigma enigma1 = Enigma(name1, MEDIUM_ENIGMA, 4, elements);
-	ASSERT_NO_THROW(enigma1.addElement("newElement"));
-
-    std::ostringstream stream;
-    stream << enigma1;
-    std::string str1 = stream.str();
-    ASSERT_PRINT(str1, "enigma1 (1) 5");
-
-	ASSERT_NO_THROW(enigma1.removeElement("John"));
-
-    std::ostringstream stream2;
-    stream2 << enigma1;
-    std::string str2 = stream2.str();
-    ASSERT_PRINT(str2, "enigma1 (1) 4");
-}
-
 void testEnigma() {
-	RUN_TEST(testEnigma1);
 	RUN_TEST(testEnigmaConstractor);
+	RUN_TEST(testEnigmaCopy);
+	RUN_TEST(testEnigmaAssigment);
+
+
 	RUN_TEST(testEnigmaAddElement);
+	RUN_TEST(testEnigma1);
+
+
 	printBuffer();
 	//TODO better enigma tests
 

@@ -14,7 +14,7 @@ namespace escaperoom{
 
 
 Enigma::Enigma(const std::string& name, const Difficulty& difficulty, const int& numOfElements):
-		//TODO what to do in case of numOfelements < 0?
+	//TODO what to do in case of numOfelements < 0?
 	name(name),
 	difficulty(difficulty),
 	numOfElements(numOfElements) {}
@@ -25,12 +25,10 @@ Enigma::Enigma(const std::string& name, const Difficulty& difficulty, const int&
 	numOfElements(numOfElements) {
 	if ( (unsigned)numOfElements != elements.size() ) throw EnigmaIllegalSizeParamException();
 	for (set<string>::iterator it = elements.begin(); it != elements.end(); it++) {
-		//string* element = *it;
 		this->elements.insert(*it);
 	}
 
 }
-
 
 bool Enigma::operator==(const Enigma& enigma) const {
 	return (this->name.compare(enigma.name) == 0) && this->difficulty == enigma.difficulty;
