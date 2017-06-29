@@ -587,7 +587,6 @@ void testEnigmaGetDifficulty() {
 
 }
 
-
 void testEnigmaGetName() {
 	char *name1 = (char*)"enigma1";
 	char *name2 = (char*)"enigma2";
@@ -606,12 +605,36 @@ void testEnigmaGetName() {
 
 }
 
+void testEnigmaPrint() {
+	char *name1 = (char*)"enigma1";
+	char *name2 = (char*)"enigma2";
+	std::set<string> elements1 { "John1", "Kelly1", "Amanda1", "Kim1" };
+	std::set<string> elements2 { "John2", "Kelly2", "Amanda2" };
+
+	Enigma enigma1(name1, HARD_ENIGMA, 4, elements1);
+	Enigma enigma2(name2, MEDIUM_ENIGMA, 3, elements2);
+
+    ASSERT_WITH_MESSAGE(enigma1.getName() == "enigma1", "FAIL: Enigma getName");
+    ASSERT_WITH_MESSAGE(enigma2.getName() == "enigma2", "FAIL: Enigma getName");
+
+	std::ostringstream stream;
+    stream << enigma1;
+    std::string str =  stream.str();
+    ASSERT_PRINT(str, "enigma1 (2) 4");
+
+	std::ostringstream stream2;
+    stream2 << enigma2;
+    std::string str2 =  stream2.str();
+    ASSERT_PRINT(str2, "enigma2 (1) 3");
+}
+
+
+
 
 void testEnigmaAddElement() {
 	char *name1 = (char*)"enigma1";
 	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
 	std::set<string> elements2 { "John2", "Kelly2", "Amanda2" };
-
 
 	ASSERT_NO_THROW(Enigma(name1, MEDIUM_ENIGMA, 4, elements));
 	ASSERT_THROWS(EnigmaIllegalSizeParamException, Enigma(name1, MEDIUM_ENIGMA, 3, elements));
@@ -668,6 +691,10 @@ void testEnigma() {
 	RUN_TEST(testEnigmaLess);
 	RUN_TEST(testEnigmaAreEqualyComplex);
 	RUN_TEST(testEnigmaGetDifficulty);
+	RUN_TEST(testEnigmaGetName);
+	RUN_TEST(testEnigmaPrint);
+
+
 
 
 
