@@ -209,6 +209,12 @@ void testRoomPrint() {
     ASSERT_PRINT(str, "company1 (60/4/10)");
 }
 
+void testRoomLevel() {
+	char *name1 = (char*)"company1";
+	EscapeRoomWrapper room1(name1, 60, 4, 10);
+
+	ASSERT_EQUALS(room1.level(), 4);
+}
 
 
 
@@ -340,6 +346,7 @@ void testRoom() {
 	RUN_TEST(testRoomGreater);
 	RUN_TEST(testRoomLess);
 	RUN_TEST(testRoomPrint);
+	RUN_TEST(testRoomLevel);
 
 
 	RUN_TEST(testRoomAddEnigma);
