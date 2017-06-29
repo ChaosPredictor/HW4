@@ -104,7 +104,9 @@ bool EscapeRoomWrapper::operator<(const EscapeRoomWrapper& room) const {
 }
 
 int EscapeRoomWrapper::level() const {
-	return getLevel(this->room);
+	int result = getLevel(this->room);
+	if ( result == -1 ) throw EscapeRoomException();
+	return result;
 }
 
 void EscapeRoomWrapper::rate(const int& newRate) const {

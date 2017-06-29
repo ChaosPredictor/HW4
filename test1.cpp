@@ -216,7 +216,14 @@ void testRoomLevel() {
 	ASSERT_EQUALS(room1.level(), 4);
 }
 
+void testRoomRate() {
+	char *name1 = (char*)"company1";
+	EscapeRoomWrapper room1(name1, 60, 4, 10);
 
+	ASSERT_THROWS(EscapeRoomIllegalRateException, room1.rate(6));
+	ASSERT_THROWS(EscapeRoomIllegalRateException, room1.rate(0));
+	ASSERT_NO_THROW(room1.rate(1));
+}
 
 
 
@@ -347,6 +354,7 @@ void testRoom() {
 	RUN_TEST(testRoomLess);
 	RUN_TEST(testRoomPrint);
 	RUN_TEST(testRoomLevel);
+	RUN_TEST(testRoomRate);
 
 
 	RUN_TEST(testRoomAddEnigma);
@@ -369,13 +377,13 @@ void testRoom() {
     //ASSERT_WITH_MESSAGE((room1!=room2), "FAIL: operator!=");
     //ASSERT_WITH_MESSAGE((room4<room2), "FAIL: operator<");
     //ASSERT_WITH_MESSAGE(!(room4>room3), "FAIL: operator>");
-    ASSERT_WITH_MESSAGE(room1.level() == 3, "FAIL: level()");
+    //ASSERT_WITH_MESSAGE(room1.level() == 3, "FAIL: level()");
     ASSERT_NO_THROW(room1.rate(1));
     ASSERT_THROWS(EscapeRoomIllegalRateException, room1.rate(6));
-    std::ostringstream stream;
-    stream << room1;
-    std::string str =  stream.str();
-    ASSERT_PRINT(str, "company1 (60/3/6)");
+    //std::ostringstream stream;
+    //stream << room1;
+    //std::string str =  stream.str();
+    //ASSERT_PRINT(str, "company1 (60/3/6)");
     string name = room1.getName();
     ASSERT_WITH_MESSAGE(name.compare("company1\n"), "FAIL: getName");
     ASSERT_WITH_MESSAGE(room1.getRate() == 1, "FAIL: getRate");
