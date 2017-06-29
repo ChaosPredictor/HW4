@@ -239,6 +239,34 @@ void testRoomGetMaxTime() {
 	ASSERT_EQUALS(room1.getMaxTime(), 60);
 }
 
+void testRoomGetMaxParticipants() {
+	char *name1 = (char*)"room1";
+	EscapeRoomWrapper room1(name1, 60, 4, 10);
+
+	ASSERT_EQUALS(room1.getMaxParticipants(), 10);
+}
+
+void testRoomGetRate() {
+	char *name1 = (char*)"room1";
+	EscapeRoomWrapper room1(name1, 60, 4, 10);
+
+	ASSERT_NO_THROW(room1.rate(1));
+	ASSERT_NO_THROW(room1.rate(2));
+	ASSERT_NO_THROW(room1.rate(3));
+	ASSERT_NO_THROW(room1.rate(4));
+	ASSERT_NO_THROW(room1.rate(5));
+
+	ASSERT_EQUALS(room1.getRate(), 3);
+
+	ASSERT_NO_THROW(room1.rate(5));
+	ASSERT_NO_THROW(room1.rate(5));
+	ASSERT_NO_THROW(room1.rate(5));
+	ASSERT_NO_THROW(room1.rate(5));
+	ASSERT_NO_THROW(room1.rate(5));
+
+	ASSERT_EQUALS(room1.getRate(), 4);
+}
+
 void testRoomAddEnigma() {
 	char *company_name1 = (char*)"company1";
 	EscapeRoomWrapper room1 = EscapeRoomWrapper(company_name1, 3);
@@ -356,6 +384,7 @@ void testRoomGetAllEnigmas() {
 }
 
 void testRoom() {
+
 	RUN_TEST(testRoomConstractor);
 	RUN_TEST(testRoomCopy);
 	RUN_TEST(testRoomDestructor);
@@ -369,7 +398,8 @@ void testRoom() {
 	RUN_TEST(testRoomRate);
 	RUN_TEST(testRoomGetName);
 	RUN_TEST(testRoomGetMaxTime);
-
+	RUN_TEST(testRoomGetMaxParticipants);
+	RUN_TEST(testRoomGetRate);
 
 	RUN_TEST(testRoomAddEnigma);
 	RUN_TEST(testRoomRemoveEnigma);
