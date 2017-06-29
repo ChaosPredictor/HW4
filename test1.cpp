@@ -21,7 +21,7 @@ void printBuffer() {
 }
 
 void testRoomConstractor() {
-	char *name1 = (char*)"company1";
+	char *name1 = (char*)"room1";
 
 	//4 parameters constractor
 	//name = null
@@ -60,8 +60,8 @@ void testRoomConstractor() {
 }
 
 void testRoomCopy() {
-	char *name1 = (char*)"company1";
-	char *name3 = (char*)"company3";
+	char *name1 = (char*)"room1";
+	char *name3 = (char*)"room3";
 	EscapeRoomWrapper room1(name1, 60, 3, 10);
 	EscapeRoomWrapper room3(name3, 60, 3, 10);
     Enigma enigma1("enigma_name1", EASY_ENIGMA, 2);
@@ -80,8 +80,8 @@ void testRoomCopy() {
 }
 
 void testRoomAssigment() {
-	char *name1 = (char*)"company1";
-	char *name2 = (char*)"company2";
+	char *name1 = (char*)"room1";
+	char *name2 = (char*)"room2";
 
     Enigma enigma1("enigma_name1", EASY_ENIGMA, 2);
     Enigma enigma2("enigma_name2", HARD_ENIGMA, 2);
@@ -107,7 +107,7 @@ void testRoomAssigment() {
 }
 
 void testRoomDestructor() {
-	char *name1 = (char*)"company1";
+	char *name1 = (char*)"room1";
 
     Enigma enigma1("enigma_name1", EASY_ENIGMA, 2);
     Enigma enigma2("enigma_name2", HARD_ENIGMA, 2);
@@ -122,8 +122,8 @@ void testRoomDestructor() {
 }
 
 void testRoomEqual() {
-	char *name1 = (char*)"company1";
-	char *name2 = (char*)"company2";
+	char *name1 = (char*)"room1";
+	char *name2 = (char*)"room2";
 	EscapeRoomWrapper room1(name1, 60, 4, 10);
 	EscapeRoomWrapper room3(name1, 30, 8, 10);
 	EscapeRoomWrapper room4(name1, 30, 4, 5);
@@ -149,8 +149,8 @@ void testRoomEqual() {
 }
 
 void testRoomNotEqual() {
-	char *name1 = (char*)"company1";
-	char *name2 = (char*)"company2";
+	char *name1 = (char*)"room1";
+	char *name2 = (char*)"room2";
 	EscapeRoomWrapper room1(name1, 30, 4, 10);
 	EscapeRoomWrapper room3(name1, 60, 8, 10);
 	EscapeRoomWrapper room4(name1, 60, 4, 5);
@@ -176,7 +176,7 @@ void testRoomNotEqual() {
 }
 
 void testRoomGreater() {
-	char *name1 = (char*)"company1";
+	char *name1 = (char*)"room1";
 	EscapeRoomWrapper room1(name1, 60, 4, 10);
 	EscapeRoomWrapper room2(name1, 61, 4, 10);
 	EscapeRoomWrapper room3(name1, 60, 5, 10);
@@ -188,7 +188,7 @@ void testRoomGreater() {
 }
 
 void testRoomLess() {
-	char *name1 = (char*)"company1";
+	char *name1 = (char*)"room1";
 	EscapeRoomWrapper room1(name1, 60, 4, 10);
 	EscapeRoomWrapper room2(name1, 30, 4, 10);
 	EscapeRoomWrapper room3(name1, 60, 3, 10);
@@ -200,24 +200,24 @@ void testRoomLess() {
 }
 
 void testRoomPrint() {
-	char *name1 = (char*)"company1";
+	char *name1 = (char*)"room1";
 	EscapeRoomWrapper room1(name1, 60, 4, 10);
 
 	std::ostringstream stream;
     stream << room1;
     std::string str =  stream.str();
-    ASSERT_PRINT(str, "company1 (60/4/10)");
+    ASSERT_PRINT(str, "room1 (60/4/10)");
 }
 
 void testRoomLevel() {
-	char *name1 = (char*)"company1";
+	char *name1 = (char*)"room1";
 	EscapeRoomWrapper room1(name1, 60, 4, 10);
 
 	ASSERT_EQUALS(room1.level(), 4);
 }
 
 void testRoomRate() {
-	char *name1 = (char*)"company1";
+	char *name1 = (char*)"room1";
 	EscapeRoomWrapper room1(name1, 60, 4, 10);
 
 	ASSERT_THROWS(EscapeRoomIllegalRateException, room1.rate(6));
@@ -225,7 +225,19 @@ void testRoomRate() {
 	ASSERT_NO_THROW(room1.rate(1));
 }
 
+void testRoomGetName() {
+	char *name1 = (char*)"room1";
+	EscapeRoomWrapper room1(name1, 60, 4, 10);
 
+	ASSERT_EQUALS(room1.getName(), "room1");
+}
+
+void testRoomGetMaxTime() {
+	char *name1 = (char*)"room1";
+	EscapeRoomWrapper room1(name1, 60, 4, 10);
+
+	ASSERT_EQUALS(room1.getMaxTime(), 60);
+}
 
 void testRoomAddEnigma() {
 	char *company_name1 = (char*)"company1";
@@ -355,6 +367,8 @@ void testRoom() {
 	RUN_TEST(testRoomPrint);
 	RUN_TEST(testRoomLevel);
 	RUN_TEST(testRoomRate);
+	RUN_TEST(testRoomGetName);
+	RUN_TEST(testRoomGetMaxTime);
 
 
 	RUN_TEST(testRoomAddEnigma);
@@ -362,13 +376,13 @@ void testRoom() {
 	RUN_TEST(testRoomGetHardestEnigma);
 	RUN_TEST(testRoomGetAllEnigmas);
 
-	char *name1 = (char*)"company1";
-	char *name2 = (char*)"company2";
-    EscapeRoomWrapper room1 = EscapeRoomWrapper(name1, 3);
+	//char *name1 = (char*)"company1";
+	//char *name2 = (char*)"company2";
+    //EscapeRoomWrapper room1 = EscapeRoomWrapper(name1, 3);
 	//ASSERT_NO_THROW(EscapeRoomWrapper(name1, 30, 3, 5));
-    EscapeRoomWrapper room2 = EscapeRoomWrapper(name2, 60, 3, 10);
-    EscapeRoomWrapper room3 = EscapeRoomWrapper(name2, 30, 3, 5);
-    EscapeRoomWrapper room4 = EscapeRoomWrapper(name2, 30, 2, 5);
+    //EscapeRoomWrapper room2 = EscapeRoomWrapper(name2, 60, 3, 10);
+    //EscapeRoomWrapper room3 = EscapeRoomWrapper(name2, 30, 3, 5);
+    //EscapeRoomWrapper room4 = EscapeRoomWrapper(name2, 30, 2, 5);
 
     //ASSERT_NO_THROW(EscapeRoomWrapper(name2, 3));
     //ASSERT_NO_THROW(EscapeRoomWrapper(room2));
@@ -378,17 +392,17 @@ void testRoom() {
     //ASSERT_WITH_MESSAGE((room4<room2), "FAIL: operator<");
     //ASSERT_WITH_MESSAGE(!(room4>room3), "FAIL: operator>");
     //ASSERT_WITH_MESSAGE(room1.level() == 3, "FAIL: level()");
-    ASSERT_NO_THROW(room1.rate(1));
-    ASSERT_THROWS(EscapeRoomIllegalRateException, room1.rate(6));
+    //ASSERT_NO_THROW(room1.rate(1));
+    //ASSERT_THROWS(EscapeRoomIllegalRateException, room1.rate(6));
     //std::ostringstream stream;
     //stream << room1;
     //std::string str =  stream.str();
     //ASSERT_PRINT(str, "company1 (60/3/6)");
-    string name = room1.getName();
-    ASSERT_WITH_MESSAGE(name.compare("company1\n"), "FAIL: getName");
-    ASSERT_WITH_MESSAGE(room1.getRate() == 1, "FAIL: getRate");
-    ASSERT_WITH_MESSAGE(room1.getMaxTime() == 60, "FAIL: getMaxTime");
-    ASSERT_WITH_MESSAGE(room1.getMaxParticipants() == 6, "FAIL: getMaxParticipants");
+    //string name = room1.getName();
+    //ASSERT_WITH_MESSAGE(name.compare("company1\n"), "FAIL: getName");
+    //ASSERT_WITH_MESSAGE(room1.getRate() == 1, "FAIL: getRate");
+    //ASSERT_WITH_MESSAGE(room1.getMaxTime() == 60, "FAIL: getMaxTime");
+    //ASSERT_WITH_MESSAGE(room1.getMaxParticipants() == 6, "FAIL: getMaxParticipants");
 	printBuffer();
 
 }
