@@ -437,19 +437,11 @@ void testEnigmaCopy() {
 	Enigma enigma1(name1, MEDIUM_ENIGMA, 4, elements);
 	Enigma enigma3(name3, MEDIUM_ENIGMA, 4, elements);
 
-	string element1 = "element1";
-	string element2 = "element2";
-    //Enigma enigma1("enigma_name1", EASY_ENIGMA, 2);
-    //Enigma enigma2("enigma_name2", HARD_ENIGMA, 2);
-    //room1.addEnigma(enigma1);
-    //room1.addEnigma(enigma2);
-
 	Enigma enigma2 (enigma1);
     ASSERT_WITH_MESSAGE(enigma1.areEqualyComplex(enigma2), "FAIL: Enigma copy");
 
     ASSERT_WITH_MESSAGE(enigma3.areEqualyComplex(enigma2), "FAIL: Enigma copy");
 
-	//ASSERT_EQUALS(enigma2.getAllEnigmas().size(), 2);
 	ASSERT_NO_THROW(enigma2.removeElement("John"));
     ASSERT_WITH_MESSAGE(!(enigma1.areEqualyComplex(enigma2)), "FAIL: Enigma copy");
 
@@ -460,20 +452,14 @@ void testEnigmaCopy() {
 
 void testEnigmaAssigment() {
 	char *name1 = (char*)"enigma1";
+	char *name2 = (char*)"enigma2";
 	char *name3 = (char*)"enigma3";
 	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
 
 	Enigma enigma1(name1, MEDIUM_ENIGMA, 4, elements);
 	Enigma enigma3(name3, MEDIUM_ENIGMA, 4, elements);
 
-	string element1 = "element1";
-	string element2 = "element2";
-    //Enigma enigma1("enigma_name1", EASY_ENIGMA, 2);
-    //Enigma enigma2("enigma_name2", HARD_ENIGMA, 2);
-    //room1.addEnigma(enigma1);
-    //room1.addEnigma(enigma2);
-
-	Enigma enigma2(name3, HARD_ENIGMA);
+	Enigma enigma2(name2, HARD_ENIGMA);
 
     ASSERT_WITH_MESSAGE(!(enigma1.areEqualyComplex(enigma2)), "FAIL: Enigma assigment");
 
@@ -483,7 +469,6 @@ void testEnigmaAssigment() {
 
     ASSERT_WITH_MESSAGE(enigma3.areEqualyComplex(enigma2), "FAIL: Enigma assigment");
 
-	//ASSERT_EQUALS(enigma2.getAllEnigmas().size(), 2);
 	ASSERT_NO_THROW(enigma2.removeElement("John"));
     ASSERT_WITH_MESSAGE(!(enigma1.areEqualyComplex(enigma2)), "FAIL: Enigma assigment");
 
@@ -491,6 +476,39 @@ void testEnigmaAssigment() {
 	ASSERT_NO_THROW(enigma2.removeElement("Amanda"));
 	ASSERT_NO_THROW(enigma2.removeElement("Kim"));
 }
+
+void testEnigmaEqual() {
+	char *name1 = (char*)"enigma1";
+	char *name2 = (char*)"enigma2";
+	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
+
+	Enigma enigma1(name1, MEDIUM_ENIGMA, 4, elements);
+	Enigma enigma2(name1, HARD_ENIGMA, 4, elements);
+	Enigma enigma3(name2, MEDIUM_ENIGMA, 4, elements);
+	Enigma enigma4(name1, MEDIUM_ENIGMA);
+
+    ASSERT_WITH_MESSAGE((enigma1 == enigma4), "FAIL: Enigma equal");
+    ASSERT_WITH_MESSAGE(!(enigma1 == enigma2), "FAIL: Enigma equal");
+    ASSERT_WITH_MESSAGE(!(enigma1 == enigma3), "FAIL: Enigma equal");
+
+}
+
+void testEnigmaNotEqual() {
+	char *name1 = (char*)"enigma1";
+	char *name2 = (char*)"enigma2";
+	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
+
+	Enigma enigma1(name1, MEDIUM_ENIGMA, 4, elements);
+	Enigma enigma2(name1, HARD_ENIGMA, 4, elements);
+	Enigma enigma3(name2, MEDIUM_ENIGMA, 4, elements);
+	Enigma enigma4(name1, MEDIUM_ENIGMA);
+
+    ASSERT_WITH_MESSAGE(!(enigma1 != enigma4), "FAIL: Enigma equal");
+    ASSERT_WITH_MESSAGE((enigma1 != enigma2), "FAIL: Enigma equal");
+    ASSERT_WITH_MESSAGE((enigma1 != enigma3), "FAIL: Enigma equal");
+
+}
+
 
 void testEnigmaAddElement() {
 	char *name1 = (char*)"enigma1";
@@ -545,11 +563,12 @@ void testEnigma() {
 	RUN_TEST(testEnigmaConstractor);
 	RUN_TEST(testEnigmaCopy);
 	RUN_TEST(testEnigmaAssigment);
+	RUN_TEST(testEnigmaEqual);
+	RUN_TEST(testEnigmaNotEqual);
 
 
 	RUN_TEST(testEnigmaAddElement);
 	RUN_TEST(testEnigma1);
-
 
 	printBuffer();
 	//TODO better enigma tests
