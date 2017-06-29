@@ -121,7 +121,6 @@ void testRoomDestructor() {
     //TODO how to test?
 }
 
-
 void testRoomEqual() {
 	char *name1 = (char*)"company1";
 	char *name2 = (char*)"company2";
@@ -147,13 +146,72 @@ void testRoomEqual() {
 
     ASSERT_WITH_MESSAGE(!(room1==room5), "FAIL: operator==");
 
-	//ASSERT_EQUALS(room2.getAllEnigmas().size(), 2);
+}
 
-    //room1.removeEnigma(enigma1);
-	//ASSERT_EQUALS(room1.getAllEnigmas().size(), 1);
-	//ASSERT_EQUALS(room2.getAllEnigmas().size(), 2);
+void testRoomNotEqual() {
+	char *name1 = (char*)"company1";
+	char *name2 = (char*)"company2";
+	EscapeRoomWrapper room1(name1, 30, 4, 10);
+	EscapeRoomWrapper room3(name1, 60, 8, 10);
+	EscapeRoomWrapper room4(name1, 60, 4, 5);
+	EscapeRoomWrapper room5(name2, 60, 4, 10);
+    Enigma enigma1("enigma_name1", EASY_ENIGMA, 2);
+    Enigma enigma2("enigma_name2", HARD_ENIGMA, 2);
+    room1.addEnigma(enigma1);
+    room1.addEnigma(enigma2);
+
+    EscapeRoomWrapper room2(room1);
+
+    ASSERT_WITH_MESSAGE(!(room1!=room2), "FAIL: operator!=");
+
+    room1.removeEnigma(enigma1);
+
+    ASSERT_WITH_MESSAGE(!(room1!=room2), "FAIL: operator!=");
+
+    ASSERT_WITH_MESSAGE((room1!=room3), "FAIL: operator!=");
+    ASSERT_WITH_MESSAGE((room1!=room4), "FAIL: operator!=");
+
+    ASSERT_WITH_MESSAGE((room1!=room5), "FAIL: operator!=");
 
 }
+
+void testRoomGreater() {
+	char *name1 = (char*)"company1";
+	EscapeRoomWrapper room1(name1, 60, 4, 10);
+	EscapeRoomWrapper room2(name1, 61, 4, 10);
+	EscapeRoomWrapper room3(name1, 60, 5, 10);
+	EscapeRoomWrapper room4(name1, 60, 4, 11);
+
+    ASSERT_WITH_MESSAGE((room2>room1), "FAIL: operator>");
+    ASSERT_WITH_MESSAGE((room3>room1), "FAIL: operator>");
+    ASSERT_WITH_MESSAGE((room1>room4), "FAIL: operator>");
+}
+
+void testRoomLess() {
+	char *name1 = (char*)"company1";
+	EscapeRoomWrapper room1(name1, 60, 4, 10);
+	EscapeRoomWrapper room2(name1, 30, 4, 10);
+	EscapeRoomWrapper room3(name1, 60, 3, 10);
+	EscapeRoomWrapper room4(name1, 60, 4, 9);
+
+    ASSERT_WITH_MESSAGE((room2<room1), "FAIL: operator<");
+    ASSERT_WITH_MESSAGE((room3<room1), "FAIL: operator<");
+    ASSERT_WITH_MESSAGE((room1<room4), "FAIL: operator<");
+}
+
+void testRoomPrint() {
+	char *name1 = (char*)"company1";
+	EscapeRoomWrapper room1(name1, 60, 4, 10);
+
+	std::ostringstream stream;
+    stream << room1;
+    std::string str =  stream.str();
+    ASSERT_PRINT(str, "company1 (60/4/10)");
+}
+
+
+
+
 
 
 void testRoomAddEnigma() {
@@ -232,9 +290,6 @@ void testRoomGetHardestEnigma() {
 
 }
 
-
-
-
 void testRoomGetAllEnigmas() {
 	char *company_name1 = (char*)"company1";
 	EscapeRoomWrapper room1 = EscapeRoomWrapper(company_name1, 3);
@@ -280,8 +335,11 @@ void testRoom() {
 	RUN_TEST(testRoomCopy);
 	RUN_TEST(testRoomDestructor);
 	RUN_TEST(testRoomAssigment);
-
 	RUN_TEST(testRoomEqual);
+	RUN_TEST(testRoomNotEqual);
+	RUN_TEST(testRoomGreater);
+	RUN_TEST(testRoomLess);
+	RUN_TEST(testRoomPrint);
 
 
 	RUN_TEST(testRoomAddEnigma);
@@ -292,18 +350,18 @@ void testRoom() {
 	char *name1 = (char*)"company1";
 	char *name2 = (char*)"company2";
     EscapeRoomWrapper room1 = EscapeRoomWrapper(name1, 3);
-	ASSERT_NO_THROW(EscapeRoomWrapper(name1, 30, 3, 5));
+	//ASSERT_NO_THROW(EscapeRoomWrapper(name1, 30, 3, 5));
     EscapeRoomWrapper room2 = EscapeRoomWrapper(name2, 60, 3, 10);
     EscapeRoomWrapper room3 = EscapeRoomWrapper(name2, 30, 3, 5);
     EscapeRoomWrapper room4 = EscapeRoomWrapper(name2, 30, 2, 5);
 
-    ASSERT_NO_THROW(EscapeRoomWrapper(name2, 3));
-    ASSERT_NO_THROW(EscapeRoomWrapper(room2));
-    ASSERT_WITH_MESSAGE(!(room1==room2), "FAIL: operator==");
-    ASSERT_WITH_MESSAGE((room2==room3), "FAIL: operator==");
-    ASSERT_WITH_MESSAGE((room1!=room2), "FAIL: operator!=");
-    ASSERT_WITH_MESSAGE((room4<room2), "FAIL: operator<");
-    ASSERT_WITH_MESSAGE(!(room4>room3), "FAIL: operator>");
+    //ASSERT_NO_THROW(EscapeRoomWrapper(name2, 3));
+    //ASSERT_NO_THROW(EscapeRoomWrapper(room2));
+    //ASSERT_WITH_MESSAGE(!(room1==room2), "FAIL: operator==");
+    //ASSERT_WITH_MESSAGE((room2==room3), "FAIL: operator==");
+    //ASSERT_WITH_MESSAGE((room1!=room2), "FAIL: operator!=");
+    //ASSERT_WITH_MESSAGE((room4<room2), "FAIL: operator<");
+    //ASSERT_WITH_MESSAGE(!(room4>room3), "FAIL: operator>");
     ASSERT_WITH_MESSAGE(room1.level() == 3, "FAIL: level()");
     ASSERT_NO_THROW(room1.rate(1));
     ASSERT_THROWS(EscapeRoomIllegalRateException, room1.rate(6));

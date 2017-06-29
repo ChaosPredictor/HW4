@@ -48,10 +48,7 @@ EscapeRoomWrapper::EscapeRoomWrapper(const EscapeRoomWrapper& room_to_copy) {
 
 	std::vector<Enigma*> enigmas_to_copy = room_to_copy.enigmas;
 	for (std::vector<Enigma*>::iterator it=enigmas_to_copy.begin(); it!=enigmas_to_copy.end(); ++it) {
-		//std::cout << "one" << std::endl;
-		//Enigma current_enigma(*it);
 		Enigma* current_enigma = new Enigma(**it);
-
 		enigmas.push_back(current_enigma);
 	}
 }
@@ -76,14 +73,9 @@ EscapeRoomWrapper& EscapeRoomWrapper::operator=(const EscapeRoomWrapper& room_to
 
 	std::vector<Enigma*> enigmas_to_copy = room_to_copy.enigmas;
 	for (std::vector<Enigma*>::iterator it=enigmas_to_copy.begin(); it!=enigmas_to_copy.end(); ++it) {
-		//std::cout << "one" << std::endl;
-		//Enigma current_enigma(*it);
 		Enigma* current_enigma = new Enigma(**it);
-
 		enigmas.push_back(current_enigma);
 	}
-    //std::vector<Enigma*>& enigmas_to_copy = *(room_to_copy.enigmas);
-	//enigmas(enigmas_to_copy);
 	return *this;
 	//TODO is it possible w/o code duplication
 }
@@ -95,12 +87,12 @@ EscapeRoomWrapper::~EscapeRoomWrapper() {
 	escapeRoomDestroy(room);
 }
 
-bool EscapeRoomWrapper::operator==(const EscapeRoomWrapper& room) const {
-	return areEqualRooms(this->room, room.room);
+bool EscapeRoomWrapper::operator==(const EscapeRoomWrapper& room_to_compare) const {
+	return areEqualRooms(this->room, room_to_compare.room);
 }
 
-bool EscapeRoomWrapper::operator!=(const EscapeRoomWrapper& room) const {
-	return !(this->room==room.room);
+bool EscapeRoomWrapper::operator!=(const EscapeRoomWrapper& room_to_compare) const {
+	return !(*this == room_to_compare);
 }
 
 bool EscapeRoomWrapper::operator>(const EscapeRoomWrapper& room) const {
@@ -108,7 +100,7 @@ bool EscapeRoomWrapper::operator>(const EscapeRoomWrapper& room) const {
 }
 
 bool EscapeRoomWrapper::operator<(const EscapeRoomWrapper& room) const {
-	return (room.room < this->room);
+	return (room > *this);
 }
 
 int EscapeRoomWrapper::level() const {
