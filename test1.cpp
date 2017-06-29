@@ -552,27 +552,52 @@ void testEnigmaLess() {
 }
 
 
+
+void testEnigmaAreEqualyComplex() {
+	char *name1 = (char*)"enigma1";
+	char *name2 = (char*)"enigma2";
+	std::set<string> elements1 { "John1", "Kelly1", "Amanda1", "Kim1" };
+	std::set<string> elements2 { "John2", "Kelly2", "Amanda2", "Kim2" };
+	std::set<string> elements3 { "John3", "Kelly3", "Amanda3" };
+
+
+	Enigma enigma1(name1, MEDIUM_ENIGMA, 4, elements1);
+	Enigma enigma2(name2, MEDIUM_ENIGMA, 4, elements2);
+	Enigma enigma3(name1, MEDIUM_ENIGMA, 3, elements3);
+	Enigma enigma4(name1, HARD_ENIGMA, 4, elements1);
+
+    ASSERT_WITH_MESSAGE(enigma1.areEqualyComplex(enigma2), "FAIL: Enigma areEqualComplex");
+    ASSERT_WITH_MESSAGE(!(enigma1.areEqualyComplex(enigma3)), "FAIL: Enigma areEqualComplex");
+    ASSERT_WITH_MESSAGE(!(enigma1.areEqualyComplex(enigma4)), "FAIL: Enigma areEqualComplex");
+
+}
+
+
+
+
 void testEnigmaAddElement() {
 	char *name1 = (char*)"enigma1";
 	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
+	std::set<string> elements2 { "John2", "Kelly2", "Amanda2" };
+
 
 	ASSERT_NO_THROW(Enigma(name1, MEDIUM_ENIGMA, 4, elements));
 	ASSERT_THROWS(EnigmaIllegalSizeParamException, Enigma(name1, MEDIUM_ENIGMA, 3, elements));
 
-	Enigma enigma1 = Enigma(name1, MEDIUM_ENIGMA, 4, elements);
+	Enigma enigma1 = Enigma(name1, MEDIUM_ENIGMA, 3, elements2);
 	ASSERT_NO_THROW(enigma1.addElement("newElement"));
 
     std::ostringstream stream;
     stream << enigma1;
     std::string str1 = stream.str();
-    ASSERT_PRINT(str1, "enigma1 (1) 5");
+    ASSERT_PRINT(str1, "enigma1 (1) 4");
 
-	ASSERT_NO_THROW(enigma1.removeElement("John"));
+	ASSERT_NO_THROW(enigma1.removeElement("John2"));
 
     std::ostringstream stream2;
     stream2 << enigma1;
     std::string str2 = stream2.str();
-    ASSERT_PRINT(str2, "enigma1 (1) 4");
+    ASSERT_PRINT(str2, "enigma1 (1) 3");
 }
 
 void testEnigma1() {
@@ -609,6 +634,7 @@ void testEnigma() {
 	RUN_TEST(testEnigmaNotEqual);
 	RUN_TEST(testEnigmaGreater);
 	RUN_TEST(testEnigmaLess);
+	RUN_TEST(testEnigmaAreEqualyComplex);
 
 
 
