@@ -60,20 +60,26 @@ EscapeRoomWrapper& EscapeRoomWrapper::operator=(const EscapeRoomWrapper& room_to
 	if( this == &room_to_copy) {
 		return *this;
 	}
+	for (std::vector<Enigma*>::iterator it=enigmas.begin(); it!=enigmas.end(); ++it) {
+		delete *it;
+	}
+	enigmas.clear();
 	escapeRoomDestroy(this->room);
+
 	this->room = escapeRoomCopy(room_to_copy.room);
 	if(this->room == NULL) {
 		throw EscapeRoomMemoryProblemException();
 	}
-
-	std::cout << std::endl;
-	std::cout << "=" << std::endl;
-	std::cout << std::endl;
+	//std::cout << std::endl;
+	//std::cout << "=" << std::endl;
+	//std::cout << std::endl;
 
 	std::vector<Enigma*> enigmas_to_copy = room_to_copy.enigmas;
 	for (std::vector<Enigma*>::iterator it=enigmas_to_copy.begin(); it!=enigmas_to_copy.end(); ++it) {
 		//std::cout << "one" << std::endl;
-		Enigma* current_enigma = *it;
+		//Enigma current_enigma(*it);
+		Enigma* current_enigma = new Enigma(**it);
+
 		enigmas.push_back(current_enigma);
 	}
     //std::vector<Enigma*>& enigmas_to_copy = *(room_to_copy.enigmas);
@@ -137,6 +143,7 @@ int EscapeRoomWrapper::getMaxParticipants() const {
 
 void EscapeRoomWrapper::addEnigma(const Enigma& enigma) {
 	Enigma* new_enigma = new Enigma(enigma);
+	//Enigma* new_enigma(&enigma);
 	enigmas.push_back(new_enigma);
 }
 

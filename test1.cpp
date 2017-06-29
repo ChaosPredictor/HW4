@@ -61,15 +61,100 @@ void testRoomConstractor() {
 
 void testRoomCopy() {
 	char *name1 = (char*)"company1";
-    EscapeRoomWrapper room1(name1, 60, 3, 10);
-    Enigma enigma("enigma_name", EASY_ENIGMA, 2);
-    room1.addEnigma(enigma);
-    //ASSERT_NO_THROW(EscapeRoomWrapper(room2));
-    EscapeRoomWrapper room2 = room1;
-    ASSERT_WITH_MESSAGE((room1==room2), "FAIL: room.copy");
+	char *name3 = (char*)"company3";
+	EscapeRoomWrapper room1(name1, 60, 3, 10);
+	EscapeRoomWrapper room3(name3, 60, 3, 10);
+    Enigma enigma1("enigma_name1", EASY_ENIGMA, 2);
+    Enigma enigma2("enigma_name2", HARD_ENIGMA, 2);
+    room1.addEnigma(enigma1);
+    room1.addEnigma(enigma2);
 
-	ASSERT_EQUALS(room2.getAllEnigmas().size(), 1);
+    EscapeRoomWrapper room2(room1);
+
+	ASSERT_EQUALS(room2.getAllEnigmas().size(), 2);
+
+    room1.removeEnigma(enigma1);
+	ASSERT_EQUALS(room1.getAllEnigmas().size(), 1);
+	ASSERT_EQUALS(room2.getAllEnigmas().size(), 2);
+
 }
+
+void testRoomAssigment() {
+	char *name1 = (char*)"company1";
+	char *name2 = (char*)"company2";
+
+    Enigma enigma1("enigma_name1", EASY_ENIGMA, 2);
+    Enigma enigma2("enigma_name2", HARD_ENIGMA, 2);
+    Enigma enigma3("enigma_name3", HARD_ENIGMA, 2);
+    Enigma enigma4("enigma_name4", MEDIUM_ENIGMA, 2);
+
+    EscapeRoomWrapper room1(name1, 60, 3, 10);
+    EscapeRoomWrapper room2(name2, 60, 3, 10);
+
+    room1.addEnigma(enigma1);
+    room1.addEnigma(enigma2);
+    room1.addEnigma(enigma3);
+    room2.addEnigma(enigma4);
+
+    room2 = room1;
+
+	ASSERT_EQUALS(room2.getAllEnigmas().size(), 3);
+
+    room1.removeEnigma(enigma1);
+	ASSERT_EQUALS(room1.getAllEnigmas().size(), 2);
+	ASSERT_EQUALS(room2.getAllEnigmas().size(), 3);
+
+}
+
+void testRoomDestructor() {
+	char *name1 = (char*)"company1";
+
+    Enigma enigma1("enigma_name1", EASY_ENIGMA, 2);
+    Enigma enigma2("enigma_name2", HARD_ENIGMA, 2);
+    Enigma enigma3("enigma_name3", HARD_ENIGMA, 2);
+
+    EscapeRoomWrapper room1(name1, 60, 3, 10);
+
+    room1.addEnigma(enigma1);
+    room1.addEnigma(enigma2);
+    room1.addEnigma(enigma3);
+    //TODO how to test?
+}
+
+
+void testRoomEqual() {
+	char *name1 = (char*)"company1";
+	char *name2 = (char*)"company2";
+	EscapeRoomWrapper room1(name1, 60, 4, 10);
+	EscapeRoomWrapper room3(name1, 30, 8, 10);
+	EscapeRoomWrapper room4(name1, 30, 4, 5);
+	EscapeRoomWrapper room5(name2, 60, 4, 10);
+    Enigma enigma1("enigma_name1", EASY_ENIGMA, 2);
+    Enigma enigma2("enigma_name2", HARD_ENIGMA, 2);
+    room1.addEnigma(enigma1);
+    room1.addEnigma(enigma2);
+
+    EscapeRoomWrapper room2(room1);
+
+    ASSERT_WITH_MESSAGE((room1==room2), "FAIL: operator==");
+
+    room1.removeEnigma(enigma1);
+
+    ASSERT_WITH_MESSAGE((room1==room2), "FAIL: operator==");
+
+    ASSERT_WITH_MESSAGE((room1==room3), "FAIL: operator==");
+    ASSERT_WITH_MESSAGE((room1==room4), "FAIL: operator==");
+
+    ASSERT_WITH_MESSAGE(!(room1==room5), "FAIL: operator==");
+
+	//ASSERT_EQUALS(room2.getAllEnigmas().size(), 2);
+
+    //room1.removeEnigma(enigma1);
+	//ASSERT_EQUALS(room1.getAllEnigmas().size(), 1);
+	//ASSERT_EQUALS(room2.getAllEnigmas().size(), 2);
+
+}
+
 
 void testRoomAddEnigma() {
 	char *company_name1 = (char*)"company1";
@@ -147,6 +232,9 @@ void testRoomGetHardestEnigma() {
 
 }
 
+
+
+
 void testRoomGetAllEnigmas() {
 	char *company_name1 = (char*)"company1";
 	EscapeRoomWrapper room1 = EscapeRoomWrapper(company_name1, 3);
@@ -190,14 +278,16 @@ void testRoomGetAllEnigmas() {
 void testRoom() {
 	RUN_TEST(testRoomConstractor);
 	RUN_TEST(testRoomCopy);
+	RUN_TEST(testRoomDestructor);
+	RUN_TEST(testRoomAssigment);
+
+	RUN_TEST(testRoomEqual);
+
+
 	RUN_TEST(testRoomAddEnigma);
 	RUN_TEST(testRoomRemoveEnigma);
 	RUN_TEST(testRoomGetHardestEnigma);
 	RUN_TEST(testRoomGetAllEnigmas);
-
-
-
-
 
 	char *name1 = (char*)"company1";
 	char *name2 = (char*)"company2";
