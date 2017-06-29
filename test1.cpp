@@ -551,15 +551,12 @@ void testEnigmaLess() {
 
 }
 
-
-
 void testEnigmaAreEqualyComplex() {
 	char *name1 = (char*)"enigma1";
 	char *name2 = (char*)"enigma2";
 	std::set<string> elements1 { "John1", "Kelly1", "Amanda1", "Kim1" };
 	std::set<string> elements2 { "John2", "Kelly2", "Amanda2", "Kim2" };
 	std::set<string> elements3 { "John3", "Kelly3", "Amanda3" };
-
 
 	Enigma enigma1(name1, MEDIUM_ENIGMA, 4, elements1);
 	Enigma enigma2(name2, MEDIUM_ENIGMA, 4, elements2);
@@ -572,7 +569,42 @@ void testEnigmaAreEqualyComplex() {
 
 }
 
+void testEnigmaGetDifficulty() {
+	char *name1 = (char*)"enigma1";
+	char *name2 = (char*)"enigma2";
+	char *name3 = (char*)"enigma3";
+	std::set<string> elements1 { "John1", "Kelly1", "Amanda1", "Kim1" };
+	std::set<string> elements2 { "John2", "Kelly2", "Amanda2" };
+	std::set<string> elements3 { "John3", "Kelly3" };
 
+	Enigma enigma1(name1, HARD_ENIGMA, 4, elements1);
+	Enigma enigma2(name2, MEDIUM_ENIGMA, 3, elements2);
+	Enigma enigma3(name3, EASY_ENIGMA, 2, elements3);
+
+    ASSERT_WITH_MESSAGE(enigma1.getDifficulty() == HARD_ENIGMA, "FAIL: Enigma getDifficulty");
+    ASSERT_WITH_MESSAGE(enigma2.getDifficulty() == MEDIUM_ENIGMA, "FAIL: Enigma getDifficulty");
+    ASSERT_WITH_MESSAGE(enigma3.getDifficulty() == EASY_ENIGMA, "FAIL: Enigma getDifficulty");
+
+}
+
+
+void testEnigmaGetName() {
+	char *name1 = (char*)"enigma1";
+	char *name2 = (char*)"enigma2";
+	char *name3 = (char*)"enigma3";
+	std::set<string> elements1 { "John1", "Kelly1", "Amanda1", "Kim1" };
+	std::set<string> elements2 { "John2", "Kelly2", "Amanda2" };
+	std::set<string> elements3 { "John3", "Kelly3" };
+
+	Enigma enigma1(name1, HARD_ENIGMA, 4, elements1);
+	Enigma enigma2(name2, MEDIUM_ENIGMA, 3, elements2);
+	Enigma enigma3(name3, EASY_ENIGMA, 2, elements3);
+
+    ASSERT_WITH_MESSAGE(enigma1.getName() == "enigma1", "FAIL: Enigma getName");
+    ASSERT_WITH_MESSAGE(enigma2.getName() == "enigma2", "FAIL: Enigma getName");
+    ASSERT_WITH_MESSAGE(enigma3.getName() == "enigma3", "FAIL: Enigma getName");
+
+}
 
 
 void testEnigmaAddElement() {
@@ -635,6 +667,8 @@ void testEnigma() {
 	RUN_TEST(testEnigmaGreater);
 	RUN_TEST(testEnigmaLess);
 	RUN_TEST(testEnigmaAreEqualyComplex);
+	RUN_TEST(testEnigmaGetDifficulty);
+
 
 
 
