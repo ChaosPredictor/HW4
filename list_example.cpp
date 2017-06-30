@@ -324,7 +324,6 @@ static void listRemove(){
 
 static void listFind(){
 	List<int> list1;
-	List<int> list2;
 
 	list1.insert(1, list1.end());
 	list1.insert(2, list1.begin());
@@ -350,6 +349,59 @@ static void listFind(){
 
 	it1 = list1.find(DividedBy(11));
 	ASSERT_EQUALS(list1.end(), it1);
+}
+
+static void listGetSize(){
+	List<int> list1;
+
+	ASSERT_EQUALS(list1.getSize(), 0);
+
+	list1.insert(1, list1.end());
+	ASSERT_EQUALS(list1.getSize(), 1);
+
+	list1.insert(2, list1.begin());
+	ASSERT_EQUALS(list1.getSize(), 2);
+
+	list1.insert(3, list1.end());
+	ASSERT_EQUALS(list1.getSize(), 3);
+
+	list1.insert(4, list1.begin());
+	ASSERT_EQUALS(list1.getSize(), 4);
+
+	list1.insert(5, list1.end());
+	list1.insert(6, list1.begin());
+	list1.insert(7, list1.end());
+	list1.insert(8, list1.begin());
+	list1.insert(9, list1.end());
+
+	List<int>::Iterator it1 = list1.begin();
+
+	ASSERT_NO_THROW(list1.remove(it1));
+
+	ASSERT_EQUALS(list1.getSize(), 8);
+
+}
+
+
+static void listSort(){
+	List<int> list1;
+
+	list1.insert(1, list1.end());
+	list1.insert(2, list1.begin());
+	list1.insert(3, list1.end());
+	list1.insert(4, list1.begin());
+	list1.insert(5, list1.end());
+	list1.insert(6, list1.begin());
+	list1.insert(7, list1.end());
+	list1.insert(8, list1.begin());
+	list1.insert(9, list1.end());
+
+	list1.sort(std::less<int>());
+
+	int counter = 1;
+	for (List<int>::Iterator it1 = list1.begin(); it1 != list1.end(); ++it1) {
+		ASSERT_EQUALS(counter++, *it1);
+	}
 }
 
 
@@ -432,6 +484,9 @@ int testList() {
 	RUN_TEST(listInsert);
 	RUN_TEST(listRemove);
 	RUN_TEST(listFind);
+	RUN_TEST(listSort);
+	RUN_TEST(listGetSize);
+
 
 
 	RUN_TEST(listExample);
