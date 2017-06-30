@@ -737,7 +737,6 @@ static void IteratorNotEqual() {static
 	ASSERT_FALSE( it1 != it2);
 }
 
-
 static void IteratorCopy() {static
 	List<int> list1;
 	list1.insert(1, list1.end());
@@ -754,6 +753,37 @@ static void IteratorCopy() {static
 	ASSERT_EQUALS(3, *it1);
 
 	it2 = it1;
+
+	ASSERT_EQUALS(3, *it1);
+	ASSERT_EQUALS(3, *it2);
+
+	it1++;
+
+	ASSERT_EQUALS(4, *it1);
+	ASSERT_EQUALS(3, *it2);
+
+	it2++;
+	it2++;
+
+	ASSERT_EQUALS(4, *it1);
+	ASSERT_EQUALS(5, *it2);
+}
+
+static void IteratorAssignment() {static
+	List<int> list1;
+	list1.insert(1, list1.end());
+	list1.insert(2, list1.end());
+	list1.insert(3, list1.end());
+	list1.insert(4, list1.end());
+	list1.insert(5, list1.end());
+	list1.insert(6, list1.end());
+
+	List<int>::Iterator it1 = list1.begin();
+	it1++;
+	it1++;
+	ASSERT_EQUALS(3, *it1);
+
+	List<int>::Iterator it2(it1);
 
 	ASSERT_EQUALS(3, *it1);
 	ASSERT_EQUALS(3, *it2);
@@ -801,8 +831,7 @@ int testIterator() {
 	RUN_TEST(IteratorEqual);
 	RUN_TEST(IteratorNotEqual);
 	RUN_TEST(IteratorCopy);
-
-
+	RUN_TEST(IteratorAssignment);
 
 	std::cout << std::endl << "==========================" << std::endl << std::endl;
 
