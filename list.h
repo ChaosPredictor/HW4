@@ -26,6 +26,8 @@ public:
 
 	List<T>& operator=(const List<T>& list_to_copy);
 
+	typename List<T>::Iterator begin() const;
+
     bool operator==(const List& right);
 
     bool operator!=(const List& right);
@@ -35,8 +37,6 @@ public:
 	void insert(T data);
 
 	//typename List<T>::Iterator begin();
-
-	typename List<T>::Iterator begin() const;
 
 	//typename List<T>::Iterator end();
 
@@ -119,7 +119,6 @@ List<T>::~List() {
 	//printf("distractor run\n");
 }
 
-
 template<class T>
 List<T>& List<T>::operator=(const List<T>& list_to_copy) {
 	if ( this == &list_to_copy ) {
@@ -147,6 +146,13 @@ List<T>& List<T>::operator=(const List<T>& list_to_copy) {
 	}
 	return *this;
 }
+
+template<class T>
+typename List<T>::Iterator List<T>::begin() const {
+	return Iterator(head);
+}
+
+
 
 template<class T>
 bool List<T>::operator==(const List& right) {
@@ -230,16 +236,12 @@ typename List<T>::Iterator List<T>::find(Function f) {
 	return this->end();
 }
 
+//TODO maybe remove
 //template<class T>
 //typename List<T>::Iterator List<T>::begin() {
 //	return Iterator(head);
 //}
 
-//TODO maybe remove
-template<class T>
-typename List<T>::Iterator List<T>::begin() const {
-	return Iterator(head);
-}
 
 //template<class T>
 //typename List<T>::Iterator List<T>::end() {
