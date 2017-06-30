@@ -65,17 +65,28 @@ static void listCopy(){
 
 
 	List<int> list1(list10);
+	List<int>::Iterator it1 = list10.begin();
+	list10.remove(it1);
+	ASSERT_EQUALS(list10.getSize(), 2);
+	ASSERT_EQUALS(list1.getSize(), 3);
+
 	List<char> list2(list20);
+	List<char>::Iterator it2 = list2.begin();
+	list2.remove(it2);
+	ASSERT_EQUALS(list2.getSize(), 2);
+	ASSERT_EQUALS(list20.getSize(), 3);
+
 	List<std::string> list3(list30);
+
 
 	int counter = 1;
 	for (List<int>::Iterator it1 = list1.begin(); it1 != list1.end(); ++it1) {
 		ASSERT_EQUALS(counter++, *it1);
 	}
 
-	List<char>::Iterator it2 = list2.begin();
-	ASSERT_EQUALS('a', *it2);
-	it2++;
+	it2 = list2.begin();
+	//ASSERT_EQUALS('a', *it2);
+	//it2++;
 	ASSERT_EQUALS('b', *it2);
 	it2++;
 	ASSERT_EQUALS('c', *it2);
