@@ -1217,6 +1217,7 @@ int main() {
 
 	//main2();
 	testList();
+	testIterator();
 
 	RUN_TEST(test1);
     RUN_TEST(test2);

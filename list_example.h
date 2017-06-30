@@ -14,4 +14,6 @@
 
 int testList();
 
+int testIterator();
+
 #endif /* LIST_EXAMPLE_H_ */

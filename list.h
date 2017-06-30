@@ -212,8 +212,6 @@ bool List<T>::operator!=(const List& right) {
 	return (!(*this == right));
 }
 
-
-
 template<class T>
 int List<T>::getSize() {
 	return size;
@@ -253,8 +251,6 @@ typename List<T>::Iterator List<T>::find(Function f) {
 //typename List<T>::Iterator List<T>::end() {
 //	return Iterator(tail);
 //}
-
-
 
 template<class T>
 void List<T>::remove(Iterator& iterator) {
