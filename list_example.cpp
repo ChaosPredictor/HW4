@@ -580,8 +580,6 @@ static void PlusPlusIterator() {
 
 }
 
-
-
 static void IteratorMinusMinus() {
 	List<int> list1;
 	list1.insert(1, list1.end());
@@ -628,6 +626,117 @@ static void MinusMinusIterator() {
 
 }
 
+static void IteratorOperatorStar() {
+	List<int> list1;
+	List<char> list2;
+	List<std::string> list3;
+	list1.insert(1, list1.end());
+	list1.insert(2, list1.end());
+	list1.insert(3, list1.end());
+	list2.insert('a', list2.end());
+	list2.insert('b', list2.end());
+	list2.insert('c', list2.end());
+	list3.insert("abc", list3.end());
+	list3.insert("def", list3.end());
+	list3.insert("ghi", list3.end());
+
+	List<int>::Iterator it1;
+	int counter = 1;
+	for (it1 = list1.begin(); it1 != list1.end(); ++it1) {
+		ASSERT_EQUALS(counter++, *it1);
+	}
+	ASSERT_THROWS(mtm::ListExceptions::ElementNotFound, *it1 );
+
+	List<char>::Iterator it2 = list2.begin();
+	ASSERT_EQUALS('a', *it2++);
+	ASSERT_EQUALS('b', *it2++);
+	ASSERT_EQUALS('c', *it2++);
+	ASSERT_THROWS(mtm::ListExceptions::ElementNotFound, *it2 );
+
+	List<std::string>::Iterator it3 = list3.begin();
+	ASSERT_EQUALS("abc", *it3++);
+	ASSERT_EQUALS("def", *it3++);
+	ASSERT_EQUALS("ghi", *it3++);
+	ASSERT_THROWS(mtm::ListExceptions::ElementNotFound, *it3 );
+
+}
+
+static void IteratorEqual() {static
+	List<int> list1;
+	List<int> list2;
+	list1.insert(1, list1.end());
+	list1.insert(2, list1.end());
+	list1.insert(3, list1.end());
+
+	List<int>::Iterator it1 = list1.begin();
+
+	list2.insert(1, list2.end());
+	list2.insert(2, list2.end());
+	list2.insert(3, list2.end());
+
+	List<int>::Iterator it2 = list2.begin();
+
+	ASSERT_FALSE( it1 == it2);
+
+	it1++;
+	it1++;
+	it1++;
+	it2++;
+	it2++;
+	it2++;
+	//TODO not sure
+	ASSERT_TRUE( it1 == it2);
+
+	it2 = list1.begin();
+	it1 = list1.begin();
+
+	ASSERT_TRUE( it1 == it2);
+
+	it1++;
+	it1++;
+	it2++;
+	it2++;
+	ASSERT_TRUE( it1 == it2);
+}
+
+static void IteratorNotEqual() {static
+	List<int> list1;
+	List<int> list2;
+	list1.insert(1, list1.end());
+	list1.insert(2, list1.end());
+	list1.insert(3, list1.end());
+
+	List<int>::Iterator it1 = list1.begin();
+
+	list2.insert(1, list2.end());
+	list2.insert(2, list2.end());
+	list2.insert(3, list2.end());
+
+	List<int>::Iterator it2 = list2.begin();
+
+	ASSERT_TRUE( it1 != it2);
+
+	it1++;
+	it1++;
+	it1++;
+	it2++;
+	it2++;
+	it2++;
+	//TODO not sure
+	ASSERT_FALSE( it1 != it2);
+
+	it2 = list1.begin();
+	it1 = list1.begin();
+
+	ASSERT_FALSE( it1 != it2);
+
+	it1++;
+	it1++;
+	it2++;
+	it2++;
+	ASSERT_FALSE( it1 != it2);
+}
+
 
 int testList() {
 	RUN_TEST(listConstractor);
@@ -650,11 +759,17 @@ int testList() {
 	return 0;
 }
 
+
 int testIterator() {
 	RUN_TEST(IteratorPlusPlus);
 	RUN_TEST(PlusPlusIterator);
 	RUN_TEST(IteratorMinusMinus);
 	RUN_TEST(MinusMinusIterator);
+	RUN_TEST(IteratorOperatorStar);
+	RUN_TEST(IteratorEqual);
+	RUN_TEST(IteratorNotEqual);
+	//RUN_TEST(IteratorCopy);
+
 
 
 	std::cout << std::endl << "==========================" << std::endl << std::endl;
