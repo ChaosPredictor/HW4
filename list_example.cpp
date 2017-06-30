@@ -560,7 +560,6 @@ static void IteratorPlusPlus() {
 
 }
 
-
 static void PlusPlusIterator() {
 	List<int> list1;
 	list1.insert(1, list1.end());
@@ -580,6 +579,55 @@ static void PlusPlusIterator() {
 	ASSERT_EQUALS(counter++, *++it1);
 
 }
+
+
+
+static void IteratorMinusMinus() {
+	List<int> list1;
+	list1.insert(1, list1.end());
+	list1.insert(2, list1.end());
+	list1.insert(3, list1.end());
+	list1.insert(4, list1.end());
+	list1.insert(5, list1.end());
+	list1.insert(6, list1.end());
+	list1.insert(7, list1.end());
+	list1.insert(8, list1.end());
+	list1.insert(9, list1.end());
+
+	List<int>::Iterator it1 = list1.begin();
+	for(int i = 0; i < list1.getSize()-1; i++) {
+		it1++;
+	}
+	int counter = 9;
+	ASSERT_EQUALS(counter--, *it1--);
+	ASSERT_EQUALS(counter--, *it1--);
+	ASSERT_EQUALS(counter--, *it1--);
+
+}
+
+static void MinusMinusIterator() {
+	List<int> list1;
+	list1.insert(1, list1.end());
+	list1.insert(2, list1.end());
+	list1.insert(3, list1.end());
+	list1.insert(4, list1.end());
+	list1.insert(5, list1.end());
+	list1.insert(6, list1.end());
+	list1.insert(7, list1.end());
+	list1.insert(8, list1.end());
+	list1.insert(9, list1.end());
+
+	List<int>::Iterator it1 = list1.begin();
+	for(int i = 0; i < list1.getSize()-1; i++) {
+		it1++;
+	}
+	int counter = 9;
+	ASSERT_EQUALS(counter--, *it1);
+	ASSERT_EQUALS(counter--, *--it1);
+	ASSERT_EQUALS(counter--, *--it1);
+
+}
+
 
 int testList() {
 	RUN_TEST(listConstractor);
@@ -605,6 +653,8 @@ int testList() {
 int testIterator() {
 	RUN_TEST(IteratorPlusPlus);
 	RUN_TEST(PlusPlusIterator);
+	RUN_TEST(IteratorMinusMinus);
+	RUN_TEST(MinusMinusIterator);
 
 
 	std::cout << std::endl << "==========================" << std::endl << std::endl;
