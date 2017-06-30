@@ -196,13 +196,14 @@ void List<T>::insert(const T& data, Iterator iterator) {
 }
 
 template<class T>
-bool List<T>::operator==(const List& right) {
-	List<T>::Iterator right_iterator = right.begin();
+bool List<T>::operator==(const List& right_list) {
+	List<T>::Iterator right_iterator = right_list.begin();
 	for (List<T>::Iterator it = begin(); it != end(); ++it) {
+		if ( right_iterator == right_list.end() ) return false;
 		if ( *right_iterator != *it ) return false;
 		++right_iterator;
 	}
-	if ( right_iterator != right.end() ) return false;
+	if ( right_iterator != right_list.end() ) return false;
 	return true;
 }
 

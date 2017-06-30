@@ -351,6 +351,27 @@ static void listFind(){
 	ASSERT_EQUALS(list1.end(), it1);
 }
 
+static void listSort(){
+	List<int> list1;
+
+	list1.insert(1, list1.end());
+	list1.insert(2, list1.begin());
+	list1.insert(3, list1.end());
+	list1.insert(4, list1.begin());
+	list1.insert(5, list1.end());
+	list1.insert(6, list1.begin());
+	list1.insert(7, list1.end());
+	list1.insert(8, list1.begin());
+	list1.insert(9, list1.end());
+
+	list1.sort(std::less<int>());
+
+	int counter = 1;
+	for (List<int>::Iterator it1 = list1.begin(); it1 != list1.end(); ++it1) {
+		ASSERT_EQUALS(counter++, *it1);
+	}
+}
+
 static void listGetSize(){
 	List<int> list1;
 
@@ -382,9 +403,9 @@ static void listGetSize(){
 
 }
 
-
-static void listSort(){
+static void listEqual() {
 	List<int> list1;
+	List<int> list2;
 
 	list1.insert(1, list1.end());
 	list1.insert(2, list1.begin());
@@ -396,14 +417,57 @@ static void listSort(){
 	list1.insert(8, list1.begin());
 	list1.insert(9, list1.end());
 
+	list2.insert(1, list2.end());
+	list2.insert(2, list2.end());
+	list2.insert(3, list2.end());
+	list2.insert(4, list2.end());
+	list2.insert(5, list2.end());
+	list2.insert(6, list2.end());
+	list2.insert(7, list2.end());
+	list2.insert(8, list2.end());
+	list2.insert(9, list2.end());
+
 	list1.sort(std::less<int>());
 
-	int counter = 1;
-	for (List<int>::Iterator it1 = list1.begin(); it1 != list1.end(); ++it1) {
-		ASSERT_EQUALS(counter++, *it1);
-	}
+	ASSERT_TRUE(list1 == list2);
+
 }
 
+static void listNotEqual() {
+	List<int> list1;
+	List<int> list2;
+
+	list1.insert(1, list1.end());
+	list1.insert(2, list1.begin());
+	list1.insert(3, list1.end());
+	list1.insert(4, list1.begin());
+	list1.insert(5, list1.end());
+	list1.insert(6, list1.begin());
+	list1.insert(7, list1.end());
+
+	list2.insert(1, list2.end());
+	list2.insert(2, list2.end());
+	list2.insert(3, list2.end());
+	list2.insert(4, list2.end());
+	list2.insert(5, list2.end());
+	list2.insert(6, list2.end());
+	list2.insert(7, list2.end());
+	list2.insert(8, list2.end());
+
+	ASSERT_TRUE(list1 != list2);
+
+	list1.insert(8, list1.begin());
+	list1.insert(9, list1.end());
+
+	ASSERT_TRUE(list1 != list2);
+
+	list2.insert(10, list2.end());
+
+	list1.sort(std::less<int>());
+
+	ASSERT_TRUE(list1 != list2);
+
+}
 
 static void listExample(){
 	List<int> list;
@@ -475,6 +539,8 @@ static void listExample(){
 }
 
 
+
+
 int testList() {
 	RUN_TEST(listConstractor);
 	RUN_TEST(listCopy);
@@ -486,6 +552,8 @@ int testList() {
 	RUN_TEST(listFind);
 	RUN_TEST(listSort);
 	RUN_TEST(listGetSize);
+	RUN_TEST(listEqual);
+	RUN_TEST(listNotEqual);
 
 
 
