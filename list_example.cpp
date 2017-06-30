@@ -226,6 +226,36 @@ static void listEnd(){
 	ASSERT_EQUALS(list3.end(), it3);
 }
 
+static void listInsert(){
+	List<int> list1;
+	list1.insert(1, list1.end());
+	list1.insert(2, list1.begin());
+	list1.insert(3, list1.end());
+	list1.insert(4, list1.begin());
+	list1.insert(5);
+	list1.insert(6, list1.begin());
+	list1.insert(7);
+	list1.insert(8, list1.begin());
+	list1.insert(9, list1.end());
+
+	List<int>::Iterator it1 = list1.begin();
+	for(int i = 0; i < 3; i++) it1++;
+	list1.insert(15, it1);
+
+	it1 = list1.begin();
+	ASSERT_EQUALS(8, *it1++);
+	ASSERT_EQUALS(6, *it1++);
+	ASSERT_EQUALS(4, *it1++);
+	ASSERT_EQUALS(15, *it1++);
+	ASSERT_EQUALS(2, *it1++);
+	ASSERT_EQUALS(1, *it1++);
+	ASSERT_EQUALS(3, *it1++);
+	ASSERT_EQUALS(5, *it1++);
+	ASSERT_EQUALS(7, *it1++);
+	ASSERT_EQUALS(9, *it1++);
+
+
+}
 
 static void listExample(){
 	List<int> list;
@@ -303,6 +333,8 @@ int testList() {
 	RUN_TEST(listAssignment);
 	RUN_TEST(listBegin);
 	RUN_TEST(listEnd);
+	RUN_TEST(listInsert);
+
 
 	RUN_TEST(listExample);
 

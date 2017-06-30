@@ -28,19 +28,21 @@ public:
 
 	typename List<T>::Iterator begin() const;
 
+	typename List<T>::Iterator end() const;
+
+
     bool operator==(const List& right);
 
     bool operator!=(const List& right);
 
-    void insert(const T& data, Iterator iterator );
-
 	void insert(T data);
+
+    void insert(const T& data, Iterator iterator );
 
 	//typename List<T>::Iterator begin();
 
 	//typename List<T>::Iterator end();
 
-	typename List<T>::Iterator end() const;
 
 	void remove(Iterator& iterator);
 
@@ -152,7 +154,44 @@ typename List<T>::Iterator List<T>::begin() const {
 	return Iterator(head);
 }
 
+template<class T>
+typename List<T>::Iterator List<T>::end() const {
+	return Iterator(tail);
+}
 
+template<class T>
+void List<T>::insert(T data) {
+	insert(data, this->tail);
+}
+
+template<class T>
+void List<T>::insert(const T& data, Iterator iterator) {
+	if ( iterator != nullptr && !(this->isIteratorOfList(iterator))) throw mtm::ListExceptions::ElementNotFound();
+    Node *new_node = new Node(data);
+    if ( head == tail ) {
+    	new_node->last = head;
+    	head = new_node;
+    	new_node->next = tail;
+    } else if ( iterator.ptr == tail ) {
+    	new_node->next = tail;
+        Node *node_left = &(this->lastNode());
+        node_left->next = new_node;
+        new_node->last = node_left;
+    } else {
+        Node *node_right = iterator.ptr;
+        if ( iterator.ptr == head ) {
+        	head = new_node;
+        } else {
+            Node *node_left = node_right->last;
+            node_left->next = new_node;
+            new_node->last = node_left;
+        }
+        new_node->next = iterator.ptr;
+        node_right->last = new_node;
+    }
+	size++;
+    //TODO redesign
+}
 
 template<class T>
 bool List<T>::operator==(const List& right) {
@@ -170,43 +209,7 @@ bool List<T>::operator!=(const List& right) {
 	return (!(*this == right));
 }
 
-template<class T>
-void List<T>::insert(const T& data, Iterator iterator) {
-	if ( iterator != nullptr && !(this->isIteratorOfList(iterator))) throw mtm::ListExceptions::ElementNotFound();
-    Node *new_node = new Node(data);
-    if ( head == tail ) {
-    	new_node->last = head;
-    	head = new_node;
-    	new_node->next = tail;
-    } else if ( iterator.ptr == head ) {
-    	new_node->next = head;
-        Node *node_right = iterator.ptr;
-    	head = new_node;
-    	node_right->last = new_node;
-    } else if ( iterator.ptr == tail ) {
-    	new_node->next = tail;
-        Node *node_left = &(this->lastNode());
-        node_left->next = new_node;
-        new_node->last = node_left;
-    } else {
-        Node *node_right = iterator.ptr;
-        Node *node_left = node_right->last;
 
-        node_left->next = new_node;
-        new_node->last = node_left;
-
-        new_node->next = node_right;
-        node_right->last = new_node;
-    }
-	size++;
-    //TODO redesign
-
-}
-
-template<class T>
-void List<T>::insert(T data) {
-	insert(data, this->tail);
-}
 
 template<class T>
 int List<T>::getSize() {
@@ -242,17 +245,13 @@ typename List<T>::Iterator List<T>::find(Function f) {
 //	return Iterator(head);
 //}
 
-
+//TODO maybe remove
 //template<class T>
 //typename List<T>::Iterator List<T>::end() {
 //	return Iterator(tail);
 //}
 
-//TODO maybe remove
-template<class T>
-typename List<T>::Iterator List<T>::end() const {
-	return Iterator(tail);
-}
+
 
 template<class T>
 void List<T>::remove(Iterator& iterator) {
