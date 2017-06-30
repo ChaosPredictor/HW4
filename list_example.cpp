@@ -738,6 +738,38 @@ static void IteratorNotEqual() {static
 }
 
 
+static void IteratorCopy() {static
+	List<int> list1;
+	list1.insert(1, list1.end());
+	list1.insert(2, list1.end());
+	list1.insert(3, list1.end());
+	list1.insert(4, list1.end());
+	list1.insert(5, list1.end());
+	list1.insert(6, list1.end());
+
+	List<int>::Iterator it1 = list1.begin();
+	List<int>::Iterator it2 = list1.begin();
+	it1++;
+	it1++;
+	ASSERT_EQUALS(3, *it1);
+
+	it2 = it1;
+
+	ASSERT_EQUALS(3, *it1);
+	ASSERT_EQUALS(3, *it2);
+
+	it1++;
+
+	ASSERT_EQUALS(4, *it1);
+	ASSERT_EQUALS(3, *it2);
+
+	it2++;
+	it2++;
+
+	ASSERT_EQUALS(4, *it1);
+	ASSERT_EQUALS(5, *it2);
+}
+
 int testList() {
 	RUN_TEST(listConstractor);
 	RUN_TEST(listCopy);
@@ -768,7 +800,7 @@ int testIterator() {
 	RUN_TEST(IteratorOperatorStar);
 	RUN_TEST(IteratorEqual);
 	RUN_TEST(IteratorNotEqual);
-	//RUN_TEST(IteratorCopy);
+	RUN_TEST(IteratorCopy);
 
 
 
