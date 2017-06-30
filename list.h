@@ -35,7 +35,7 @@ public:
 
     bool operator!=(const List& right);
 
-	void insert(T data);
+	void insert(const T& data);
 
     void insert(const T& data, Iterator iterator );
 
@@ -160,7 +160,7 @@ typename List<T>::Iterator List<T>::end() const {
 }
 
 template<class T>
-void List<T>::insert(T data) {
+void List<T>::insert(const T& data) {
 	insert(data, this->tail);
 }
 

@@ -228,17 +228,26 @@ static void listEnd(){
 
 static void listInsert(){
 	List<int> list1;
+	List<int> list2;
 	list1.insert(1, list1.end());
 	list1.insert(2, list1.begin());
 	list1.insert(3, list1.end());
 	list1.insert(4, list1.begin());
 	list1.insert(5);
-	list1.insert(6, list1.begin());
-	list1.insert(7);
-	list1.insert(8, list1.begin());
-	list1.insert(9, list1.end());
-
 	List<int>::Iterator it1 = list1.begin();
+	ASSERT_NO_THROW(list1.insert(6, it1));
+	ASSERT_NO_THROW(list1.insert(7));
+	ASSERT_NO_THROW(list1.insert(8, list1.begin()));
+	ASSERT_NO_THROW(list1.insert(9, list1.end()));
+
+
+	list2.insert(1, list2.begin());
+	List<int>::Iterator it2 = list2.begin();
+
+	ASSERT_THROWS(mtm::ListExceptions::ElementNotFound, list1.insert(9, it2));
+
+
+	it1 = list1.begin();
 	for(int i = 0; i < 3; i++) it1++;
 	list1.insert(15, it1);
 
