@@ -14,6 +14,17 @@ public:
   }
 };
 
+class DividedBy {
+private:
+  int target;
+public:
+  DividedBy(int i) : target(i) {}
+  bool operator()(const int& i) const {
+    return i % target == 0;
+  }
+};
+
+
 
 static void listConstractor(){
 	List<int> list1;
@@ -311,6 +322,36 @@ static void listRemove(){
 	ASSERT_EQUALS(list1.getSize(), 0 );
 }
 
+static void listFind(){
+	List<int> list1;
+	List<int> list2;
+
+	list1.insert(1, list1.end());
+	list1.insert(2, list1.begin());
+	list1.insert(3, list1.end());
+	list1.insert(4, list1.begin());
+	list1.insert(5, list1.end());
+	list1.insert(6, list1.begin());
+	list1.insert(7, list1.end());
+	list1.insert(8, list1.begin());
+	list1.insert(9, list1.end());
+
+	List<int>::Iterator it1 = list1.find(DividedBy(3));
+	ASSERT_EQUALS(6, *it1);
+
+	it1 = list1.find(DividedBy(2));
+	ASSERT_EQUALS(8, *it1);
+
+	it1 = list1.find(DividedBy(5));
+	ASSERT_EQUALS(5, *it1);
+
+	it1 = list1.find(DividedBy(9));
+	ASSERT_EQUALS(9, *it1);
+
+	it1 = list1.find(DividedBy(11));
+	ASSERT_EQUALS(list1.end(), it1);
+}
+
 
 static void listExample(){
 	List<int> list;
@@ -390,6 +431,8 @@ int testList() {
 	RUN_TEST(listEnd);
 	RUN_TEST(listInsert);
 	RUN_TEST(listRemove);
+	RUN_TEST(listFind);
+
 
 	RUN_TEST(listExample);
 
