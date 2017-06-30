@@ -34,11 +34,11 @@ public:
 
 	void insert(T data);
 
-	typename List<T>::Iterator begin();
+	//typename List<T>::Iterator begin();
 
 	typename List<T>::Iterator begin() const;
 
-	typename List<T>::Iterator end();
+	//typename List<T>::Iterator end();
 
 	typename List<T>::Iterator end() const;
 
@@ -230,10 +230,10 @@ typename List<T>::Iterator List<T>::find(Function f) {
 	return this->end();
 }
 
-template<class T>
-typename List<T>::Iterator List<T>::begin() {
-	return Iterator(head);
-}
+//template<class T>
+//typename List<T>::Iterator List<T>::begin() {
+//	return Iterator(head);
+//}
 
 //TODO maybe remove
 template<class T>
@@ -241,10 +241,10 @@ typename List<T>::Iterator List<T>::begin() const {
 	return Iterator(head);
 }
 
-template<class T>
-typename List<T>::Iterator List<T>::end() {
-	return Iterator(tail);
-}
+//template<class T>
+//typename List<T>::Iterator List<T>::end() {
+//	return Iterator(tail);
+//}
 
 //TODO maybe remove
 template<class T>
