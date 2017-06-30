@@ -22,7 +22,6 @@ Company::~Company() {
 void Company::createRoom(char* name, const int& escapeTime, const int& level, const int& maxParticipants) {
 	try {
 		EscapeRoomWrapper* room = new EscapeRoomWrapper(name, escapeTime, level, maxParticipants);
-
 		rooms.insert(room);
 
 	} catch (EscapeRoomMemoryProblemException& e) {

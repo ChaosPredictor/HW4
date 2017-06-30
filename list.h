@@ -24,6 +24,8 @@ public:
 
 	~List();
 
+	List<T>& operator=(const List<T>& list_to_copy);
+
     bool operator==(const List& right);
 
     bool operator!=(const List& right);
@@ -115,6 +117,35 @@ List<T>::~List() {
 	//delete head;
 	//delete tail;
 	//printf("distractor run\n");
+}
+
+
+template<class T>
+List<T>& List<T>::operator=(const List<T>& list_to_copy) {
+	if ( this == &list_to_copy ) {
+		return *this;
+	}
+	//delete this;
+	size = 0;
+	head = nullptr;
+	tail = nullptr;
+
+
+/*
+	std::vector<Enigma*> enigmas_to_copy = room_to_copy.enigmas;
+	for (std::vector<Enigma*>::iterator it=enigmas_to_copy.begin(); it!=enigmas_to_copy.end(); ++it) {
+		Enigma* current_enigma = new Enigma(**it);
+		enigmas.push_back(current_enigma);
+	}
+*/
+
+
+
+	for (List<T>::Iterator it = list_to_copy.begin(); it != list_to_copy.end(); ++it) {
+		//T* current_data = new T(*it);
+		this->insert(*it);
+	}
+	return *this;
 }
 
 template<class T>
