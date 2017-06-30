@@ -54,14 +54,6 @@ public:
 
 	int getSize();
 
-private:
-
-	class Node;
-
-	Node& lastNode();
-
-	bool isIteratorOfList(Iterator& iterator);
-
 	//TODO remove it
 	void printList() {
 		printf("\n\n");
@@ -73,6 +65,16 @@ private:
 			node = node->next;
 		}
 	}
+
+private:
+
+	class Node;
+
+	Node& lastNode();
+
+	bool isIteratorOfList(Iterator& iterator);
+
+
 
 	//TODO remove it
 	void printList() const {
@@ -263,6 +265,9 @@ void List<T>::remove(Iterator& iterator) {
 	} else if ( iterator.ptr == head ) {
 		head = iterator.ptr->next;
 		iterator.ptr->next->last = nullptr;
+	} else if ( iterator.ptr->next == tail ) {
+		node_left = iterator.ptr->last;
+		node_left->next = tail;
 	} else {
     	node_right = iterator.ptr->next;
         node_left = iterator.ptr->last;

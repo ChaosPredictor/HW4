@@ -240,12 +240,10 @@ static void listInsert(){
 	ASSERT_NO_THROW(list1.insert(8, list1.begin()));
 	ASSERT_NO_THROW(list1.insert(9, list1.end()));
 
-
 	list2.insert(1, list2.begin());
 	List<int>::Iterator it2 = list2.begin();
 
 	ASSERT_THROWS(mtm::ListExceptions::ElementNotFound, list1.insert(9, it2));
-
 
 	it1 = list1.begin();
 	for(int i = 0; i < 3; i++) it1++;
@@ -262,9 +260,57 @@ static void listInsert(){
 	ASSERT_EQUALS(5, *it1++);
 	ASSERT_EQUALS(7, *it1++);
 	ASSERT_EQUALS(9, *it1++);
-
-
 }
+
+static void listRemove(){
+	List<int> list1;
+	List<int> list2;
+
+	list1.insert(1, list1.end());
+	list1.insert(2, list1.begin());
+	list1.insert(3, list1.end());
+	list1.insert(4, list1.begin());
+	list1.insert(5, list1.end());
+	list1.insert(6, list1.begin());
+	list1.insert(7, list1.end());
+	list1.insert(8, list1.begin());
+	list1.insert(9, list1.end());
+
+	list2.insert(1, list2.begin());
+	List<int>::Iterator it2 = list2.begin();
+	List<int>::Iterator it1 = list1.end();
+
+	ASSERT_THROWS(mtm::ListExceptions::ElementNotFound, list1.remove(it2));
+	ASSERT_THROWS(mtm::ListExceptions::ElementNotFound, list1.remove(it1));
+
+	it1 = list1.begin();
+
+	ASSERT_NO_THROW(list1.remove(it1));
+
+	it1 = list1.begin();
+	for(int i = 0; i < 3; i++) it1++;
+	ASSERT_NO_THROW(list1.remove(it1));
+
+	it1 = list1.begin();
+	for(int i = 0; i < 6; i++) it1++;
+	ASSERT_NO_THROW(list1.remove(it1));
+
+	it1 = list1.begin();
+	ASSERT_EQUALS(6, *it1++);
+	ASSERT_EQUALS(4, *it1++);
+	ASSERT_EQUALS(2, *it1++);
+	ASSERT_EQUALS(3, *it1++);
+	ASSERT_EQUALS(5, *it1++);
+	ASSERT_EQUALS(7, *it1++);
+
+	for(List<int>::Iterator it1 = list1.begin(); it1 != list1.end(); ) {
+		ASSERT_NO_THROW(list1.remove(it1));
+		it1 = list1.begin();
+	}
+	ASSERT_THROWS(mtm::ListExceptions::ElementNotFound, list1.remove(it1));
+	ASSERT_EQUALS(list1.getSize(), 0 );
+}
+
 
 static void listExample(){
 	List<int> list;
@@ -343,7 +389,7 @@ int testList() {
 	RUN_TEST(listBegin);
 	RUN_TEST(listEnd);
 	RUN_TEST(listInsert);
-
+	RUN_TEST(listRemove);
 
 	RUN_TEST(listExample);
 
