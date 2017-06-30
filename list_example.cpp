@@ -15,20 +15,43 @@ public:
 };
 
 
+//void printBuffer() {
+//	std::cout << std::endl << "==========================" << std::endl << std::endl;
+//}
+
+
+static void listConstractor(){
+	List<int> list1;
+	List<char> list2;
+	List<std::string> list3;
+	list1.insert(1, list1.end());
+	list1.insert(2, list1.end());
+	list1.insert(3, list1.end());
+	//char a = 'a';
+	//char b = 'b';
+	//char c = 'c';
+	list2.insert('a', list2.end());
+	list2.insert('b', list2.end());
+	list2.insert('c', list2.end());
+
+
+
+	int counter = 1;
+	for (List<int>::Iterator it = list1.begin(); it != list1.end(); ++it) {
+		ASSERT_EQUALS(counter++, *it);
+	}
+
+
+
+}
+
+
+
 static void listExample(){
 	List<int> list;
-	//list.printList();
 	list.insert(1, list.end());
-	//list.printList();
 	list.insert(2, list.end());
-	//list.printList();
 	list.insert(3, list.end());
-	//list.printList();
-
-	//list.insert(4, list.end());
-
-	//printf("begin address: %p   end address: %p \n", (void*)(list.begin().ptr), (void*)(list.end().ptr));
-
 
 	int counter = 1;
 	for (List<int>::Iterator it = list.begin(); it != list.end(); ++it) {
@@ -94,8 +117,13 @@ static void listExample(){
 }
 
 
-int main2() {
-  RUN_TEST(listExample);
+int testList() {
+	RUN_TEST(listConstractor);
 
-  return 0;
+	RUN_TEST(listExample);
+
+	//printBuffer();
+	std::cout << std::endl << "==========================" << std::endl << std::endl;
+
+	return 0;
 }

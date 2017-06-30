@@ -56,14 +56,7 @@ private:
 
 	Node& lastNode();
 
-	bool isIteratorOfList(Iterator& iterator){
-		for (List<T>::Iterator it = this->begin(); it != this->end(); ++it) {
-			if ( it == iterator) {
-				return true;
-			}
-		}
-		return false;
-	}
+	bool isIteratorOfList(Iterator& iterator);
 
 	//TODO remove it
 	void printList() {
@@ -210,6 +203,7 @@ template<class T>
 typename List<T>::Iterator List<T>::begin() {
 	return Iterator(head);
 }
+
 //TODO maybe remove
 template<class T>
 typename List<T>::Iterator List<T>::begin() const {
@@ -220,6 +214,7 @@ template<class T>
 typename List<T>::Iterator List<T>::end() {
 	return Iterator(tail);
 }
+
 //TODO maybe remove
 template<class T>
 typename List<T>::Iterator List<T>::end() const {
@@ -254,6 +249,16 @@ typename List<T>::Node& List<T>::lastNode() {
 		node = node->next;
 	}
 	return *node;
+}
+
+template<class T>
+bool List<T>::isIteratorOfList(Iterator& iterator) {
+	for (List<T>::Iterator it = this->begin(); it != this->end(); ++it) {
+		if ( it == iterator) {
+			return true;
+		}
+	}
+	return false;
 }
 
 
@@ -396,6 +401,7 @@ template<class T>
 typename List<T>::Iterator List<T>::Iterator::getIteratorOnNextNode() {
 	return ptr->next;
 }
+
 
 
 #endif /* LIST_H_ */

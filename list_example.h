@@ -12,7 +12,6 @@
 #include "list.h"
 #include "mtmtest.h"
 
-int main2();
-
+int testList();
 
 #endif /* LIST_EXAMPLE_H_ */

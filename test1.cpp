@@ -1077,8 +1077,6 @@ void testCompanyGetAllRoomsByType() {
 	ASSERT_EQUALS(rooms.size(), 1);
 }
 
-
-
 void testCompanyGetRoomByName() {
 	string name = "company1";
 	string phone = "987654321";
@@ -1098,7 +1096,6 @@ void testCompanyGetRoomByName() {
 	ASSERT_EQUALS(room_original, *room_returned);
 
 }
-
 
 void testCompanyPrint() {
 	string name = "company1";
@@ -1127,7 +1124,6 @@ void testCompanyPrint() {
 
     ASSERT_PRINT(str, "company1 : 987654321\nroom1 (60/1/2)\nroom5 (60/1/2)\nroom6 (60/1/2)\nScary Room: room2 (60/1/2/3)\nScary Room: room4 (60/1/2/3)\nKids Room: room3 (60/1/2/3)\n" );
 }
-
 
 void testCompany() {
 	RUN_TEST(testCompanyConstractor);
@@ -1219,7 +1215,8 @@ int main() {
 	testKidsRoom();
 	testCompany();
 
-	main2();
+	//main2();
+	testList();
 
 	RUN_TEST(test1);
     RUN_TEST(test2);
