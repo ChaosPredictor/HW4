@@ -18,7 +18,7 @@ void printBuffer() {
 	std::cout << std::endl << "==========================" << std::endl << std::endl;
 }
 
-
+/*
 void testRoomConstractor() {
 	char *name1 = (char*)"room1";
 
@@ -420,9 +420,9 @@ void testRoom() {
 
 	printBuffer();
 }
+*/
 
-
-
+/*
 void testEnigmaConstractor() {
 	char *name1 = (char*)"enigma1";
 	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
@@ -711,9 +711,9 @@ void testEnigma() {
 
 
 }
+*/
 
-
-
+/*
 void testScaryRoomConstractor() {
 	char *name1 = (char*)"room1";
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, ScaryRoom(NULL, 60, 5, 1, 1, 1));
@@ -827,9 +827,9 @@ void testScaryRoom() {
 	RUN_TEST(testScaryRoomPrint);
 	printBuffer();
 }
+*/
 
-
-
+/*
 void testKidsRoomConstractor() {
 	char *name1 = (char*)"room1";
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, KidsRoom(NULL, 60, 5, 1,  1));
@@ -932,9 +932,9 @@ void testKidsRoom() {
 	RUN_TEST(testKidsRoomPrint);
 	printBuffer();
 }
+*/
 
-
-
+/*
 void testCompanyConstractor() {
 	string name = "company1";
 	string phone = "987654321";
@@ -1151,18 +1151,15 @@ void testCompanyRemoveEnigma() {
 	char *enigma_name1 = (char*)"enigma1";
 	char *enigma_name2 = (char*)"enigma2";
 
-
 	Company company = Company(name, phone);
 	company.createRoom(room_name1, 60, 1, 2);
 
 	ASSERT_THROWS(CompanyRoomNotFoundException, company.removeEnigma(EscapeRoomWrapper(room_name2, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4) ));
-
 	ASSERT_THROWS(CompanyRoomHasNoEnigmasException, company.removeEnigma(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4) ));
 
 	company.addEnigma(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4) );
 
 	ASSERT_THROWS(CompanyRoomEnigmaNotFoundException, company.removeEnigma(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name2, MEDIUM_ENIGMA, 4) ));
-
 	ASSERT_NO_THROW(company.removeEnigma(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4) ));
 
 	ASSERT_THROWS(CompanyRoomHasNoEnigmasException, company.removeEnigma(EscapeRoomWrapper(room_name1, 60, 1, 2), Enigma(enigma_name1, MEDIUM_ENIGMA, 4) ));
@@ -1263,6 +1260,9 @@ void testCompanyGetRoomByName() {
 	ASSERT_THROWS(CompanyRoomNotFoundException, company.getRoomByName("room1"));
 
 	company.createRoom(room_name1, 60, 1, 2);
+
+	ASSERT_THROWS(CompanyRoomNotFoundException, company.getRoomByName("room2"));
+
 	company.createRoom(room_name2, 61, 2, 3);
 
 	EscapeRoomWrapper room_original = EscapeRoomWrapper(room_name1, 60, 1, 2);
@@ -1318,7 +1318,7 @@ void testCompany() {
 
 	printBuffer();
 }
-
+*/
 
 void test1() {
 
@@ -1383,16 +1383,16 @@ void test4() {
 
 
 
-int main() {
-	testRoom();
-	testEnigma();
-	testScaryRoom();
-	testKidsRoom();
-	testCompany();
+void main4() {
+	//testRoom();
+	//testEnigma();
+	//testScaryRoom();
+	//testKidsRoom();
+	//testCompany();
 
 	//main2();
-	testList();
-	testIterator();
+	//testList();
+	//testIterator();
 
 	RUN_TEST(test1);
     RUN_TEST(test2);

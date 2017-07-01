@@ -25,7 +25,7 @@ public:
 };
 
 
-
+/*
 static void listConstractor(){
 	List<int> list1;
 	List<char> list2;
@@ -538,6 +538,26 @@ static void listExample(){
 
 }
 
+int testList() {
+	RUN_TEST(listConstractor);
+	RUN_TEST(listCopy);
+	RUN_TEST(listAssignment);
+	RUN_TEST(listBegin);
+	RUN_TEST(listEnd);
+	RUN_TEST(listInsert);
+	RUN_TEST(listRemove);
+	RUN_TEST(listFind);
+	RUN_TEST(listSort);
+	RUN_TEST(listGetSize);
+	RUN_TEST(listEqual);
+	RUN_TEST(listNotEqual);
+
+	RUN_TEST(listExample);
+
+	std::cout << std::endl << "==========================" << std::endl << std::endl;
+
+	return 0;
+}
 
 
 static void IteratorPlusPlus() {
@@ -800,28 +820,6 @@ static void IteratorAssignment() {static
 	ASSERT_EQUALS(5, *it2);
 }
 
-int testList() {
-	RUN_TEST(listConstractor);
-	RUN_TEST(listCopy);
-	RUN_TEST(listAssignment);
-	RUN_TEST(listBegin);
-	RUN_TEST(listEnd);
-	RUN_TEST(listInsert);
-	RUN_TEST(listRemove);
-	RUN_TEST(listFind);
-	RUN_TEST(listSort);
-	RUN_TEST(listGetSize);
-	RUN_TEST(listEqual);
-	RUN_TEST(listNotEqual);
-
-	RUN_TEST(listExample);
-
-	std::cout << std::endl << "==========================" << std::endl << std::endl;
-
-	return 0;
-}
-
-
 int testIterator() {
 	RUN_TEST(IteratorPlusPlus);
 	RUN_TEST(PlusPlusIterator);
@@ -837,6 +835,6 @@ int testIterator() {
 
 	return 0;
 }
-
+*/
 
 
