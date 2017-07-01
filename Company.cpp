@@ -13,6 +13,38 @@ namespace escaperoom{
 
 Company::Company(string name, string phoneNumber) : name(name), phoneNumber(phoneNumber) {}
 
+
+Company::Company(const Company& company_to_copy) : name(company_to_copy.name), phoneNumber(company_to_copy.phoneNumber) {
+
+	set<EscapeRoomWrapper*> rooms_to_copy = company_to_copy.rooms;
+	for (set<EscapeRoomWrapper*>::iterator it=rooms_to_copy.begin(); it!=rooms_to_copy.end(); ++it) {
+		EscapeRoomWrapper* current_room = new EscapeRoomWrapper(**it);
+		rooms.insert(current_room);
+	}
+}
+
+
+Company& Company::operator=(const Company& company_to_copy)  {
+	if( this == &company_to_copy) {
+		return *this;
+	}
+	name = company_to_copy.name;
+	phoneNumber = company_to_copy.phoneNumber;
+
+	for (set<EscapeRoomWrapper*>::iterator it=rooms.begin(); it!=rooms.end(); ++it) {
+		delete *it;
+	}
+
+	rooms.clear();
+
+	set<EscapeRoomWrapper*> rooms_to_copy = company_to_copy.rooms;
+	for (set<EscapeRoomWrapper*>::iterator it=rooms_to_copy.begin(); it!=rooms_to_copy.end(); ++it) {
+		EscapeRoomWrapper* current_room = new EscapeRoomWrapper(**it);
+		rooms.insert(current_room);
+	}
+	return *this;
+}
+
 Company::~Company() {
 	for (std::set<EscapeRoomWrapper*>::iterator it=rooms.begin(); it!=rooms.end(); ++it) {
 		delete *it;

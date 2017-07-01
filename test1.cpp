@@ -949,6 +949,83 @@ void testCompanyConstractor() {
 
 }
 
+void testCompanyCopy() {
+	string name1 = "company1";
+	string name2 = "company2";
+	string phone1 = "987654321";
+	string phone2 = "987654312";
+	char *room_name1 = (char*)"room1";
+	char *room_name2 = (char*)"room2";
+	char *room_name3 = (char*)"room3";
+	char *room_name4 = (char*)"room4";
+
+	Company company1 = Company(name1, phone1);
+
+	company1.createRoom(room_name1, 60, 1, 2);
+	company1.createScaryRoom(room_name2, 60, 1, 2, 3, 4);
+	company1.createKidsRoom(room_name3, 60, 1, 2, 3);
+	ASSERT_NO_THROW( company1.getAllRooms() );
+	set<EscapeRoomWrapper*> rooms = company1.getAllRooms();
+	ASSERT_EQUALS(rooms.size(), 3);
+
+	ASSERT_THROWS(CompanyRoomNotFoundException, company1.removeRoom(EscapeRoomWrapper(room_name4, 60, 1, 2)));
+	rooms = company1.getAllRooms();
+	ASSERT_EQUALS(rooms.size(), 3);
+
+	Company company2(company1);
+
+	company1.removeRoom(EscapeRoomWrapper(room_name1, 60, 1, 2));
+	rooms = company1.getAllRooms();
+	ASSERT_EQUALS(rooms.size(), 2);
+	rooms = company2.getAllRooms();
+	ASSERT_EQUALS(rooms.size(), 3);
+
+}
+
+void testCompanyAssigment() {
+	string name1 = "company1";
+	string name2 = "company2";
+	string phone1 = "987654321";
+	string phone2 = "987654312";
+	char *room_name1 = (char*)"room1";
+	char *room_name2 = (char*)"room2";
+	char *room_name3 = (char*)"room3";
+	char *room_name4 = (char*)"room4";
+
+	Company company1 = Company(name1, phone1);
+	Company company2 = Company(name2, phone2);
+
+	company1.createRoom(room_name1, 60, 1, 2);
+	company1.createScaryRoom(room_name2, 60, 1, 2, 3, 4);
+	company1.createKidsRoom(room_name3, 60, 1, 2, 3);
+	ASSERT_NO_THROW( company1.getAllRooms() );
+	set<EscapeRoomWrapper*> rooms = company1.getAllRooms();
+	ASSERT_EQUALS(rooms.size(), 3);
+
+	ASSERT_THROWS(CompanyRoomNotFoundException, company1.removeRoom(EscapeRoomWrapper(room_name4, 60, 1, 2)));
+	rooms = company1.getAllRooms();
+	ASSERT_EQUALS(rooms.size(), 3);
+
+	company2 = company1;
+
+	company1.removeRoom(EscapeRoomWrapper(room_name1, 60, 1, 2));
+	rooms = company1.getAllRooms();
+	ASSERT_EQUALS(rooms.size(), 2);
+	rooms = company2.getAllRooms();
+	ASSERT_EQUALS(rooms.size(), 3);
+
+	company2.removeRoom(ScaryRoom(room_name2, 60, 1, 2, 3, 4));
+	company2.removeRoom(KidsRoom(room_name3, 60, 1, 2, 3));
+
+
+	rooms = company1.getAllRooms();
+	ASSERT_EQUALS(rooms.size(), 2);
+	rooms = company2.getAllRooms();
+	ASSERT_EQUALS(rooms.size(), 1);
+
+}
+
+
 void testCompanyCreateRoom() {
 	string name = "company1";
 	string phone = "987654321";
@@ -1004,39 +1081,50 @@ void testCompanyGetAllRooms() {
 	char *room_name2 = (char*)"room2";
 	char *room_name3 = (char*)"room3";
 
-
 	Company company = Company(name, phone);
 	company.createRoom(room_name1, 60, 1, 2);
 	company.createScaryRoom(room_name2, 60, 1, 2, 3, 4);
 	company.createKidsRoom(room_name3, 60, 1, 2, 3);
 	ASSERT_NO_THROW( company.getAllRooms() );
 	set<EscapeRoomWrapper*> rooms = company.getAllRooms();
+
+	ASSERT_EQUALS(rooms.size(), 3);
+	rooms.clear();
+
+	rooms = company.getAllRooms();
 	ASSERT_EQUALS(rooms.size(), 3);
 }
 
 void testCompanyRemoveRoom() {
-	string name = "company1";
-	string phone = "987654321";
+	string name1 = "company1";
+	string name2 = "company2";
+	string phone1 = "987654321";
+	string phone2 = "987654312";
 	char *room_name1 = (char*)"room1";
 	char *room_name2 = (char*)"room2";
 	char *room_name3 = (char*)"room3";
 	char *room_name4 = (char*)"room4";
 
-	Company company = Company(name, phone);
-	company.createRoom(room_name1, 60, 1, 2);
-	company.createScaryRoom(room_name2, 60, 1, 2, 3, 4);
-	company.createKidsRoom(room_name3, 60, 1, 2, 3);
-	ASSERT_NO_THROW( company.getAllRooms() );
-	set<EscapeRoomWrapper*> rooms = company.getAllRooms();
+	Company company1 = Company(name1, phone1);
+
+	company1.createRoom(room_name1, 60, 1, 2);
+	company1.createScaryRoom(room_name2, 60, 1, 2, 3, 4);
+	company1.createKidsRoom(room_name3, 60, 1, 2, 3);
+	ASSERT_NO_THROW( company1.getAllRooms() );
+	set<EscapeRoomWrapper*> rooms = company1.getAllRooms();
 	ASSERT_EQUALS(rooms.size(), 3);
 
-	ASSERT_THROWS(CompanyRoomNotFoundException, company.removeRoom(EscapeRoomWrapper(room_name4, 60, 1, 2)));
-	rooms = company.getAllRooms();
+	ASSERT_THROWS(CompanyRoomNotFoundException, company1.removeRoom(EscapeRoomWrapper(room_name4, 60, 1, 2)));
+	rooms = company1.getAllRooms();
 	ASSERT_EQUALS(rooms.size(), 3);
 
-	company.removeRoom(EscapeRoomWrapper(room_name1, 60, 1, 2));
-	rooms = company.getAllRooms();
+	Company company2(company1);
+
+	company1.removeRoom(EscapeRoomWrapper(room_name1, 60, 1, 2));
+	rooms = company1.getAllRooms();
 	ASSERT_EQUALS(rooms.size(), 2);
+	rooms = company2.getAllRooms();
+	ASSERT_EQUALS(rooms.size(), 3);
 
 }
 
@@ -1213,6 +1301,8 @@ void testCompanyPrint() {
 
 void testCompany() {
 	RUN_TEST(testCompanyConstractor);
+	RUN_TEST(testCompanyCopy);
+	RUN_TEST(testCompanyAssigment);
 	RUN_TEST(testCompanyCreateRoom);
 	RUN_TEST(testCompanyCreateScaryRoom);
 	RUN_TEST(testCompanyCreateKidsRoom);
