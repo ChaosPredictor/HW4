@@ -889,13 +889,39 @@ void testKidsRoomGetAgeLimit() {
 
 void testKidsRoomPrint() {
 	char *name1 = (char*)"room1";
+	char *name2 = (char*)"room2";
 
 	KidsRoom kids_room1 = KidsRoom(name1, 60, 5, 1, 3);
+	KidsRoom kids_room2(name2, 65, 6, 2, 4);
 
     std::ostringstream stream;
     stream << kids_room1;
     std::string str =  stream.str();
     ASSERT_PRINT(str, "Kids Room: room1 (60/5/1/3)");
+
+    stream.str("");
+    stream << kids_room2;
+    str =  stream.str();
+    ASSERT_PRINT(str, "Kids Room: room2 (65/6/2/4)");
+
+    kids_room2 = kids_room1;
+
+    stream.str("");
+    stream << kids_room2;
+    str =  stream.str();
+    ASSERT_PRINT(str, "Kids Room: room1 (60/5/1/3)");
+
+    kids_room1.setNewAgeLimit(10);
+
+    stream.str("");
+    stream << kids_room2;
+    str =  stream.str();
+    ASSERT_PRINT(str, "Kids Room: room1 (60/5/1/3)");
+
+    stream.str("");
+    stream << kids_room1;
+    str =  stream.str();
+    ASSERT_PRINT(str, "Kids Room: room1 (60/5/1/10)");
 
 }
 
