@@ -137,7 +137,6 @@ int EscapeRoomWrapper::getMaxParticipants() const {
 
 void EscapeRoomWrapper::addEnigma(const Enigma& enigma) {
 	Enigma* new_enigma = new Enigma(enigma);
-	//Enigma* new_enigma(&enigma);
 	enigmas.push_back(new_enigma);
 }
 

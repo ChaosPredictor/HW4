@@ -66,6 +66,8 @@ void testRoomCopy() {
 	EscapeRoomWrapper room3(name3, 60, 3, 10);
     Enigma enigma1("enigma_name1", EASY_ENIGMA, 2);
     Enigma enigma2("enigma_name2", HARD_ENIGMA, 2);
+    Enigma enigma3("enigma_name3", HARD_ENIGMA);
+
     room1.addEnigma(enigma1);
     room1.addEnigma(enigma2);
 
@@ -74,8 +76,10 @@ void testRoomCopy() {
 	ASSERT_EQUALS(room2.getAllEnigmas().size(), 2);
 
     room1.removeEnigma(enigma1);
+    room2.addEnigma(enigma3);
+
 	ASSERT_EQUALS(room1.getAllEnigmas().size(), 1);
-	ASSERT_EQUALS(room2.getAllEnigmas().size(), 2);
+	ASSERT_EQUALS(room2.getAllEnigmas().size(), 3);
 
 }
 
@@ -87,6 +91,8 @@ void testRoomAssigment() {
     Enigma enigma2("enigma_name2", HARD_ENIGMA, 2);
     Enigma enigma3("enigma_name3", HARD_ENIGMA, 2);
     Enigma enigma4("enigma_name4", MEDIUM_ENIGMA, 2);
+    Enigma enigma5("enigma_name5", MEDIUM_ENIGMA);
+
 
     EscapeRoomWrapper room1(name1, 60, 3, 10);
     EscapeRoomWrapper room2(name2, 60, 3, 10);
@@ -101,8 +107,10 @@ void testRoomAssigment() {
 	ASSERT_EQUALS(room2.getAllEnigmas().size(), 3);
 
     room1.removeEnigma(enigma1);
+    room2.addEnigma(enigma5);
+
 	ASSERT_EQUALS(room1.getAllEnigmas().size(), 2);
-	ASSERT_EQUALS(room2.getAllEnigmas().size(), 3);
+	ASSERT_EQUALS(room2.getAllEnigmas().size(), 4);
 
 }
 
@@ -271,10 +279,19 @@ void testRoomAddEnigma() {
 	char *company_name1 = (char*)"company1";
 	EscapeRoomWrapper room1 = EscapeRoomWrapper(company_name1, 3);
 	char *enigma_name1 = (char*)"enigma1";
+	char *enigma_name2 = (char*)"enigma2";
+
 	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
 	Enigma enigma1 = Enigma(enigma_name1, MEDIUM_ENIGMA, 4, elements);
+	Enigma enigma2(enigma_name2, MEDIUM_ENIGMA);
 
 	ASSERT_NO_THROW(room1.addEnigma(enigma1));
+
+	std::vector<Enigma*> allEnigmas = room1.getAllEnigmas();
+	ASSERT_EQUALS(allEnigmas.size(), 1);
+
+
+
 
 }
 
@@ -308,20 +325,19 @@ void testRoomGetHardestEnigma() {
 	EscapeRoomWrapper room1 = EscapeRoomWrapper(company_name1, 3);
 
 	char *enigma_name1 = (char*)"enigma1";
+	char *enigma_name2 = (char*)"enigma2";
+	char *enigma_name3 = (char*)"enigma3";
+	char *enigma_name4 = (char*)"enigma4";
+
 	std::set<string> elements { "John", "Kelly", "Amanda", "Kim" };
 	Enigma enigma1 = Enigma(enigma_name1, MEDIUM_ENIGMA, 4, elements);
 
-	char *enigma_name2 = (char*)"enigma2";
 	std::set<string> elements2 { "John2", "Kelly2", "Amanda2" };
 	Enigma enigma2 = Enigma(enigma_name2, EASY_ENIGMA, 3, elements2);
 
-	char *enigma_name3 = (char*)"enigma3";
-	std::set<string> elements3 { "John3", "Kelly3", "Amanda3" };
-	Enigma enigma3 = Enigma(enigma_name3, MEDIUM_ENIGMA, 3, elements3);
+	Enigma enigma3 = Enigma(enigma_name3, MEDIUM_ENIGMA);
+	Enigma enigma4 = Enigma(enigma_name4, HARD_ENIGMA);
 
-	char *enigma_name4 = (char*)"enigma4";
-	std::set<string> elements4 { "John4", "Kelly4", "Amanda4" };
-	Enigma enigma4 = Enigma(enigma_name4, HARD_ENIGMA, 3, elements4);
 
 	ASSERT_THROWS(EscapeRoomNoEnigmasException, room1.getHardestEnigma());
 
@@ -329,18 +345,15 @@ void testRoomGetHardestEnigma() {
 	room1.addEnigma(enigma2);
 	room1.addEnigma(enigma3);
 
-	//ASSERT_NO_THROW(room1.getHardestEnigma());
+	ASSERT_NO_THROW(room1.getHardestEnigma());
 
-	//Enigma hardestEnigma = room1.getHardestEnigma();
+	Enigma result_enigma = room1.getHardestEnigma();
+	ASSERT_EQUALS(result_enigma, enigma1);
 
-	//ASSERT_EQUALS(hardestEnigma, enigma1);
+	room1.addEnigma(enigma4);
 
-	//room1.addEnigma(enigma4);
-
-	//hardestEnigma = room1.getHardestEnigma();
-
-	//ASSERT_EQUALS(hardestEnigma, enigma4);
-
+	result_enigma = room1.getHardestEnigma();
+	ASSERT_EQUALS(result_enigma, enigma4);
 }
 
 void testRoomGetAllEnigmas() {
@@ -400,7 +413,6 @@ void testRoom() {
 	RUN_TEST(testRoomGetMaxTime);
 	RUN_TEST(testRoomGetMaxParticipants);
 	RUN_TEST(testRoomGetRate);
-	//part3
 	RUN_TEST(testRoomAddEnigma);
 	RUN_TEST(testRoomRemoveEnigma);
 	RUN_TEST(testRoomGetHardestEnigma);
