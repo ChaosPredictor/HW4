@@ -382,7 +382,6 @@ void testRoomGetAllEnigmas() {
 
 	ASSERT_EQUALS(allEnigmas.size(), 0);
 
-
 	room1.addEnigma(enigma1);
 	room1.addEnigma(enigma2);
 	room1.addEnigma(enigma3);
@@ -390,14 +389,16 @@ void testRoomGetAllEnigmas() {
 	ASSERT_NO_THROW(room1.getAllEnigmas());
 
 	allEnigmas = room1.getAllEnigmas();
-
 	ASSERT_EQUALS(allEnigmas.size(), 3);
 
+	room1.addEnigma(enigma4);
+
+	allEnigmas = room1.getAllEnigmas();
+	ASSERT_EQUALS(allEnigmas.size(), 4);
 
 }
 
 void testRoom() {
-	//part1
 	RUN_TEST(testRoomConstractor);
 	RUN_TEST(testRoomCopy);
 	RUN_TEST(testRoomDestructor);
@@ -729,6 +730,10 @@ void testScaryRoomConstractor() {
 	ASSERT_NO_THROW(ScaryRoom(name1, 60, 10, 5, 1, 1));
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, ScaryRoom(name1, 60, 5, 0, 1, 1));
 	ASSERT_NO_THROW(ScaryRoom(name1, 60, 5, 1, 1, 1));
+
+	ASSERT_THROWS(ScaryRoomIllegalAgeLimit, ScaryRoom(name1, 60, 5, 1, -1, 1));
+	ASSERT_THROWS(ScaryRoomException, ScaryRoom(name1, 60, 5, 1, 1, -1));
+
 
 }
 

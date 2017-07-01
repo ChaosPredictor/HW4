@@ -14,7 +14,10 @@ namespace escaperoom {
 ScaryRoom::ScaryRoom(char* name, const int& escapeTime, const int& level, const int& maxParticipants, const int& ageLimit, const int& numOfScaryEnigmas):
 	EscapeRoomWrapper::EscapeRoomWrapper(name, escapeTime, level, maxParticipants),
 	ageLimit(ageLimit),
-	numOfScaryEnigmas(numOfScaryEnigmas) {}
+	numOfScaryEnigmas(numOfScaryEnigmas) {
+	if ( ageLimit < 0 ) throw ScaryRoomIllegalAgeLimit();
+	if ( numOfScaryEnigmas < 0 ) throw ScaryRoomException();
+}
 
 void ScaryRoom::setNewAgeLimit(const int& limit) {
 	if ( limit < 0 ) throw ScaryRoomIllegalAgeLimit();
