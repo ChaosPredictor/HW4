@@ -17,7 +17,8 @@ Enigma::Enigma(const std::string& name, const Difficulty& difficulty, const int&
 	//TODO what to do in case of numOfelements < 0?
 	name(name),
 	difficulty(difficulty),
-	numOfElements(numOfElements) {}
+	numOfElements(numOfElements) {	if ( numOfElements < 0 ) throw EnigmaIllegalSizeParamException();
+}
 
 Enigma::Enigma(const std::string& name, const Difficulty& difficulty, const int& numOfElements, set<string> elements) :
 	name(name),
@@ -71,20 +72,12 @@ std::ostream& operator<<(std::ostream& output, const Enigma& enigma) {
 	return output;
 }
 
-
 void Enigma::addElement(string element) {
-	//std::cout << "added" << std::endl;
 	this->elements.insert(element);
-	//std::cout << "added " << this->elements.size() << std::endl;
-
 	numOfElements++;
 }
 
-//void removeElement(const string& element);
-
 void Enigma::removeElement(const string& element) {
-	//std::cout << "remove " << this->elements.size() << std::endl;
-
 	if ( this->elements.empty() ) throw EnigmaNoElementsException();
 	if ( this->elements.erase(element) < 1 ) throw EnigmaElementNotFoundException();
 	numOfElements--;
