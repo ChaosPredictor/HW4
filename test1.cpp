@@ -14,11 +14,10 @@
 
 using namespace mtm::escaperoom;
 
-
-
 void printBuffer() {
 	std::cout << std::endl << "==========================" << std::endl << std::endl;
 }
+
 
 void testRoomConstractor() {
 	char *name1 = (char*)"room1";
@@ -692,7 +691,6 @@ void testEnigmaRemoveElement() {
 
 }
 
-
 void testEnigma() {
 	RUN_TEST(testEnigmaConstractor);
 	RUN_TEST(testEnigmaCopy);
@@ -763,8 +761,8 @@ void testScaryRoomIncNumberOfScaryEnigmas() {
 	char *name1 = (char*)"room1";
 
 	ScaryRoom scary_room1 = ScaryRoom(name1, 60, 5, 1, 1, 1);
-
 	ASSERT_NO_THROW(scary_room1.incNumberOfScaryEnigmas());
+	//TODO have no way to test
 }
 
 void testScaryRoomGetAgeLimit() {
@@ -785,13 +783,39 @@ void testScaryRoomGetAgeLimit() {
 
 void testScaryRoomPrint() {
 	char *name1 = (char*)"room1";
+	char *name2 = (char*)"room2";
 
 	ScaryRoom scary_room1 = ScaryRoom(name1, 60, 5, 1, 3, 2);
+	ScaryRoom scary_room2(name2, 65, 6, 2, 4, 3);
 
     std::ostringstream stream;
     stream << scary_room1;
     std::string str =  stream.str();
     ASSERT_PRINT(str, "Scary Room: room1 (60/5/1/3)");
+
+    stream.str("");
+    stream << scary_room2;
+    str =  stream.str();
+    ASSERT_PRINT(str, "Scary Room: room2 (65/6/2/4)");
+
+    scary_room2 = scary_room1;
+
+    stream.str("");
+    stream << scary_room2;
+    str =  stream.str();
+    ASSERT_PRINT(str, "Scary Room: room1 (60/5/1/3)");
+
+    scary_room1.setNewAgeLimit(10);
+
+    stream.str("");
+    stream << scary_room2;
+    str =  stream.str();
+    ASSERT_PRINT(str, "Scary Room: room1 (60/5/1/3)");
+
+    stream.str("");
+    stream << scary_room1;
+    str =  stream.str();
+    ASSERT_PRINT(str, "Scary Room: room1 (60/5/1/10)");
 
 }
 
@@ -820,6 +844,8 @@ void testKidsRoomConstractor() {
 	ASSERT_NO_THROW(KidsRoom(name1, 60, 10, 5, 1));
 	ASSERT_THROWS(EscapeRoomMemoryProblemException, KidsRoom(name1, 60, 5, 0, 1));
 	ASSERT_NO_THROW(KidsRoom(name1, 60, 5, 1, 1));
+
+	ASSERT_THROWS(KidsRoomIllegalAgeLimit, KidsRoom(name1, 60, 5, 1, -1));
 
 }
 
@@ -1221,7 +1247,6 @@ int main() {
 	testRoom();
 	testEnigma();
 	testScaryRoom();
-	testKidsRoom();
 	testKidsRoom();
 	testCompany();
 

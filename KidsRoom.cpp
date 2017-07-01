@@ -14,7 +14,8 @@ namespace escaperoom {
 KidsRoom::KidsRoom(char* name, const int& escapeTime, const int& level, const int& maxParticipants, const int& ageLimit):
 	EscapeRoomWrapper::EscapeRoomWrapper(name, escapeTime, level, maxParticipants),
 	ageLimit(ageLimit)
-	{}
+	{	if ( ageLimit < 0 ) throw KidsRoomIllegalAgeLimit();
+}
 
 void KidsRoom::setNewAgeLimit(const int& limit) {
 	if ( limit < 0 ) throw KidsRoomIllegalAgeLimit();

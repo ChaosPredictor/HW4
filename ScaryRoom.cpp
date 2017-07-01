@@ -32,11 +32,6 @@ int ScaryRoom::getAgeLimit() const{
 	return ageLimit;
 }
 
-/*virtual int ScaryRoom::getRoomType() const {
-	return 1;
-}*/
-
-
 void ScaryRoom::print(std::ostream& output) const {
 	output << "Scary Room: ";
 	output << getName();
@@ -50,8 +45,6 @@ void ScaryRoom::print(std::ostream& output) const {
 	output << getAgeLimit();
 	output << ")";
 }
-
-
 
 std::ostream& operator<<(std::ostream& output, const ScaryRoom& room) {
     room.print(output);
