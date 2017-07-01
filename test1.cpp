@@ -940,6 +940,13 @@ void testCompanyConstractor() {
 	string phone = "987654321";
 
 	ASSERT_NO_THROW( Company(name, phone));
+	Company company(name, phone);
+
+	std::ostringstream stream;
+    stream << company;
+    std::string str =  stream.str();
+    ASSERT_PRINT(str, "company1 : 987654321\n" );
+
 }
 
 void testCompanyCreateRoom() {
@@ -949,6 +956,13 @@ void testCompanyCreateRoom() {
 
 	Company company = Company(name, phone);
 	ASSERT_NO_THROW( company.createRoom(room_name, 60, 1, 2));
+	ASSERT_THROWS( CompanyMemoryProblemException, company.createRoom(room_name, 60, 0, 2));
+
+	std::ostringstream stream;
+    stream << company;
+    std::string str =  stream.str();
+    ASSERT_PRINT(str, "company1 : 987654321\nroom1 (60/1/2)\n" );
+
 
 }
 
@@ -958,7 +972,13 @@ void testCompanyCreateScaryRoom() {
 	char *room_name = (char*)"room1";
 
 	Company company = Company(name, phone);
+	ASSERT_THROWS( CompanyMemoryProblemException, company.createScaryRoom(room_name, 60, 0, 2, 3, 4));
 	ASSERT_NO_THROW( company.createScaryRoom(room_name, 60, 1, 2, 3, 4));
+
+	std::ostringstream stream;
+    stream << company;
+    std::string str =  stream.str();
+    ASSERT_PRINT(str, "company1 : 987654321\nScary Room: room1 (60/1/2/3)\n" );
 
 }
 
@@ -968,8 +988,13 @@ void testCompanyCreateKidsRoom() {
 	char *room_name = (char*)"room1";
 
 	Company company = Company(name, phone);
+	ASSERT_THROWS( CompanyMemoryProblemException, company.createKidsRoom(room_name, 60, 0, 2, 3));
 	ASSERT_NO_THROW( company.createKidsRoom(room_name, 60, 1, 2, 3));
 
+	std::ostringstream stream;
+    stream << company;
+    std::string str =  stream.str();
+    ASSERT_PRINT(str, "company1 : 987654321\nKids Room: room1 (60/1/2/3)\n" );
 }
 
 void testCompanyGetAllRooms() {
@@ -1183,7 +1208,6 @@ void testCompanyPrint() {
 	std::ostringstream stream;
     stream << company;
     std::string str =  stream.str();
-
     ASSERT_PRINT(str, "company1 : 987654321\nroom1 (60/1/2)\nroom5 (60/1/2)\nroom6 (60/1/2)\nScary Room: room2 (60/1/2/3)\nScary Room: room4 (60/1/2/3)\nKids Room: room3 (60/1/2/3)\n" );
 }
 

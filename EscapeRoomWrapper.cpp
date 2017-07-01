@@ -23,10 +23,10 @@ EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& level) : enigmas() {
 	if(room == NULL) {
 		throw EscapeRoomMemoryProblemException();
 	}
-	//TODO is it possible w/o code duplication
 }
 
 EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& escapeTime, const int& level, const int& maxParticipants) : enigmas() {
+	//TODO return maybe other throw?
 	if( name == NULL || escapeTime < 30 || escapeTime > 90 || level < 1 || level > 10 || maxParticipants < 1 ) throw EscapeRoomMemoryProblemException();
 	room = escapeRoomCreate(name, escapeTime, maxParticipants, level);
 	if(room == NULL) {
@@ -36,16 +36,11 @@ EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& escapeTime, const in
 }
 
 EscapeRoomWrapper::EscapeRoomWrapper(const EscapeRoomWrapper& room_to_copy) {
-	if( &room_to_copy == nullptr ) throw EscapeRoomMemoryProblemException();
-	//TODO maybe w/o it
+
 	room = escapeRoomCopy(room_to_copy.room);
 	if( room == NULL) {
 		throw EscapeRoomMemoryProblemException();
 	}
-	//std::cout << std::endl;
-	//std::cout << "copy" << std::endl;
-	//std::cout << std::endl;
-
 	std::vector<Enigma*> enigmas_to_copy = room_to_copy.enigmas;
 	for (std::vector<Enigma*>::iterator it=enigmas_to_copy.begin(); it!=enigmas_to_copy.end(); ++it) {
 		Enigma* current_enigma = new Enigma(**it);
@@ -67,10 +62,6 @@ EscapeRoomWrapper& EscapeRoomWrapper::operator=(const EscapeRoomWrapper& room_to
 	if(this->room == NULL) {
 		throw EscapeRoomMemoryProblemException();
 	}
-	//std::cout << std::endl;
-	//std::cout << "=" << std::endl;
-	//std::cout << std::endl;
-
 	std::vector<Enigma*> enigmas_to_copy = room_to_copy.enigmas;
 	for (std::vector<Enigma*>::iterator it=enigmas_to_copy.begin(); it!=enigmas_to_copy.end(); ++it) {
 		Enigma* current_enigma = new Enigma(**it);
@@ -152,26 +143,10 @@ void EscapeRoomWrapper::removeEnigma(const Enigma& enigma) {
 	}
 	throw EscapeRoomEnigmaNotFoundException();
 
-
-
-	/*
-
-	if (enigmas.empty() ) throw EscapeRoomNoEnigmasException();
-	int i = 0;
-	for(auto const& value: enigmas) {
-		if ( value == *enigma) {
-			enigmas.erase(enigmas.begin() + i);
-			return;
-		}
-		i++;
-	}
-	throw EscapeRoomEnigmaNotFoundException();*/
 }
 
 Enigma EscapeRoomWrapper::getHardestEnigma() {
-	//TODO test
 	if ( enigmas.empty() ) throw EscapeRoomNoEnigmasException();
-	//TODO pointer
 	Enigma hardest_enigma = Enigma(*enigmas.front());
 	for (std::vector<Enigma*>::iterator it=enigmas.begin(); it!=enigmas.end(); ++it) {
 		Enigma* current_enigma = *it;
@@ -179,23 +154,7 @@ Enigma EscapeRoomWrapper::getHardestEnigma() {
 			hardest_enigma = *current_enigma;
 		}
 
-		/*
-		if ( enigma == *current_enigma ) {
-			delete *it;
-			enigmas.erase( it );
-			return;
-		}*/
 	}
-
-
-/*
-	if (enigmas.size() == 0 ) throw EscapeRoomNoEnigmasException();
-	Enigma hardestEnigma = enigmas[0];
-	for(auto const& value: enigmas) {
-		if ( hardestEnigma.getDifficulty() < value.getDifficulty()) {
-			hardestEnigma = value;
-		}
-	}*/
 	return hardest_enigma;
 }
 
